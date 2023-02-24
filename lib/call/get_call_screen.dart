@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:slide_action/slide_action.dart';
 import 'package:smart_me/constants.dart';
 
 class IOSGetCallUnlockScreen extends StatelessWidget {
@@ -57,7 +58,106 @@ class IOSGetCallUnlockScreen extends StatelessWidget {
       ),
     );
   }
-  
+
+}
+
+class IOSGetCallLockScreen extends StatelessWidget {
+  const IOSGetCallLockScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+      child: Container(
+        color: Colors.black.withOpacity(0.8),
+        child: Column(
+          children: [
+            SizedBox(
+              height: statusBarHeight,
+            ),
+            const IOSCallerInfo(),
+            Expanded(
+              flex: 1,
+              child: Container(),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 48.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  IOSRemindMe(),
+                  IOSMessage()
+                ],
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 52.0, top: 62.0, right: 52.0),
+              child: IOSSlideToAnswer(),
+            ),
+            const SizedBox(
+              height: 90,
+            )
+          ],
+        ),
+      ),
+    );
+  } 
+
+}
+
+class IOSSlideToAnswer extends StatelessWidget {
+  const IOSSlideToAnswer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideAction(
+      trackHeight: 88,
+      thumbWidth: 84,
+      trackBuilder: (context, state) {
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            color: Colors.grey,
+          ),
+          child: const Center(
+            child: Padding(
+              padding: EdgeInsets.only(left: 80.0),
+              child: Text(
+                "slide to answer",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      thumbBuilder: (context, state) {
+        return Container(
+          margin: const EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: const Center(
+            child: Icon(
+              Icons.call,
+              color: Colors.green,
+              size: 48,
+            ),
+          ),
+        );
+      },
+      action: () {
+            
+      },
+    );
+  }
 }
 
 class IOSAcceptCall extends StatelessWidget {
