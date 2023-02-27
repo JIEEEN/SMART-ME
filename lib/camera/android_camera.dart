@@ -20,8 +20,10 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+      appBar: AppBar(backgroundColor: Colors.black, toolbarHeight: 0,),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
           Expanded(
             child: Align(
               alignment: Alignment.topCenter,
@@ -86,11 +88,6 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
               ),
             ),
           ),
-        ]),
-      ),
-      bottomNavigationBar: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
           Container(
             width: 150.0,
             height: 50.0,
