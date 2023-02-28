@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:slide_action/slide_action.dart';
-import 'package:smart_me/constants.dart';
+import 'package:smart_me/strings.dart';
 
 class IOSGetCallUnlockScreen extends StatelessWidget {
   const IOSGetCallUnlockScreen({super.key});
