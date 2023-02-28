@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/call_dial_screen.dart';
 
 import 'call/get_call_screen.dart';
 
@@ -59,11 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: AndroidGetCallScreen(),// This trailing comma makes auto-formatting nicer for build methods.
+        child: AndroidCallDialScreen(),// This trailing comma makes auto-formatting nicer for build methods.
       )
     );
   }

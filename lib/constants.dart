@@ -5,3 +5,5 @@ const String accept = "Accept";
 
 const String incomingCall = "Incoming call";
 const String sendMessage = "Send message";
+
+const String phone = "Phone";
