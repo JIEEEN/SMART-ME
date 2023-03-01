@@ -349,7 +349,7 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         title: const Text(
           phone,
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 21,
             color: Colors.black
           ),
         ),
@@ -382,9 +382,56 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
           children: [
             renderPhoneNum(),
             ...renderDial(),
-            const AndroidCallIcon()
+            const AndroidCallIcon(),
+            const AndroidCallDialTab()
           ]
         ),
+      ),
+    );
+  }
+}
+
+class AndroidCallDialTab extends StatelessWidget {
+  const AndroidCallDialTab({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: const [
+          Text(
+            keypad,
+            style: TextStyle(
+              fontSize: 18,
+              color: Colors.green
+            ),
+          ),
+          Text(
+            recents,
+            style:  TextStyle(
+              fontSize: 18,
+              color: Colors.grey
+            ),
+          ),
+          Text(
+            contacts,
+            style:  TextStyle(
+              fontSize: 18,
+              color: Colors.grey
+            ),
+          ),
+          Text(
+            places,
+            style:  TextStyle(
+              fontSize: 18,
+              color: Colors.grey
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -441,7 +488,7 @@ class AndroidCallIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
       child: Container(
         height: 72,
         width: 72,

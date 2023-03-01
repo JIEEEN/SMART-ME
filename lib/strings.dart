@@ -13,3 +13,4 @@ const String recents = "Recents";
 const String contacts = "Contacts";
 const String keypad = "Keypad";
 const String voicemail = "Voicemail";
+const String places = "Places";
