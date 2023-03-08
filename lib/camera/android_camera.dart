@@ -13,6 +13,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
   int _timerDelay = 0;
   double _overlayHeight = 0;
 
+  final _toast = ToastBuilder();
   @override
   void initState() {
     super.initState();
@@ -26,6 +27,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
 
   @override
   Widget build(BuildContext context) {
+    _toast.context = context;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -101,6 +103,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                                 ? Colors.yellow
                                 : Colors.white),
                         onPressed: () {
+                          _toast.toast('모션 포토가 ' + (_isMotionPhotoOn ? '비활성화' : '활성화') + ' 되었습니다.');
                           setState(() {
                             _isMotionPhotoOn = !_isMotionPhotoOn;
                           });
@@ -303,6 +306,75 @@ class _NumberButtonState extends State<NumberButton> {
           color: widget.isSelected ? Colors.black : Colors.white,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
+  }
+}
+
+class ToastBuilder{
+  late BuildContext context;
+  void toast(String message) async {
+    OverlayEntry _overlay = OverlayEntry(builder: (_) =>  Toast(message: message));
+
+    Navigator.of(context).overlay!.insert(_overlay);
+
+    await Future.delayed(const Duration(seconds: 2));
+    _overlay.remove();
+  }
+}
+
+class Toast extends StatefulWidget {
+  const Toast({Key? key, required this.message}) : super(key: key);
+  final String message;
+
+  @override
+  _ToastState createState() => _ToastState();
+}
+
+class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
+
+    _animation = Tween(begin: 0.0, end: 1.0).animate(
+        CurvedAnimation(parent: _controller, curve: Curves.decelerate));
+
+    _controller.forward().whenComplete(() {
+      _controller.reverse();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 100),
+          child: FadeTransition(
+            opacity: _animation,
+            child: Material(
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.black),
+                  child: Text(widget.message, style: TextStyle(color: Colors.white))),
+            ),
+          ),
         ),
       ),
     );
