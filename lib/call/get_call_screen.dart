@@ -6,7 +6,7 @@ import 'package:smart_me/strings.dart';
 
 class IOSGetCallUnlockScreen extends StatelessWidget {
   const IOSGetCallUnlockScreen({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -34,31 +34,22 @@ class IOSGetCallUnlockScreen extends StatelessWidget {
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        IOSRemindMe(),
-                        IOSDeclineCall()
-                      ],
+                      children: const [IOSRemindMe(), IOSDeclineCall()],
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        IOSMessage(),
-                        IOSAcceptCall()
-                      ],
+                      children: const [IOSMessage(), IOSAcceptCall()],
                     )
                   ],
                 ),
               ),
             ),
-            const SizedBox(
-              height: 54
-            )
+            const SizedBox(height: 54)
           ],
         ),
       ),
     );
   }
-
 }
 
 class IOSGetCallLockScreen extends StatelessWidget {
@@ -86,10 +77,7 @@ class IOSGetCallLockScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 48.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  IOSRemindMe(),
-                  IOSMessage()
-                ],
+                children: const [IOSRemindMe(), IOSMessage()],
               ),
             ),
             const Padding(
@@ -103,8 +91,7 @@ class IOSGetCallLockScreen extends StatelessWidget {
         ),
       ),
     );
-  } 
-
+  }
 }
 
 class IOSSlideToAnswer extends StatelessWidget {
@@ -128,10 +115,7 @@ class IOSSlideToAnswer extends StatelessWidget {
               padding: EdgeInsets.only(left: 80.0),
               child: Text(
                 "slide to answer",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold
-                ),
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -153,9 +137,7 @@ class IOSSlideToAnswer extends StatelessWidget {
           ),
         );
       },
-      action: () {
-            
-      },
+      action: () {},
     );
   }
 }
@@ -176,14 +158,10 @@ class IOSAcceptCall extends StatelessWidget {
             height: 84,
             width: 84,
             decoration: const BoxDecoration(
-              color: Colors.green,
-              shape: BoxShape.circle
-            ),
+                color: Colors.green, shape: BoxShape.circle),
             child: IconButton(
               iconSize: 48,
-              onPressed: () {
-          
-              },
+              onPressed: () {},
               icon: const Icon(
                 Icons.call,
                 color: Colors.white,
@@ -195,10 +173,7 @@ class IOSAcceptCall extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             accept,
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white
-            ),
+            style: TextStyle(fontSize: 24, color: Colors.white),
           ),
         ),
       ],
@@ -217,9 +192,7 @@ class IOSMessage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () {
-                    
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.chat_bubble,
             color: Colors.white,
@@ -228,10 +201,7 @@ class IOSMessage extends StatelessWidget {
         ),
         const Text(
           message,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white
-          ),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ],
     );
@@ -253,15 +223,11 @@ class IOSDeclineCall extends StatelessWidget {
           child: Container(
             height: 84,
             width: 84,
-            decoration: const BoxDecoration(
-              color: Colors.red,
-              shape: BoxShape.circle
-            ),
+            decoration:
+                const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
             child: IconButton(
               iconSize: 48,
-              onPressed: () {
-                        
-              }, 
+              onPressed: () {},
               icon: const Icon(
                 Icons.call_end,
                 color: Colors.white,
@@ -273,10 +239,7 @@ class IOSDeclineCall extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             decline,
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white
-            ),
+            style: TextStyle(fontSize: 24, color: Colors.white),
           ),
         ),
       ],
@@ -295,9 +258,7 @@ class IOSRemindMe extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () {
-                    
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.alarm,
             color: Colors.white,
@@ -306,10 +267,7 @@ class IOSRemindMe extends StatelessWidget {
         ),
         const Text(
           remindMe,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white
-          ),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
       ],
     );
@@ -331,18 +289,12 @@ class IOSCallerInfo extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
               "Caller Name",
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white
-              ),
+              style: TextStyle(fontSize: 32, color: Colors.white),
             ),
           ),
           Text(
             "Place Text",
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white
-            ),
+            style: TextStyle(fontSize: 24, color: Colors.white),
           ),
         ],
       ),
@@ -361,12 +313,11 @@ class AndroidGetCallScreen extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.purple, Colors.lightBlue],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-        )
-      ),
+          gradient: LinearGradient(
+        colors: [Colors.purple, Colors.lightBlue],
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+      )),
       child: Column(
         children: [
           SizedBox(
@@ -374,37 +325,27 @@ class AndroidGetCallScreen extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.symmetric(vertical: 12.0),
-            child: Text(
-              incomingCall,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white
-              )
-            ),
+            child: Text(incomingCall,
+                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
           const Padding(
             padding: EdgeInsets.only(top: 68.0, bottom: 8.0),
             child: Text(
               "Caller Name",
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white
-              ),
+              style: TextStyle(fontSize: 32, color: Colors.white),
             ),
           ),
           const Text(
             "Place Text",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.white
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.white),
           ),
           Expanded(
             flex: 1,
             child: Container(),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 48.0, vertical: 18.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 48.0, vertical: 18.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -412,14 +353,10 @@ class AndroidGetCallScreen extends StatelessWidget {
                   height: 72,
                   width: 72,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle
-                  ),
+                      color: Colors.white, shape: BoxShape.circle),
                   child: IconButton(
                     iconSize: 36,
-                    onPressed: () {
-                
-                    },
+                    onPressed: () {},
                     icon: const Icon(
                       Icons.call,
                       color: Colors.green,
@@ -430,9 +367,7 @@ class AndroidGetCallScreen extends StatelessWidget {
                   height: 72,
                   width: 72,
                   decoration: const BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle
-                  ),
+                      color: Colors.white, shape: BoxShape.circle),
                   child: const Icon(
                     Icons.call_end,
                     color: Colors.red,
@@ -446,10 +381,7 @@ class AndroidGetCallScreen extends StatelessWidget {
             padding: EdgeInsets.only(top: 12.0),
             child: Text(
               sendMessage,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.white
-              ),
+              style: TextStyle(fontSize: 18, color: Colors.white),
             ),
           )
         ],

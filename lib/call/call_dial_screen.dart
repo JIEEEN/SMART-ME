@@ -10,7 +10,12 @@ class IOSCallDialScreen extends StatefulWidget {
 }
 
 class _IOSCallDialScreenState extends State<IOSCallDialScreen> {
-  final numbers = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['*', '0', '#']];
+  final numbers = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['*', '0', '#']
+  ];
 
   late String phoneNum;
 
@@ -28,47 +33,41 @@ class _IOSCallDialScreenState extends State<IOSCallDialScreen> {
   }
 
   renderDial() {
-    return numbers.map(
-      (x) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: x.map(
-            (y) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: IOSNumberKey(
-                  number: y, 
-                  onTap: (val) {
-                    onKeyPress(val);
-                  },
-                  value: y,
-                ),
-              );
-            }
-          ).toList(),
-        ),
-      )
-    ).toList();
+    return numbers
+        .map((x) => Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: x.map((y) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: IOSNumberKey(
+                      number: y,
+                      onTap: (val) {
+                        onKeyPress(val);
+                      },
+                      value: y,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ))
+        .toList();
   }
 
   renderPhoneNum() {
     String display = "";
 
-    if(phoneNum.isNotEmpty) {
+    if (phoneNum.isNotEmpty) {
       display = phoneNum;
     }
 
     return Expanded(
       child: Center(
-        child: Text(
-          display,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 38
-          ),
-        )
-      ),
+          child: Text(
+        display,
+        style: const TextStyle(color: Colors.black, fontSize: 38),
+      )),
     );
   }
 
@@ -111,86 +110,61 @@ class IOSCallDialTab extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(
-              children: const [
-                Icon(
-                  Icons.star,
-                  color: tabGrey,
-                  size: 42,
-                ),
-                Text(
-                  favorite,
-                  style: TextStyle(
-                    color: tabGrey,
-                    fontSize: 14
-                  ),
-                )
-              ]
-            ),
-            Column(
-              children: const [
-                Icon(
-                  Icons.schedule,
-                  color: tabGrey,
-                  size: 42,
-                ),
-                Text(
-                  recents,
-                  style: TextStyle(
-                    color: tabGrey,
-                    fontSize: 14
-                  ),
-                )
-              ]
-            ),
-            Column(
-              children: const [
-                Icon(
-                  Icons.account_circle,
-                  color: tabGrey,
-                  size: 42,
-                ),
-                Text(
-                  contacts,
-                  style: TextStyle(
-                    color: tabGrey,
-                    fontSize: 14
-                  ),
-                )
-              ]
-            ),
-            Column(
-              children: const [
-                Icon(
-                  Icons.apps,
-                  color: Colors.blueAccent,
-                  size: 42,
-                ),
-                Text(
-                  keypad,
-                  style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: 14
-                  ),
-                )
-              ]
-            ),
-            Column(
-              children: const [
-                Icon(
-                  Icons.voicemail,
-                  color: tabGrey,
-                  size: 42,
-                ),
-                Text(
-                  voicemail,
-                  style: TextStyle(
-                    color: tabGrey,
-                    fontSize: 14
-                  ),
-                )
-              ]
-            )
+            Column(children: const [
+              Icon(
+                Icons.star,
+                color: tabGrey,
+                size: 42,
+              ),
+              Text(
+                favorite,
+                style: TextStyle(color: tabGrey, fontSize: 14),
+              )
+            ]),
+            Column(children: const [
+              Icon(
+                Icons.schedule,
+                color: tabGrey,
+                size: 42,
+              ),
+              Text(
+                recents,
+                style: TextStyle(color: tabGrey, fontSize: 14),
+              )
+            ]),
+            Column(children: const [
+              Icon(
+                Icons.account_circle,
+                color: tabGrey,
+                size: 42,
+              ),
+              Text(
+                contacts,
+                style: TextStyle(color: tabGrey, fontSize: 14),
+              )
+            ]),
+            Column(children: const [
+              Icon(
+                Icons.apps,
+                color: Colors.blueAccent,
+                size: 42,
+              ),
+              Text(
+                keypad,
+                style: TextStyle(color: Colors.blueAccent, fontSize: 14),
+              )
+            ]),
+            Column(children: const [
+              Icon(
+                Icons.voicemail,
+                color: tabGrey,
+                size: 42,
+              ),
+              Text(
+                voiceMail,
+                style: TextStyle(color: tabGrey, fontSize: 14),
+              )
+            ])
           ],
         ),
       ),
@@ -208,15 +182,14 @@ class IOSNumberKey extends StatefulWidget {
     @required this.number,
     required this.onTap,
     @required this.value,
-  }) : assert (number != null),
-       assert (value != null);
+  })  : assert(number != null),
+        assert(value != null);
 
   @override
   _IOSNumberKeyState createState() => _IOSNumberKeyState();
 }
 
 class _IOSNumberKeyState extends State<IOSNumberKey> {
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -226,16 +199,12 @@ class _IOSNumberKeyState extends State<IOSNumberKey> {
       child: Container(
         height: 84,
         width: 84,
-        decoration: const BoxDecoration(
-          color: lightGrey,
-          shape: BoxShape.circle
-        ),
+        decoration:
+            const BoxDecoration(color: lightGrey, shape: BoxShape.circle),
         child: Center(
           child: Text(
             widget.number,
-            style: const TextStyle(
-              fontSize: 40
-            ),
+            style: const TextStyle(fontSize: 40),
           ),
         ),
       ),
@@ -255,14 +224,10 @@ class IOSCallIcon extends StatelessWidget {
       child: Container(
         height: 84,
         width: 84,
-        decoration: const BoxDecoration(
-          color: Colors.green,
-          shape: BoxShape.circle
-        ),
+        decoration:
+            const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
         child: IconButton(
-          onPressed: () {
-      
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.call,
             color: Colors.white,
@@ -282,7 +247,12 @@ class AndroidCallDialScreen extends StatefulWidget {
 }
 
 class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
-  final numbers = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['*', '0', '#']];
+  final numbers = [
+    ['1', '2', '3'],
+    ['4', '5', '6'],
+    ['7', '8', '9'],
+    ['*', '0', '#']
+  ];
 
   late String phoneNum;
 
@@ -300,43 +270,36 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
   }
 
   renderDial() {
-    return numbers.map(
-      (x) => Row(
-        children: x.map(
-          (y) {
-            return Expanded(
-              child: AndroidNumberKey(
-                number: y, 
-                onTap: (val) {
-                  onKeyPress(val);
-                },
-                value: y,
-              )
-            );
-          }
-        ).toList(),
-      )
-    ).toList();
+    return numbers
+        .map((x) => Row(
+              children: x.map((y) {
+                return Expanded(
+                    child: AndroidNumberKey(
+                  number: y,
+                  onTap: (val) {
+                    onKeyPress(val);
+                  },
+                  value: y,
+                ));
+              }).toList(),
+            ))
+        .toList();
   }
 
   renderPhoneNum() {
     String display = "";
 
-    if(phoneNum.isNotEmpty) {
+    if (phoneNum.isNotEmpty) {
       display = phoneNum;
     }
 
     return Expanded(
       child: Center(
-        child: Text(
-          display,
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 36
-          ),
-        )
-      ),
+          child: Text(
+        display,
+        style: const TextStyle(
+            color: Colors.black, fontWeight: FontWeight.bold, fontSize: 36),
+      )),
     );
   }
 
@@ -348,25 +311,18 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         shadowColor: Colors.transparent,
         title: const Text(
           phone,
-          style: TextStyle(
-            fontSize: 21,
-            color: Colors.black
-          ),
+          style: TextStyle(fontSize: 21, color: Colors.black),
         ),
         actions: [
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.search,
               color: Colors.black,
             ),
           ),
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: const Icon(
               Icons.more_vert,
               color: Colors.black,
@@ -378,14 +334,12 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         height: double.infinity,
         width: double.infinity,
         color: Colors.white,
-        child: Column(
-          children: [
-            renderPhoneNum(),
-            ...renderDial(),
-            const AndroidCallIcon(),
-            const AndroidCallDialTab()
-          ]
-        ),
+        child: Column(children: [
+          renderPhoneNum(),
+          ...renderDial(),
+          const AndroidCallIcon(),
+          const AndroidCallDialTab()
+        ]),
       ),
     );
   }
@@ -405,31 +359,19 @@ class AndroidCallDialTab extends StatelessWidget {
         children: const [
           Text(
             keypad,
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.green
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.green),
           ),
           Text(
             recents,
-            style:  TextStyle(
-              fontSize: 18,
-              color: Colors.grey
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
           Text(
             contacts,
-            style:  TextStyle(
-              fontSize: 18,
-              color: Colors.grey
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
           Text(
             places,
-            style:  TextStyle(
-              fontSize: 18,
-              color: Colors.grey
-            ),
+            style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
         ],
       ),
@@ -443,19 +385,18 @@ class AndroidNumberKey extends StatefulWidget {
   final ValueSetter<dynamic> onTap;
 
   const AndroidNumberKey({
-    super.key, 
+    super.key,
     @required this.number,
     required this.onTap,
     @required this.value,
-  }) : assert (number != null),
-       assert (value != null);
+  })  : assert(number != null),
+        assert(value != null);
 
   @override
   _AndroidNumberKeyState createState() => _AndroidNumberKeyState();
 }
 
 class _AndroidNumberKeyState extends State<AndroidNumberKey> {
-  
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -492,14 +433,10 @@ class AndroidCallIcon extends StatelessWidget {
       child: Container(
         height: 72,
         width: 72,
-        decoration: const BoxDecoration(
-          color: Colors.green,
-          shape: BoxShape.circle
-        ),
+        decoration:
+            const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
         child: IconButton(
-          onPressed: () {
-      
-          },
+          onPressed: () {},
           icon: const Icon(
             Icons.call,
             color: Colors.white,

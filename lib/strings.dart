@@ -12,5 +12,7 @@ const String favorite = "Favorite";
 const String recents = "Recents";
 const String contacts = "Contacts";
 const String keypad = "Keypad";
-const String voicemail = "Voicemail";
+const String voiceMail = "Voicemail";
 const String places = "Places";
+
+const String search = "Search";
