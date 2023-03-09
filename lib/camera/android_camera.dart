@@ -10,8 +10,13 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
   bool _isFlashOn = false;
   bool _isRatioOn = false;
   bool _isMotionPhotoOn = false;
+  bool _isCameraFront = false;
   int _timerDelay = 0;
-  double _overlayHeight = 0;
+  int _flashType = 0; // 0 -> off, 1 -> auto, 2 -> on
+  int _ratioType = 0; // 0 -> 3:4, 1 -> 16:9, 2 -> 1:1, 3 -> full 
+  double _overlayHeightTimer = 0;
+  double _overlayHeightFlash = 0;
+  double _overlayHeightRatio = 0;
 
   final _toast = ToastBuilder();
   @override
@@ -60,11 +65,14 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                       ),
                       IconButton(
                         icon: Icon(
-                            _isFlashOn ? Icons.flash_on : Icons.flash_off,
-                            color: _isFlashOn ? Colors.yellow : Colors.white),
+                          _flashType == 0 ? Icons.flash_off :
+                          _flashType == 1 ? Icons.flash_auto : Icons.flash_on,
+                            color: _flashType == 2 ? Colors.yellow : Colors.white,
+                            ),
                         onPressed: () {
                           setState(() {
                             _isFlashOn = !_isFlashOn;
+                            _overlayHeightFlash = 80;
                           });
                         },
                       ),
@@ -74,23 +82,22 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                           _timerDelay == 3 ? Icons.timer_3 :
                           _timerDelay == 10 ? Icons.timer_10 : Icons.one_x_mobiledata,
                             color: _timerDelay != 0 ? Colors.yellow : Colors.white),
-                        // onPressed: () {
-                        //   setState(() {
-                        //     _isTimerOn = !_isTimerOn;
-                        //   });
-                        // },
                         onPressed: () {
                           setState(() {
-                            _overlayHeight = _overlayHeight == 0 ? 80 : 0;
+                            _overlayHeightTimer = _overlayHeightTimer == 0 ? 80 : 0;
                           });
                         },
                       ),
-                      IconButton(
-                        icon: Icon(Icons.aspect_ratio,
-                            color: _isRatioOn ? Colors.yellow : Colors.white),
+                      TextButton(
+                        child: Text(
+                          _ratioType == 0 ? '3:4' :
+                          _ratioType == 1 ? '16:9' :
+                          _ratioType == 2 ? '1:1' : 'Full'
+                        ,
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                         onPressed: () {
                           setState(() {
-                            _isRatioOn = !_isRatioOn;
+                            _overlayHeightRatio = 80;
                           });
                         },
                       ),
@@ -115,7 +122,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
               ),
               AnimatedContainer(
                 duration: Duration(milliseconds: 100),
-                height: _overlayHeight,
+                height: _overlayHeightTimer,
                 decoration: BoxDecoration(
                   color: Colors.black,
                 ),
@@ -125,64 +132,152 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          _overlayHeight = 0;
+                          _overlayHeightTimer = 0;
                           _timerDelay = 0;
                         });
                       },
                       child: Text('0s',
                           style: TextStyle(
-                              color: Colors.yellow,
+                              color: _timerDelay == 0 ? Colors.yellow : Colors.white,
                               fontWeight: FontWeight.bold)),
                     ),
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          _overlayHeight = 0;
+                          _overlayHeightTimer = 0;
                           _timerDelay = 1;
                         });
                       },
                       child: Text('1s',
                           style: TextStyle(
-                              color: Colors.yellow,
+                              color: _timerDelay == 1 ? Colors.yellow : Colors.white,
                               fontWeight: FontWeight.bold)),
                     ),
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          _overlayHeight = 0;
+                          _overlayHeightTimer = 0;
                           _timerDelay = 3;
                         });
                       },
                       child: Text('3s',
                           style: TextStyle(
-                              color: Colors.yellow,
+                              color: _timerDelay == 3 ? Colors.yellow : Colors.white,
                               fontWeight: FontWeight.bold)),
                     ),
                     TextButton(
                       onPressed: () {
                         setState(() {
-                          _overlayHeight = 0;
+                          _overlayHeightTimer = 0;
                           _timerDelay = 10;
                         });
                       },
                       child: Text('10s',
                           style: TextStyle(
-                              color: Colors.yellow,
+                              color: _timerDelay == 10 ? Colors.yellow : Colors.white,
                               fontWeight: FontWeight.bold)),
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 100),
+                height: _overlayHeightFlash,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightFlash = _overlayHeightFlash  == 0 ? 80 : 0;
+                          _flashType = 0;
+                        });
+                      },
+                      icon: Icon(Icons.flash_off, color: _flashType == 0 ? Colors.yellow : Colors.white,),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightFlash = _overlayHeightFlash  == 0 ? 80 : 0;
+                          _flashType = 1;
+                        });
+                      },
+                      icon: Icon(Icons.flash_auto, color: _flashType == 1 ? Colors.yellow : Colors.white,),
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightFlash = _overlayHeightFlash  == 0 ? 80 : 0;
+                          _flashType = 2;
+                        });
+                      },
+                      icon: Icon(Icons.flash_on, color: _flashType == 2 ? Colors.yellow : Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 100),
+                height: _overlayHeightRatio,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio = _overlayHeightRatio  == 0 ? 80 : 0;
+                          _ratioType = 0;
+                        });
+                      },
+                      child: Text('3:4', style: TextStyle(color: _ratioType == 0 ? Colors.yellow : Colors.white),),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio = _overlayHeightRatio  == 0 ? 80 : 0;
+                          _ratioType = 1;
+                        });
+                      },
+                      child: Text('16:9', style: TextStyle(color: _ratioType == 1 ? Colors.yellow : Colors.white),),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio = _overlayHeightRatio  == 0 ? 80 : 0;
+                          _ratioType = 2;
+                        });
+                      },
+                      child: Text('1:1', style: TextStyle(color: _ratioType == 2 ? Colors.yellow : Colors.white),),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio = _overlayHeightRatio  == 0 ? 80 : 0;
+                          _ratioType = 3;
+                        });
+                      },
+                      child: Text('Full', style: TextStyle(color: _ratioType == 3 ? Colors.yellow : Colors.white),),
                     ),
                   ],
                 ),
               ),
             ],
           )),
-
+          Text( _isCameraFront ? '앞' : '뒤',  style: TextStyle(fontSize: 350),),
           Container(
             width: 150.0,
             height: 50.0,
             margin: EdgeInsets.fromLTRB(0, 0, 0, 25.0),
             child: ScopingWidget(),
           ),
-
           // Camera preview will go here
           Align(
             alignment: Alignment.bottomCenter,
@@ -207,10 +302,18 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                       onPressed: () {},
                     ),
                   ),
-                  FloatingActionButton(
-                    backgroundColor: Colors.white,
-                    onPressed: () {},
+                  GestureDetector(
+                    onLongPress: () {
+                          _toast.toast('비디오 촬영을 시작합니다');
+                    },
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.white,
+                      onPressed: () {
+                          _toast.toast('사진이 촬영되었습니다.');
+                      },
+                    ),
                   ),
+                  
                   Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -222,7 +325,11 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         Icons.cached,
                         color: Colors.white,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _isCameraFront = !_isCameraFront;
+                        });
+                      },
                     ),
                   )
                 ],
