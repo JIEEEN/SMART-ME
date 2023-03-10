@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "763058138555",
+    "project_id": "smart-me-43d42",
+    "storage_bucket": "smart-me-43d42.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763058138555:android:fcd0a94d6618c92506289e",
+        "android_client_info": {
+          "package_name": "com.example.smart_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763058138555-nuj8k5p6ojvelfvt34uqr1ik0r4ntla4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5L4NvVBfa72dNGEq9to6yN6WEgiWMX78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763058138555-nuj8k5p6ojvelfvt34uqr1ik0r4ntla4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763058138555-iqdne9773qjm1vqgcibg8i9vla0silgu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartMe"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
