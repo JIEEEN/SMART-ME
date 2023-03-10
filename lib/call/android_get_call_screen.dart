@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:smart_me/strings.dart';
+
 class AndroidGetCallScreen extends StatelessWidget {
   const AndroidGetCallScreen({super.key});
 

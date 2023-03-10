@@ -3,7 +3,7 @@ import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
 
-class AndroidContactScreen extends StatelessWidget{
+class AndroidContactScreen extends StatelessWidget {
   AndroidContactScreen({super.key});
 
   @override

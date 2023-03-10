@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:smart_me/strings.dart';
+
 class AndroidCallDialScreen extends StatefulWidget {
   const AndroidCallDialScreen({super.key});
 
