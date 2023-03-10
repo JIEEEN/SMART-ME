@@ -1,5 +1,5 @@
 const String remindMe = "Remind Me";
-const String message = "Message";
+const String message = "메시지";
 const String decline = "Decline";
 const String accept = "Accept";
 
@@ -28,3 +28,5 @@ const String videoCall = "Video Call";
 const String bluetooth = "Bluetooth";
 const String speaker = "Speaker";
 const String mute = "Mute";
+
+const String call = "통화";

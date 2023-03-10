@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/android_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
@@ -79,7 +80,11 @@ class AndroidContactDetailScreen extends StatelessWidget {
                               color: Colors.green, shape: BoxShape.circle),
                           child: IconButton(
                               iconSize: 24,
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AndroidCallScreen()));
+                              },
                               icon: const Icon(
                                 Icons.call,
                                 color: Colors.white,
