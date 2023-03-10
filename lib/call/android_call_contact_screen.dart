@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/android_call_contact_detail_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
@@ -79,11 +80,12 @@ class AndroidContactScreen extends StatelessWidget {
             ],
           ),
           Expanded(
-              child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24.0)),
-                  child: contactList))
+            child: Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(24.0)),
+                child: contactList),
+          )
         ],
       ),
     );
@@ -103,33 +105,42 @@ class AndroidContactListElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) =>
+                AndroidContactDetailScreen(contactData: contactData)));
+      },
+      child: Container(
+        child: Column(
           children: [
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(60.0),
-                  child: Image.network(
-                    contactData.image,
-                    height: 32,
-                    width: 32,
-                  )),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 12),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(60.0),
+                      child: Image.network(
+                        contactData.image,
+                        height: 32,
+                        width: 32,
+                      )),
+                ),
+                Text(contactData.name),
+              ],
             ),
-            Text(contactData.name),
+            const Padding(
+              padding: EdgeInsets.only(left: 56.0, right: 24.0),
+              child: Divider(
+                height: 1,
+                thickness: 1,
+                color: lightGrey,
+              ),
+            )
           ],
         ),
-        const Padding(
-          padding: EdgeInsets.only(left: 56.0, right: 24.0),
-          child: Divider(
-            height: 1,
-            thickness: 1,
-            color: lightGrey,
-          ),
-        )
-      ],
+      ),
     );
   }
 }
