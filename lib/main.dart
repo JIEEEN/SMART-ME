@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_me/call/ios_call_contact_screen.dart';
+import 'package:smart_me/call/android_call_contact_detail_screen.dart';
+import 'package:smart_me/data/contact_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,8 +62,10 @@ class _MyHomePageState extends State<MyHomePage> {
         body: Center(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
-      child:
-          IOSContactScreen(), // This trailing comma makes auto-formatting nicer for build methods.
+      // child: AndroidContactScreen(),
+      child: AndroidContactDetailScreen(
+          contactData: data[
+              1]), // This trailing comma makes auto-formatting nicer for build methods.
     ));
   }
 }

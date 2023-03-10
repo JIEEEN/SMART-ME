@@ -16,3 +16,10 @@ const String voiceMail = "Voicemail";
 const String places = "Places";
 
 const String search = "Search";
+
+const String record = "Record";
+const String savedPlace = "Saved Place";
+
+const String edit = "Edit";
+const String share = "Share";
+const String more = "More";
