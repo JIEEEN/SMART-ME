@@ -23,3 +23,8 @@ const String savedPlace = "Saved Place";
 const String edit = "Edit";
 const String share = "Share";
 const String more = "More";
+
+const String videoCall = "Video Call";
+const String bluetooth = "Bluetooth";
+const String speaker = "Speaker";
+const String mute = "Mute";
