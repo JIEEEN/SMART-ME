@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:smart_me/common/toast.dart';
+import 'package:smart_me/common/timer.dart';
 
 class GetAndroidCamera extends StatefulWidget {
   @override
@@ -11,12 +14,19 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
   bool _isRatioOn = false;
   bool _isMotionPhotoOn = false;
   bool _isCameraFront = false;
+  bool _isVideoPaused = false;
   int _timerDelay = 0;
   int _flashType = 0; // 0 -> off, 1 -> auto, 2 -> on
   int _ratioType = 0; // 0 -> 3:4, 1 -> 16:9, 2 -> 1:1, 3 -> full 
   double _overlayHeightTimer = 0;
   double _overlayHeightFlash = 0;
   double _overlayHeightRatio = 0;
+  double _overlayHeightVideoControl = 0;
+  double _overlayHeightVideoTimer = 0;
+  String _currentTime = '';
+
+  late Timer _timer;
+  double _timerCount = 0;
 
   final _toast = ToastBuilder();
   @override
@@ -24,12 +34,55 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
     super.initState();
   }
 
-  void _onTimerDelaySelected(int value) {
-    setState(() {
-      _timerDelay = value;
+  void startTimer(){
+    _timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+      setState(() {
+        _timerCount++;
+      });
     });
   }
 
+  void pauseTimer(){
+    _timer.cancel();
+  }
+
+  void stopTimer(){
+    _timer.cancel();
+    setState(() {
+      _timerCount = 0;
+    });
+  }
+
+  String printTimeAsHMS(){
+    String ret;
+    int cur = _timerCount.toInt();
+    cur = cur ~/100;
+    int hour = cur~/3600;
+    int minute = cur~/60;
+    double second = cur%60;
+
+    ret = '${hour >= 10 ? '' : '0'}${hour} : ${minute >= 10 ? '' : '0'}${minute} : ${second >= 10 ? '' : '0'}${second.toInt()}';
+    return ret;
+  }
+
+  String printTimeAsHMSKorean(){
+    String ret;
+    int cur = _timerCount.toInt();
+    cur ~/= 100;
+    int hour = cur~/3600;
+    int minute = cur~/60;
+    double second = cur%60;
+
+    ret = '${hour == 0 ? '' : hour}${hour == 0 ? '' : '시간'} ${minute == 0 ? '' : minute}${minute == 0? '' : '분'} ${second.toInt()}초';
+    return ret;
+  }
+
+@override
+  void dispose() {
+    _timer.cancel();
+
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     _toast.context = context;
@@ -38,7 +91,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
         backgroundColor: Colors.black,
         toolbarHeight: 0,
       ),
-      body: Column(
+      body: 
+      Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Expanded(
@@ -269,7 +323,36 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   ],
                 ),
               ),
-            ],
+              AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 10),
+                height: _overlayHeightVideoTimer,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                     IconButton(
+                        icon: Icon(
+                          _flashType == 0 ? Icons.flash_off :
+                          _flashType == 1 ? Icons.flash_auto : Icons.flash_on,
+                            color: _flashType == 2 ? Colors.yellow : Colors.white,
+                            ),
+                        onPressed: () {
+                        },
+                      ),
+                      Container(
+                        width: 100,
+                        height: 30,
+                        color: Colors.red,
+                        alignment: Alignment.center,
+                        child: Text(printTimeAsHMS(), style:TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+                      )
+                  ],
+                ),
+              ),
+              ],
           )),
           Text( _isCameraFront ? '앞' : '뒤',  style: TextStyle(fontSize: 350),),
           Container(
@@ -279,7 +362,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
             child: ScopingWidget(),
           ),
           // Camera preview will go here
-          Align(
+          Stack(children: [
+             Align(
             alignment: Alignment.bottomCenter,
             child: Container(
               color: Colors.black,
@@ -305,6 +389,12 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   GestureDetector(
                     onLongPress: () {
                           _toast.toast('비디오 촬영을 시작합니다');
+                          startTimer();
+                          setState(() {
+                            _isVideoPaused = false;
+                            _overlayHeightVideoControl = 100;
+                            _overlayHeightVideoTimer = 80;
+                          });
                     },
                     child: FloatingActionButton(
                       backgroundColor: Colors.white,
@@ -336,7 +426,72 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
               ),
             ),
           ),
-        ],
+        AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 100),
+                height: _overlayHeightVideoControl,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _toast.toast('사진이 촬영되었습니다.');
+
+                        });
+                      },
+                      icon: Icon(Icons.camera, color:Colors.white,),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50.0)
+                        ),
+                      child: Row(
+                        children: [
+                        IconButton(
+                          onPressed: () {
+                            if(_isVideoPaused){
+                              startTimer();
+                            }
+                            else{
+                              pauseTimer();
+                            }
+                            setState(() {
+                              _isVideoPaused = !_isVideoPaused;
+                            });
+                          },
+                        icon: Icon( _isVideoPaused ? Icons.play_arrow : Icons.pause , color:Colors.black,),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                          _toast.toast(printTimeAsHMSKorean() + ' 길이의 비디오가 저장되었습니다.');
+                          stopTimer();
+                            setState(() {
+                              _overlayHeightVideoControl = _overlayHeightVideoControl  == 0 ? 100 : 0;
+                              _overlayHeightVideoTimer = _overlayHeightVideoTimer  == 0 ? 80 : 0;
+                            });
+                          },
+                          icon: Icon(Icons.stop, color:Colors.black,),
+                        )],
+                      )
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          _isCameraFront = !_isCameraFront;
+                        });
+                      },
+                      icon: Icon(Icons.cached, color:Colors.white,),
+                    ),
+                  ],
+                ),
+              ),
+          ],)
+         ],
       ),
     );
   }
@@ -413,75 +568,6 @@ class _NumberButtonState extends State<NumberButton> {
           color: widget.isSelected ? Colors.black : Colors.white,
           fontSize: 20.0,
           fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-  }
-}
-
-class ToastBuilder{
-  late BuildContext context;
-  void toast(String message) async {
-    OverlayEntry _overlay = OverlayEntry(builder: (_) =>  Toast(message: message));
-
-    Navigator.of(context).overlay!.insert(_overlay);
-
-    await Future.delayed(const Duration(seconds: 2));
-    _overlay.remove();
-  }
-}
-
-class Toast extends StatefulWidget {
-  const Toast({Key? key, required this.message}) : super(key: key);
-  final String message;
-
-  @override
-  _ToastState createState() => _ToastState();
-}
-
-class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 1));
-
-    _animation = Tween(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(parent: _controller, curve: Curves.decelerate));
-
-    _controller.forward().whenComplete(() {
-      _controller.reverse();
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Align(
-        alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 100),
-          child: FadeTransition(
-            opacity: _animation,
-            child: Material(
-              child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.black),
-                  child: Text(widget.message, style: TextStyle(color: Colors.white))),
-            ),
-          ),
         ),
       ),
     );
