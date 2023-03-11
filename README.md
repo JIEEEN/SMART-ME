@@ -1,16 +1,66 @@
-# smart_me
+# common/timer
 
-A new Flutter project.
+A Timer displays time in HH:MM:SS form.
+You can also get korean form of current time in 시:분:초 format.
+Passing parameters will customize the widget height, width, box color and text styles.
 
-## Getting Started
+## functions
+Use `GlobalKey()` to excute this functions.
 
-This project is a starting point for a Flutter application.
+- `void start()` 
+Start timer. Time is 'counted' in `_timerCount` variable, counted at every 10 milliseconds.
 
-A few resources to get you started if this is your first Flutter project:
+- `void pause()`  
+Pause timer. Current value of `_timerCount` will be preserved.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- `void stop()`    
+Stop timer. This will reset `_timerCount` to `0`.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- `String printTimeAsHMS()`  
+Return recorded time in `HH:MM:SS` form.
+
+- `String printTimeAsHMSKorean()`
+Return recorded time in `0시0분0초` form. If hour or minute is `0`, then they will not be returned. EX) `123`seconds -> `2분3초`
+
+
+## Usage
+
+```Dart
+class ExampleState extends State<Example> {
+  final GlobalKey<HMSTimerState> _HMSTimer = GlobalKey<HMSTimerState>();
+  ...
+  @override
+  Widget build(BuildContext context){
+    return Container(
+        child:Col(
+            childeren:[
+                HMSTimer(key:_HMSTimer),
+                Row(
+                    childeren:[
+                        IconButton(
+                            icon: Icons.play_arrow,
+                            onPressed: () {
+                                _HMSTimer.currentState?.start();
+                            }
+                        ),
+                        IconButton(
+                            icon: Icons.pause,
+                            onPressed: () {
+                                _HMSTimer.currentState?.pause();
+                            }
+                        ),
+                        IconButton(
+                            icon: Icons.stop,
+                            onPressed: () {
+                                _HMSTimer.currentState?.stop();
+                            }
+                        )
+                    ]
+                )
+
+            ]
+        )
+  }
+}
+
+```
