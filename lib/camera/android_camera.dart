@@ -23,69 +23,27 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
   double _overlayHeightRatio = 0;
   double _overlayHeightVideoControl = 0;
   double _overlayHeightVideoTimer = 0;
-  String _currentTime = '';
 
-  late Timer _timer;
-  double _timerCount = 0;
+  late String? _currentTime;
 
   final _toast = ToastBuilder();
+  final GlobalKey<HMSTimerState> _HMSTimer = GlobalKey<HMSTimerState>();
+
   @override
   void initState() {
     super.initState();
   }
 
-  void startTimer(){
-    _timer = Timer.periodic(Duration(milliseconds: 10), (timer) {
-      setState(() {
-        _timerCount++;
-      });
-    });
-  }
-
-  void pauseTimer(){
-    _timer.cancel();
-  }
-
-  void stopTimer(){
-    _timer.cancel();
-    setState(() {
-      _timerCount = 0;
-    });
-  }
-
-  String printTimeAsHMS(){
-    String ret;
-    int cur = _timerCount.toInt();
-    cur = cur ~/100;
-    int hour = cur~/3600;
-    int minute = cur~/60;
-    double second = cur%60;
-
-    ret = '${hour >= 10 ? '' : '0'}${hour} : ${minute >= 10 ? '' : '0'}${minute} : ${second >= 10 ? '' : '0'}${second.toInt()}';
-    return ret;
-  }
-
-  String printTimeAsHMSKorean(){
-    String ret;
-    int cur = _timerCount.toInt();
-    cur ~/= 100;
-    int hour = cur~/3600;
-    int minute = cur~/60;
-    double second = cur%60;
-
-    ret = '${hour == 0 ? '' : hour}${hour == 0 ? '' : '시간'} ${minute == 0 ? '' : minute}${minute == 0? '' : '분'} ${second.toInt()}초';
-    return ret;
-  }
-
 @override
   void dispose() {
-    _timer.cancel();
-
     super.dispose();
   }
   @override
   Widget build(BuildContext context) {
     _toast.context = context;
+    setState(() {
+      _currentTime = _HMSTimer.currentState?.printTimeAsHMS();
+    });
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -342,13 +300,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         onPressed: () {
                         },
                       ),
-                      Container(
-                        width: 100,
-                        height: 30,
-                        color: Colors.red,
-                        alignment: Alignment.center,
-                        child: Text(printTimeAsHMS(), style:TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
-                      )
+                      HMSTimer(key:_HMSTimer)
                   ],
                 ),
               ),
@@ -389,7 +341,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   GestureDetector(
                     onLongPress: () {
                           _toast.toast('비디오 촬영을 시작합니다');
-                          startTimer();
+                          _HMSTimer.currentState?.start();
                           setState(() {
                             _isVideoPaused = false;
                             _overlayHeightVideoControl = 100;
@@ -455,10 +407,10 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         IconButton(
                           onPressed: () {
                             if(_isVideoPaused){
-                              startTimer();
+                              _HMSTimer.currentState?.start();
                             }
                             else{
-                              pauseTimer();
+                              _HMSTimer.currentState?.pause();
                             }
                             setState(() {
                               _isVideoPaused = !_isVideoPaused;
@@ -468,8 +420,9 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         ),
                         IconButton(
                           onPressed: () {
-                          _toast.toast(printTimeAsHMSKorean() + ' 길이의 비디오가 저장되었습니다.');
-                          stopTimer();
+                          // _toast.toast(printTimeAsHMSKorean() + ' 길이의 비디오가 저장되었습니다.' + _HMSTimer.currentState?.printTimeAsHMSKorean());
+                          _toast.toast(_HMSTimer.currentState?.printTimeAsHMSKorean());
+                          _HMSTimer.currentState?.stop();
                             setState(() {
                               _overlayHeightVideoControl = _overlayHeightVideoControl  == 0 ? 100 : 0;
                               _overlayHeightVideoTimer = _overlayHeightVideoTimer  == 0 ? 80 : 0;
@@ -573,3 +526,4 @@ class _NumberButtonState extends State<NumberButton> {
     );
   }
 }
+
