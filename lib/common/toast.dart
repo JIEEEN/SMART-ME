@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class ToastBuilder{
+class ToastBuilder {
   late BuildContext context;
-  void toast(String message) async {
-    OverlayEntry _overlay = OverlayEntry(builder: (_) =>  Toast(message: message));
+  void toast(String? message) async {
+    OverlayEntry _overlay =
+        OverlayEntry(builder: (_) => Toast(message: message));
 
     Navigator.of(context).overlay!.insert(_overlay);
 
@@ -14,7 +15,7 @@ class ToastBuilder{
 
 class Toast extends StatefulWidget {
   const Toast({Key? key, required this.message}) : super(key: key);
-  final String message;
+  final String? message;
 
   @override
   _ToastState createState() => _ToastState();
@@ -60,7 +61,8 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.black),
-                  child: Text(widget.message, style: TextStyle(color: Colors.white))),
+                  child: Text(widget.message ?? 'Null',
+                      style: TextStyle(color: Colors.white))),
             ),
           ),
         ),
