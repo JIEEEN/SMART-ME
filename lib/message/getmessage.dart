@@ -14,4 +14,4 @@ class _getIOSMessageScreen extends State<getMessage> {
   }
 }
 
-// class _getAndroidMessage extends StatefulWidget {
+// class _getAndroidMessage extends StatefulWidget
