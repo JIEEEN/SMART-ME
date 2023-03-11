@@ -3,6 +3,7 @@ import 'package:smart_me/message/ios/iosmessage.dart' as ios;
 import 'package:smart_me/message/android/androidmessage.dart' as and;
 
 class getMessage extends StatefulWidget {
+  //이부분에서 ios면 ios, and면 and로 분기
   @override
   _getIOSMessageScreen createState() => _getIOSMessageScreen();
 }

@@ -24,10 +24,17 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
   }
 
   Widget _buildSpeechBubble(String messageInput) {
-    return CustomPaint(
-      size: Size(bubbleSize_width, bubbleSize_height),
-      painter: SpeechBubble(
-          bubbleColor: Color(0xff60ba61), messageText: messageInput),
+    return Column(
+      children: <Widget>[
+        CustomPaint(
+          size: Size(bubbleSize_width, bubbleSize_height),
+          painter: SpeechBubble(
+              bubbleColor: Color(0xff60ba61), messageText: messageInput),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+        ),
+      ],
     );
   }
 
@@ -50,25 +57,30 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
       ),
       body: Column(
         children: <Widget>[
-          Container(padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0)),
+          Container(
+            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+          ),
           Expanded(
-              child: SingleChildScrollView(
+            // child: SingleChildScrollView(
             child: Column(children: _bubbleList),
-          )),
+            // ),
+          ),
           Row(
             children: <Widget>[
               Container(
                 padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
               ),
-              SizedBox(
-                width: 340.0,
+              Icon(Icons.camera),
+              Padding(padding: EdgeInsets.only(left: 20.0)),
+              Icon(Icons.shop),
+              Padding(padding: EdgeInsets.only(left: 20.0)),
+              Expanded(
                 child: TextFormField(
                   controller: _messageInputController,
                   autofocus: false,
                   focusNode: _focusNode,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(20.0, 0, 0, 0),
-                    icon: Icon(Icons.camera),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       borderSide: BorderSide(
@@ -97,7 +109,13 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                   },
                 ),
               ),
+              Padding(
+                padding: EdgeInsets.only(right: 10.0),
+              )
             ],
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
           ),
         ],
       ),
