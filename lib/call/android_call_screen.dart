@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/strings.dart';
 
-class AndroidCallScreen extends StatelessWidget {
+class AndroidCallScreen extends StatefulWidget {
   const AndroidCallScreen({super.key});
 
+  @override
+  State<AndroidCallScreen> createState() => _AndroidCallScreenState();
+}
+
+class _AndroidCallScreenState extends State<AndroidCallScreen> {
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
