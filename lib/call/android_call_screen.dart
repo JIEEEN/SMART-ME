@@ -1,14 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/android_call_contact_screen.dart';
+import 'package:smart_me/call/android_get_call_screen.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class AndroidCallScreen extends StatefulWidget {
-  const AndroidCallScreen({super.key});
+  final from;
+  const AndroidCallScreen({super.key, required this.from});
 
   @override
   State<AndroidCallScreen> createState() => _AndroidCallScreenState();
 }
 
 class _AndroidCallScreenState extends State<AndroidCallScreen> {
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "dial") {
+      tutorialMessage = "상대에게 전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    if (widget.from == "call_accept") {
+      tutorialMessage = "전화를 받았습니다\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    if (widget.from == "contact_detail") {
+      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    if (widget.from == "contact_list") {
+      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(turorialMessage: tutorialMessage)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    show();
+  }
+
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
@@ -210,17 +243,40 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
                         ]),
                   ),
                   Expanded(child: Container()),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
-                    child: Container(
-                      height: 62,
-                      width: 62,
-                      decoration: const BoxDecoration(
-                          color: Colors.red, shape: BoxShape.circle),
-                      child: const Icon(
-                        Icons.call_end,
-                        color: Colors.white,
-                        size: 32,
+                  GestureDetector(
+                    onTap: () {
+                      if (widget.from == "dial") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const AndroidContactScreen(from: "call_dial")));
+                      }
+                      if (widget.from == "call_accept") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const AndroidGetCallScreen(from: "call")));
+                      }
+                      if (widget.from == "contact_list") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const AndroidContactScreen(from: "call_list")));
+                      }
+                      if (widget.from == "contact_detail") {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const EndTutorial()));
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 24.0),
+                      child: Container(
+                        height: 62,
+                        width: 62,
+                        decoration: const BoxDecoration(
+                            color: Colors.red, shape: BoxShape.circle),
+                        child: const Icon(
+                          Icons.call_end,
+                          color: Colors.white,
+                          size: 32,
+                        ),
                       ),
                     ),
                   )

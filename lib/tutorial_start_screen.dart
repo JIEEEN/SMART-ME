@@ -8,17 +8,20 @@ class StartTutorial extends StatelessWidget {
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text("전화 튜토리얼 시작"),
-        GestureDetector(
-            onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const AndroidGetCallScreen()));
-            },
-            child: const Text("확인"))
-      ],
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text("전화 튜토리얼 시작"),
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        const AndroidGetCallScreen(from: "start")));
+              },
+              child: const Text("확인"))
+        ],
+      ),
     );
   }
 }

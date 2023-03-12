@@ -3,11 +3,45 @@ import 'package:smart_me/call/android_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
 
-class AndroidContactDetailScreen extends StatelessWidget {
+class AndroidContactDetailScreen extends StatefulWidget {
   final ContactData contactData;
+  final from;
 
-  const AndroidContactDetailScreen({super.key, required this.contactData});
+  const AndroidContactDetailScreen(
+      {super.key, required this.contactData, required this.from});
+
+  @override
+  State<AndroidContactDetailScreen> createState() =>
+      _AndroidContactDetailScreenState();
+}
+
+class _AndroidContactDetailScreenState
+    extends State<AndroidContactDetailScreen> {
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "contact_list") {
+      tutorialMessage = "연락처 상세 페이지입니다.\n초록색 전화 버튼을 눌러 전화를 걸어보세요.";
+    }
+    if (widget.from == "") {
+      tutorialMessage = "이번에는 연락처 상세 페이지에서 전화를 걸어보겠습니다.\n원하는 연락처를 눌러주세요.";
+    }
+
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(turorialMessage: tutorialMessage)));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +78,7 @@ class AndroidContactDetailScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Text(
-                      contactData.name,
+                      widget.contactData.name,
                       style: const TextStyle(
                           fontSize: 24, fontWeight: FontWeight.bold),
                     ),
@@ -62,7 +96,7 @@ class AndroidContactDetailScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          contactData.phoneNum,
+                          widget.contactData.phoneNum,
                           style: const TextStyle(fontSize: 16),
                         ),
                       )
@@ -83,7 +117,8 @@ class AndroidContactDetailScreen extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const AndroidCallScreen()));
+                                        const AndroidCallScreen(
+                                            from: "contact_detail")));
                               },
                               icon: const Icon(
                                 Icons.call,

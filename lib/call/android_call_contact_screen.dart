@@ -4,9 +4,41 @@ import 'package:smart_me/call/android_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
 
-class AndroidContactScreen extends StatelessWidget {
-  AndroidContactScreen({super.key});
+class AndroidContactScreen extends StatefulWidget {
+  final from;
+  const AndroidContactScreen({super.key, required this.from});
+
+  @override
+  State<AndroidContactScreen> createState() => _AndroidContactScreenState();
+}
+
+class _AndroidContactScreenState extends State<AndroidContactScreen> {
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "call_dial") {
+      tutorialMessage =
+          "이번엔 연락처에서 전화를 걸어보겠습니다.\n원하는 연락처를 왼쪽에서 오른쪽으로 밀어서 전화를 걸어보세요.";
+    }
+    if (widget.from == "call_list") {
+      tutorialMessage = "이번에는 연락처 상세 페이지에서 전화를 걸어보겠습니다.\n원하는 연락처를 눌러주세요.";
+    }
+
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(turorialMessage: tutorialMessage)));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +192,9 @@ class AndroidContactListElement extends StatelessWidget {
         if (direction == DismissDirection.startToEnd) {
           if (direction == DismissDirection.startToEnd) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const AndroidCallScreen()));
+                builder: (context) => const AndroidCallScreen(
+                      from: "contact_list",
+                    )));
           }
           return false;
         } else if (direction == DismissDirection.endToStart) {
@@ -171,8 +205,8 @@ class AndroidContactListElement extends StatelessWidget {
       child: GestureDetector(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  AndroidContactDetailScreen(contactData: contactData)));
+              builder: (context) => AndroidContactDetailScreen(
+                  contactData: contactData, from: "contact_list")));
         },
         child: Container(
           child: Column(

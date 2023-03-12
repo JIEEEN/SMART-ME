@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/android_call_screen.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
 
 class AndroidCallDialScreen extends StatefulWidget {
-  const AndroidCallDialScreen({super.key});
+  final from;
+  const AndroidCallDialScreen({super.key, required this.from});
 
   @override
   State<AndroidCallDialScreen> createState() => _AndroidCallDialScreenState();
@@ -17,12 +20,27 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
   ];
 
   late String phoneNum;
+  void dialog(String msg) {}
+
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "call") {
+      tutorialMessage =
+          "이제 전화를 걸어봅시다.\n전화번호를 직접 입력하여 전화를 걸어보겠습니다.\n키패드에 전화번호를 입력 후 초록색 전화 버튼을 눌러주세요.";
+    }
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(turorialMessage: tutorialMessage)));
+  }
 
   @override
   void initState() {
     super.initState();
 
     phoneNum = '';
+    show();
   }
 
   onKeyPress(val) {
@@ -99,7 +117,9 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         child: Column(children: [
           renderPhoneNum(),
           ...renderDial(),
-          const AndroidCallIcon(),
+          AndroidCallIcon(
+            phoneNum: phoneNum,
+          ),
           const AndroidCallDialTab()
         ]),
       ),
@@ -184,9 +204,8 @@ class _AndroidNumberKeyState extends State<AndroidNumberKey> {
 }
 
 class AndroidCallIcon extends StatelessWidget {
-  const AndroidCallIcon({
-    super.key,
-  });
+  final phoneNum;
+  const AndroidCallIcon({super.key, required this.phoneNum});
 
   @override
   Widget build(BuildContext context) {
@@ -198,7 +217,14 @@ class AndroidCallIcon extends StatelessWidget {
         decoration:
             const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            (phoneNum == '')
+                ? null
+                : Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AndroidCallScreen(
+                          from: "dial",
+                        )));
+          },
           icon: const Icon(
             Icons.call,
             color: Colors.white,
