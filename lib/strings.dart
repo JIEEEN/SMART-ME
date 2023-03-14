@@ -20,7 +20,7 @@ const String search = "Search";
 const String record = "Record";
 const String savedPlace = "Saved Place";
 
-const String edit = "Edit";
+const String edit = "편집";
 const String share = "Share";
 const String more = "More";
 
