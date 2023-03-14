@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ToastBuilder {
   late BuildContext context;
-  void toast(String? message) async {
+  void toast(String? message, double? height) async {
     OverlayEntry _overlay =
-        OverlayEntry(builder: (_) => Toast(message: message));
+        OverlayEntry(builder: (_) => Toast(message: message,height: height,));
 
     Navigator.of(context).overlay!.insert(_overlay);
 
