@@ -14,8 +14,9 @@ class ToastBuilder {
 }
 
 class Toast extends StatefulWidget {
-  const Toast({Key? key, required this.message}) : super(key: key);
+  Toast({Key? key, required this.message, this.height}) : super(key: key);
   final String? message;
+  double? height;
 
   @override
   _ToastState createState() => _ToastState();
@@ -51,7 +52,7 @@ class _ToastState extends State<Toast> with SingleTickerProviderStateMixin {
       child: Align(
         alignment: Alignment.topCenter,
         child: Padding(
-          padding: const EdgeInsets.only(top: 100),
+          padding: EdgeInsets.only(top: widget.height ?? 100),
           child: FadeTransition(
             opacity: _animation,
             child: Material(
