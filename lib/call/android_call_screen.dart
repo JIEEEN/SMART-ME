@@ -220,7 +220,7 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
                                 iconSize: 24,
                               ),
                               const Text(
-                                mute,
+                                muteMine,
                                 style: TextStyle(fontSize: 12),
                               )
                             ],

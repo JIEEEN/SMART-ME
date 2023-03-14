@@ -10,8 +10,8 @@ const String phone = "Phone";
 
 const String favorite = "Favorite";
 const String recents = "Recents";
-const String contacts = "Contacts";
-const String keypad = "Keypad";
+const String contacts = "연락처";
+const String keypad = "키패드";
 const String voiceMail = "Voicemail";
 const String places = "Places";
 
@@ -26,7 +26,10 @@ const String more = "More";
 
 const String videoCall = "Video Call";
 const String bluetooth = "Bluetooth";
-const String speaker = "Speaker";
-const String mute = "Mute";
+const String speaker = "스피커";
+const String muteMine = "Mute";
 
 const String call = "통화";
+const String mute = "소리 끔";
+const String addCall = "통화 추가";
+const String faceTime = "FaceTime";
