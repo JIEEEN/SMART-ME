@@ -97,9 +97,6 @@ class IOSGetCallLockScreen extends StatefulWidget {
 }
 
 class _IOSGetCallLockScreenState extends State<IOSGetCallLockScreen> {
-  // bool _lockBtnState = false;
-  // late StreamSubscription<HardwareButtons.LockButtonEvent> _lockBtnSubscription;
-
   void show() {
     String tutorialMessage = "";
     if (widget.from == "start") {
@@ -120,29 +117,11 @@ class _IOSGetCallLockScreenState extends State<IOSGetCallLockScreen> {
     super.initState();
 
     show();
-
-    // _lockBtnSubscription = HardwareButtons.lockButtonEvents.listen((event) {
-    //   setState(() {
-    //     _lockBtnState = true;
-    //   });
-
-    //   if (_lockBtnState == true) {
-    //     showDialog(
-    //         context: context,
-    //         barrierDismissible: false,
-    //         builder: (context) =>
-    //             const TutorialDialog(turorialMessage: "전화를 끊었습니다."));
-    //     Navigator.of(context).push(MaterialPageRoute(
-    //         builder: (context) =>
-    //             const IOSGetCallUnlockScreen(from: "lock_decline_call")));
-    //   }
-    // });
   }
 
   @override
   void dispose() {
     super.dispose();
-    // _lockBtnSubscription.cancel();
   }
 
   @override

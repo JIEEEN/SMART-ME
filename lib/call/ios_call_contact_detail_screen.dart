@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/ios_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
@@ -18,6 +19,9 @@ class IOSContactDetailScreen extends StatefulWidget {
 class _IOSContactDetailScreenState extends State<IOSContactDetailScreen> {
   void show() {
     String tutorialMessage = "";
+    if (widget.from == "contact_list") {
+      tutorialMessage = "연락처 상세 페이지입니다.\n휴대전화 버튼을 눌러 전화를 걸어보세요.";
+    }
 
     Future.microtask(() => showDialog(
         context: context,
@@ -122,27 +126,34 @@ class _IOSContactDetailScreenState extends State<IOSContactDetailScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  width: deviceWidth / 4 - 8.0,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 8.0, horizontal: 12.0),
-                    child: Column(
-                      children: const [
-                        Icon(
-                          Icons.call,
-                          size: 32.0,
-                          color: Colors.blueAccent,
-                        ),
-                        Text(
-                          "휴대전화",
-                          style: TextStyle(
-                              fontSize: 12.0, color: Colors.blueAccent),
-                        )
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IOSCallScreen(from: "contact_detail")));
+                  },
+                  child: Container(
+                    width: deviceWidth / 4 - 8.0,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 12.0),
+                      child: Column(
+                        children: const [
+                          Icon(
+                            Icons.call,
+                            size: 32.0,
+                            color: Colors.blueAccent,
+                          ),
+                          Text(
+                            "휴대전화",
+                            style: TextStyle(
+                                fontSize: 12.0, color: Colors.blueAccent),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

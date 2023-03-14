@@ -7,6 +7,7 @@ import 'package:smart_me/call/ios_get_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/tutorial_dialog.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class IOSCallScreen extends StatefulWidget {
   final from;
@@ -27,6 +28,9 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
     }
     if (widget.from == "dial") {
       tutorialMessage = "상대에게 전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    if (widget.from == "contact_detail") {
+      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
 
     Future.microtask(() => showDialog(
@@ -286,6 +290,10 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) =>
                             const IOSContactScreen(from: "call_dial")));
+                  }
+                  if (widget.from == "contact_detail") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const EndTutorial()));
                   }
                 },
                 child: Container(

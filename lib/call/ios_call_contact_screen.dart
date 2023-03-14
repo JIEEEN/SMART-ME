@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/ios_call_contact_detail_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/data/contact_data.dart';
 import 'package:smart_me/strings.dart';
@@ -118,24 +119,31 @@ class IOSContactListElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Text(
-              contactData.name,
-              textAlign: TextAlign.start,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => IOSContactDetailScreen(
+                contactData: contactData, from: "contact_list")));
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Text(
+                contactData.name,
+                textAlign: TextAlign.start,
+              ),
             ),
-          ),
-          const Divider(
-            thickness: 1,
-            height: 1,
-            color: lightGrey,
-          )
-        ],
+            const Divider(
+              thickness: 1,
+              height: 1,
+              color: lightGrey,
+            )
+          ],
+        ),
       ),
     );
   }
