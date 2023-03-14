@@ -26,7 +26,7 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
         context: context,
         barrierDismissible: false,
         builder: (context) =>
-            TutorialDialog(turorialMessage: tutorialMessage)));
+            TutorialDialog(tutorialMessage: tutorialMessage)));
   }
 
   @override
@@ -106,7 +106,7 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
                           context: context,
                           barrierDismissible: false,
                           builder: (context) => const TutorialDialog(
-                              turorialMessage: "전화를 끊었습니다."));
+                              tutorialMessage: "전화를 끊었습니다."));
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const AndroidCallDialScreen(
                                 from: "call",

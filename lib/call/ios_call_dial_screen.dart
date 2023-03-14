@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:smart_me/call/ios_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
 
 class IOSCallDialScreen extends StatefulWidget {
-  const IOSCallDialScreen({super.key});
+  final from;
+  const IOSCallDialScreen({super.key, required this.from});
 
   @override
   State<IOSCallDialScreen> createState() => _IOSCallDialScreenState();
@@ -19,11 +22,25 @@ class _IOSCallDialScreenState extends State<IOSCallDialScreen> {
 
   late String phoneNum;
 
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "call_decline") {
+      tutorialMessage =
+          "이제 전화를 걸어봅시다.\n전화번호를 직접 입력하여 전화를 걸어보겠습니다.\n키패드에 전화번호를 입력 후 초록색 전화 버튼을 눌러주세요.";
+    }
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(tutorialMessage: tutorialMessage)));
+  }
+
   @override
   void initState() {
     super.initState();
 
     phoneNum = '';
+    show();
   }
 
   onKeyPress(val) {
@@ -76,21 +93,25 @@ class _IOSCallDialScreenState extends State<IOSCallDialScreen> {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     final double bottomBarHeight = MediaQuery.of(context).padding.bottom;
 
-    return Container(
-      color: Colors.white,
-      child: Column(
-        children: [
-          SizedBox(
-            height: statusBarHeight,
-          ),
-          renderPhoneNum(),
-          ...renderDial(),
-          const IOSCallIcon(),
-          const IOSCallDialTab(),
-          SizedBox(
-            height: bottomBarHeight,
-          )
-        ],
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        child: Column(
+          children: [
+            SizedBox(
+              height: statusBarHeight,
+            ),
+            renderPhoneNum(),
+            ...renderDial(),
+            IOSCallIcon(
+              phoneNum: phoneNum,
+            ),
+            const IOSCallDialTab(),
+            SizedBox(
+              height: bottomBarHeight,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -213,9 +234,8 @@ class _IOSNumberKeyState extends State<IOSNumberKey> {
 }
 
 class IOSCallIcon extends StatelessWidget {
-  const IOSCallIcon({
-    super.key,
-  });
+  final phoneNum;
+  const IOSCallIcon({super.key, required this.phoneNum});
 
   @override
   Widget build(BuildContext context) {
@@ -227,7 +247,12 @@ class IOSCallIcon extends StatelessWidget {
         decoration:
             const BoxDecoration(color: Colors.green, shape: BoxShape.circle),
         child: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            (phoneNum == '')
+                ? null
+                : Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const IOSCallScreen(from: "dial")));
+          },
           icon: const Icon(
             Icons.call,
             color: Colors.white,

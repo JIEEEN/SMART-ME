@@ -20,7 +20,6 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
   ];
 
   late String phoneNum;
-  void dialog(String msg) {}
 
   void show() {
     String tutorialMessage = "";
@@ -32,7 +31,7 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         context: context,
         barrierDismissible: false,
         builder: (context) =>
-            TutorialDialog(turorialMessage: tutorialMessage)));
+            TutorialDialog(tutorialMessage: tutorialMessage)));
   }
 
   @override

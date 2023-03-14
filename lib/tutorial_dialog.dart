@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TutorialDialog extends StatelessWidget {
-  final String turorialMessage;
+  final String tutorialMessage;
 
-  const TutorialDialog({super.key, required this.turorialMessage});
+  const TutorialDialog({super.key, required this.tutorialMessage});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class TutorialDialog extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              turorialMessage,
+              tutorialMessage,
               style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,

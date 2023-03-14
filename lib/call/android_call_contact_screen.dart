@@ -29,7 +29,7 @@ class _AndroidContactScreenState extends State<AndroidContactScreen> {
         context: context,
         barrierDismissible: false,
         builder: (context) =>
-            TutorialDialog(turorialMessage: tutorialMessage)));
+            TutorialDialog(tutorialMessage: tutorialMessage)));
   }
 
   @override

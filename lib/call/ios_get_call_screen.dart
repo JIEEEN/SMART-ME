@@ -1,93 +1,185 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:slide_action/slide_action.dart';
+import 'package:smart_me/call/ios_call_dial_screen.dart';
+import 'package:smart_me/call/ios_call_screen.dart';
 import 'package:smart_me/strings.dart';
+import 'package:smart_me/tutorial_dialog.dart';
 
-class IOSGetCallUnlockScreen extends StatelessWidget {
-  const IOSGetCallUnlockScreen({super.key});
+class IOSGetCallUnlockScreen extends StatefulWidget {
+  final from;
+  const IOSGetCallUnlockScreen({super.key, required this.from});
+
+  @override
+  State<IOSGetCallUnlockScreen> createState() => _IOSGetCallUnlockScreenState();
+}
+
+class _IOSGetCallUnlockScreenState extends State<IOSGetCallUnlockScreen> {
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "call") {
+      tutorialMessage =
+          "이번에는 휴대전화를 사용하는 중에 전화가 걸려왔습니다.\n오른쪽 아래의 초록색 전화 버튼을 눌러주세요.";
+    }
+    if (widget.from == "call_accept") {
+      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n왼쪽 아래의 빨간색 전화 버튼을 눌러주세요.";
+    }
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(tutorialMessage: tutorialMessage)));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    show();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      child: Container(
-        color: Colors.black.withOpacity(0.8),
-        child: Column(
-          children: [
-            SizedBox(
-              height: statusBarHeight,
-            ),
-            const IOSCallerInfo(),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 48.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [IOSRemindMe(), IOSDeclineCall()],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [IOSMessage(), IOSAcceptCall()],
-                    )
-                  ],
+    return Scaffold(
+      body: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          color: Colors.black.withOpacity(0.8),
+          child: Column(
+            children: [
+              SizedBox(
+                height: statusBarHeight,
+              ),
+              const IOSCallerInfo(),
+              Expanded(
+                flex: 1,
+                child: Container(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [IOSRemindMe(), IOSDeclineCall()],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [IOSMessage(), IOSAcceptCall()],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 54)
-          ],
+              const SizedBox(height: 54)
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class IOSGetCallLockScreen extends StatelessWidget {
-  const IOSGetCallLockScreen({super.key});
+class IOSGetCallLockScreen extends StatefulWidget {
+  final from;
+  const IOSGetCallLockScreen({super.key, required this.from});
+
+  @override
+  State<IOSGetCallLockScreen> createState() => _IOSGetCallLockScreenState();
+}
+
+class _IOSGetCallLockScreenState extends State<IOSGetCallLockScreen> {
+  // bool _lockBtnState = false;
+  // late StreamSubscription<HardwareButtons.LockButtonEvent> _lockBtnSubscription;
+
+  void show() {
+    String tutorialMessage = "";
+    if (widget.from == "start") {
+      tutorialMessage = "전화가 걸려왔습니다.\n왼쪽 아래의 초록색 전화 버튼을 왼쪽에서 오른쪽으로 밀어주세요.";
+    } else if (widget.from == "call") {
+      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n전화를 끊으려면 오른쪽의 전원 버튼을 두 번 눌러주세요.";
+    }
+
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(tutorialMessage: tutorialMessage)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    show();
+
+    // _lockBtnSubscription = HardwareButtons.lockButtonEvents.listen((event) {
+    //   setState(() {
+    //     _lockBtnState = true;
+    //   });
+
+    //   if (_lockBtnState == true) {
+    //     showDialog(
+    //         context: context,
+    //         barrierDismissible: false,
+    //         builder: (context) =>
+    //             const TutorialDialog(turorialMessage: "전화를 끊었습니다."));
+    //     Navigator.of(context).push(MaterialPageRoute(
+    //         builder: (context) =>
+    //             const IOSGetCallUnlockScreen(from: "lock_decline_call")));
+    //   }
+    // });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    // _lockBtnSubscription.cancel();
+  }
 
   @override
   Widget build(BuildContext context) {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
 
-    return BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-      child: Container(
-        color: Colors.black.withOpacity(0.8),
-        child: Column(
-          children: [
-            SizedBox(
-              height: statusBarHeight,
-            ),
-            const IOSCallerInfo(),
-            Expanded(
-              flex: 1,
-              child: Container(),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 48.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [IOSRemindMe(), IOSMessage()],
+    return Scaffold(
+      body: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+        child: Container(
+          color: Colors.black.withOpacity(0.8),
+          child: Column(
+            children: [
+              SizedBox(
+                height: statusBarHeight,
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 52.0, top: 62.0, right: 52.0),
-              child: IOSSlideToAnswer(),
-            ),
-            const SizedBox(
-              height: 90,
-            )
-          ],
+              const IOSCallerInfo(),
+              Expanded(
+                flex: 1,
+                child: Container(),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 48.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [IOSRemindMe(), IOSMessage()],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(left: 52.0, top: 62.0, right: 52.0),
+                child: IOSSlideToAnswer(),
+              ),
+              const SizedBox(
+                height: 90,
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -137,7 +229,10 @@ class IOSSlideToAnswer extends StatelessWidget {
           ),
         );
       },
-      action: () {},
+      action: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const IOSCallScreen(from: "lock_get_call")));
+      },
     );
   }
 }
@@ -161,7 +256,11 @@ class IOSAcceptCall extends StatelessWidget {
                 color: Colors.green, shape: BoxShape.circle),
             child: IconButton(
               iconSize: 48,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        const IOSCallScreen(from: "call_accept")));
+              },
               icon: const Icon(
                 Icons.call,
                 color: Colors.white,
@@ -227,7 +326,12 @@ class IOSDeclineCall extends StatelessWidget {
                 const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
             child: IconButton(
               iconSize: 48,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const IOSCallDialScreen(
+                          from: "call_decline",
+                        )));
+              },
               icon: const Icon(
                 Icons.call_end,
                 color: Colors.white,

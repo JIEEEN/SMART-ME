@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:smart_me/call/ios_call_contact_screen.dart';
+import 'package:smart_me/call/ios_get_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/tutorial_dialog.dart';
@@ -17,23 +19,21 @@ class IOSCallScreen extends StatefulWidget {
 class _IOSCallScreenState extends State<IOSCallScreen> {
   void show() {
     String tutorialMessage = "";
+    if (widget.from == "lock_get_call") {
+      tutorialMessage = "전화를 받았습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
+    if (widget.from == "call_accept") {
+      tutorialMessage = "전화를 받았습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
+    }
     if (widget.from == "dial") {
       tutorialMessage = "상대에게 전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
-    if (widget.from == "call_accept") {
-      tutorialMessage = "전화를 받았습니다\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
-    }
-    if (widget.from == "contact_detail") {
-      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
-    }
-    if (widget.from == "contact_list") {
-      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
-    }
+
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) =>
-            TutorialDialog(turorialMessage: tutorialMessage)));
+            TutorialDialog(tutorialMessage: tutorialMessage)));
   }
 
   @override
@@ -270,17 +270,33 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                 ),
               ),
               Flexible(flex: 3, fit: FlexFit.tight, child: Container()),
-              Container(
-                height: 72,
-                width: 72,
-                decoration: const BoxDecoration(
-                    color: Colors.red, shape: BoxShape.circle),
-                child: IconButton(
-                  iconSize: 36,
-                  onPressed: () {},
-                  icon: const Icon(
+              GestureDetector(
+                onTap: () {
+                  if (widget.from == "lock_get_call") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IOSGetCallUnlockScreen(from: "call")));
+                  }
+                  if (widget.from == "call_accept") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IOSGetCallUnlockScreen(from: "call_accept")));
+                  }
+                  if (widget.from == "dial") {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const IOSContactScreen(from: "call_dial")));
+                  }
+                },
+                child: Container(
+                  height: 72,
+                  width: 72,
+                  decoration: const BoxDecoration(
+                      color: Colors.red, shape: BoxShape.circle),
+                  child: const Icon(
                     Icons.call_end,
                     color: Colors.white,
+                    size: 36,
                   ),
                 ),
               ),
