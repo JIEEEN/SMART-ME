@@ -155,7 +155,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         onPressed: () {
                           _toast.toast('모션 포토가 ' +
                               (_isMotionPhotoOn ? '비활성화' : '활성화') +
-                              ' 되었습니다.');
+                              ' 되었습니다.', _overlayHeightScreenTop + 100);
                           setState(() {
                             _isMotionPhotoOn = !_isMotionPhotoOn;
                           });
@@ -451,7 +451,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                           ),
                           GestureDetector(
                             onLongPress: () {
-                              _toast.toast('비디오 촬영을 시작합니다');
+                              _toast.toast('비디오 촬영을 시작합니다', _overlayHeightScreenTop + 100);
                               _HMSTimer.currentState?.start();
                               setState(() {
                                 _isVideoPaused = false;
@@ -462,7 +462,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                             child: FloatingActionButton(
                               backgroundColor: Colors.white,
                               onPressed: () {
-                                _toast.toast('사진이 촬영되었습니다.');
+                                _toast.toast('사진이 촬영되었습니다.', _overlayHeightScreenTop + 100);
                               },
                             ),
                           ),
@@ -501,7 +501,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         IconButton(
                           onPressed: () {
                             setState(() {
-                              _toast.toast('사진이 촬영되었습니다.');
+                              _toast.toast('사진이 촬영되었습니다.', _overlayHeightScreenTop + 100);
                             });
                           },
                           icon: Icon(
@@ -536,7 +536,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                                 IconButton(
                                   onPressed: () {
                                     _toast.toast(
-                                        '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.');
+                                        '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.', _overlayHeightScreenTop + 100);
                                     _HMSTimer.currentState?.stop();
                                     setState(() {
                                       _overlayHeightVideoControl =
