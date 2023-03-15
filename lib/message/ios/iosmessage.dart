@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'dart:ui';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:smart_me/message/ios/speeachBubble.dart';
+import 'package:smart_me/message/tutorial/tutorialMessage.dart';
 
 class IOSMessageScreen extends StatefulWidget {
   @override
@@ -13,6 +15,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
   //키보드 show, hide
   final FocusNode _focusNode = FocusNode();
   final _messageInputController = TextEditingController();
+  int stringIndex = 0;
   String messageInput = '';
 
   //******************************************************//
@@ -21,7 +24,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
   //startpoint_x는 늘어난 width만큼 뺴줘야함//
   //******************************************************//
 
-  List<Widget> _bubbleList = [];
+  List<Widget> _bubbleList = [getTutorialBubble(tutorialString[0])];
 
   void dispose() {
     _focusNode.dispose();
@@ -29,7 +32,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     super.dispose();
   }
 
-  Widget _buildSpeechBubble(String messageInput) {
+  Widget _buildMySpeechBubble(String messageInput) {
     double tempSize_width = 0,
         tempSize_height = 50.0,
         temppoint_x = MediaQuery.of(context).size.width - 25.0,
@@ -39,8 +42,8 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     tempMessage = sliceText(messageInput.length, messageInput);
 
     for (int i = 0; i < messageInput.length; i++) {
-      if (i <= 7) {
-        tempSize_width += 25;
+      if (i < 7) {
+        tempSize_width += 30;
       }
       if (i != 0 && i % 7 == 0) {
         tempSize_height += 70;
@@ -132,9 +135,19 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                     setState(
                       () => {
                         messageInput = str,
+                        // _bubbleList.add(
+                        //   getTutorialBubble(tutorialString[stringIndex]),
+                        // ),
                         _bubbleList.add(
-                          _buildSpeechBubble(messageInput),
-                        )
+                          _buildMySpeechBubble(messageInput),
+                        ),
+                        if (messageInput == tutorialString[stringIndex])
+                          {
+                            _bubbleList.add(
+                              getTutorialBubble(tutorialString[stringIndex]),
+                            ),
+                            stringIndex++,
+                          }
                       },
                     ),
                     _messageInputController.clear(),
