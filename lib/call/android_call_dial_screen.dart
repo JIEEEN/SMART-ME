@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/call/android_call_screen.dart';
 import 'package:smart_me/strings.dart';
-import 'package:smart_me/tutorial_dialog.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class AndroidCallDialScreen extends StatefulWidget {
   final from;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/call/ios_call_screen.dart';
 import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
-import 'package:smart_me/tutorial_dialog.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSCallDialScreen extends StatefulWidget {
   final from;

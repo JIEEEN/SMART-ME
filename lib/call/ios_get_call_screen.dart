@@ -6,7 +6,7 @@ import 'package:slide_action/slide_action.dart';
 import 'package:smart_me/call/ios_call_dial_screen.dart';
 import 'package:smart_me/call/ios_call_screen.dart';
 import 'package:smart_me/strings.dart';
-import 'package:smart_me/tutorial_dialog.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSGetCallUnlockScreen extends StatefulWidget {
   final from;
