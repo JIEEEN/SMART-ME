@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/camera/android_camera.dart';
-
+import 'package:smart_me/tutorial_start_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,7 +50,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -59,12 +58,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: GetAndroidCamera(),// This trailing comma makes auto-formatting nicer for build methods.
-      )
-    );
+    return const Scaffold(
+        body: Center(
+      // Center is a layout widget. It takes a single child and positions it
+      // in the middle of the parent.
+      child:
+          StartTutorial(), // This trailing comma makes auto-formatting nicer for build methods.
+    ));
   }
 }
