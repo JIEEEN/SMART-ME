@@ -5,12 +5,16 @@ import 'firebase_options.dart';
 import 'package:smart_me/camera/android_camera.dart';
 import 'package:smart_me/tutorial_start_screen.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
 
+//   runApp(const MyApp());
+// }
+
+void main(){
   runApp(const MyApp());
 }
 
