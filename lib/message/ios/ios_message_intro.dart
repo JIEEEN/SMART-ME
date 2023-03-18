@@ -75,6 +75,7 @@ class _IOSMessageIntroScreen extends State<IOSMessageIntroScreen> {
         children: [
           Container(
             height: 60,
+            alignment: Alignment.bottomLeft,
             child: Expanded(
               child: Container(
                 padding: EdgeInsets.fromLTRB(
@@ -91,6 +92,23 @@ class _IOSMessageIntroScreen extends State<IOSMessageIntroScreen> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+          ),
+          Row(
+            children: [
+              Container(
+                child: Padding(
+                  padding: EdgeInsets.only(right: 100.0),
+                ),
+              ),
+              Expanded(
+                child: Divider(
+                  thickness: 1.0,
+                ),
+              )
+            ],
+          )
         ],
       ),
     );

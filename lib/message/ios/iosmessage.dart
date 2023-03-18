@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:smart_me/message/ios/speeachBubble.dart';
 import 'package:smart_me/message/tutorial/tutorialMessage.dart';
 
@@ -14,17 +15,21 @@ class IOSMessageScreen extends StatefulWidget {
 
 class _IOSMessageScreen extends State<IOSMessageScreen> {
   //키보드 show, hide
-  final FocusNode _focusNode = FocusNode();
+  final FocusNode _focusMessageNode = FocusNode();
+  final FocusNode _focusPhoneNumberNode = FocusNode();
   final _messageInputController = TextEditingController();
+  final _phoneNumberController = TextEditingController();
   int stringIndex = 0;
   String messageInput = '';
+  String phoneNumberInput = '';
 
   // List<Widget> _bubbleList = [getTutorialBubble('반갑습니다.')];
   List<Widget> _bubbleList = [];
 
   void dispose() {
-    _focusNode.dispose();
+    _focusMessageNode.dispose();
     _messageInputController.dispose();
+    _phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -106,6 +111,65 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
       ),
       body: Column(
         children: <Widget>[
+          // Padding(
+          //   padding: EdgeInsets.only(top: 12.0),
+          // ),
+          Container(
+            child: Row(
+              children: [
+                Text(
+                  '     받는 사람: ',
+                  style: TextStyle(color: Colors.grey),
+                ),
+                Flexible(
+                  child: TextFormField(
+                    controller: _phoneNumberController,
+                    focusNode: _focusPhoneNumberNode,
+                    cursorColor: Colors.blue,
+                    keyboardType: TextInputType.text,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      suffixIcon: Icon(
+                        CupertinoIcons.add_circled,
+                        color: Colors.blue,
+                      ),
+                    ),
+                    style: TextStyle(fontSize: 20.0),
+                    // onChanged: (String value) {
+                    //   final TextSelection previousCursorPos =
+                    //       _phoneNumberController.selection;
+                    //   _phoneNumberController.text = value;
+                    //   _phoneNumberController.selection = previousCursorPos;
+                    // },
+                    onChanged: (value) {
+                      if (_focusPhoneNumberNode.hasFocus) {
+                        _focusPhoneNumberNode.requestFocus();
+                      }
+                    },
+                    onFieldSubmitted: (String str) => {
+                      setState(
+                        () => {
+                          if (phoneNumberInput == '01000000000') {},
+                        },
+                      ),
+                      // _phoneNumberController.clear()
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          // Padding(
+          //   padding: EdgeInsets.only(
+          //     top: 2.0,
+          //   ),
+          // ),
+          Divider(
+            thickness: 1,
+          ),
           Container(
             padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
           ),
@@ -129,7 +193,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                 child: TextFormField(
                   controller: _messageInputController,
                   autofocus: false,
-                  focusNode: _focusNode,
+                  focusNode: _focusMessageNode,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.fromLTRB(20.0, 0, 0, 0),
                     border: OutlineInputBorder(
@@ -142,12 +206,13 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                   style: TextStyle(fontSize: 20),
                   keyboardAppearance: Brightness.light,
                   onChanged: (value) {
-                    if (_focusNode.hasFocus) {
-                      _focusNode.requestFocus();
+                    if (_focusMessageNode.hasFocus) {
+                      _focusMessageNode.requestFocus();
                     }
                   },
                   onFieldSubmitted: (String str) => {
-                    if (_focusNode.hasFocus) {_focusNode.requestFocus()},
+                    if (_focusMessageNode.hasFocus)
+                      {_focusMessageNode.requestFocus()},
                     setState(
                       () => {
                         messageInput = str,
@@ -185,4 +250,3 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
 }
 
 // shift option f로 괄호 정렬
-
