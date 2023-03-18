@@ -1,12 +1,14 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_me/message/ios/speeachBubble.dart';
 import 'package:smart_me/message/tutorial/tutorialMessage.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSMessageScreen extends StatefulWidget {
   @override
@@ -31,6 +33,32 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     _messageInputController.dispose();
     _phoneNumberController.dispose();
     super.dispose();
+  }
+
+  void show(String str, bool right) {
+    String tutorialMessage = str;
+    if (str == '') {
+      if (right)
+        tutorialMessage = "잘하셨습니다! '안녕하세요!'라고 보내시면 상대방이 답장을 할 것입니다.";
+      else
+        tutorialMessage = "번호를 제대로 입력해주세요!";
+    }
+    Future.microtask(
+      () => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => TutorialDialog(tutorialMessage: tutorialMessage),
+      ),
+    );
+  }
+
+  void initState() {
+    super.initState();
+
+    String str =
+        "이 곳은 메시지를 입력하고 보낼 수 있는 화면입니다.\n받는 사람을 입력하는 칸에 010-0000-0000을 적어보세요!";
+
+    show(str, true);
   }
 
   Widget _buildMySpeechBubble(String messageInput) {
@@ -152,7 +180,15 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                     onFieldSubmitted: (String str) => {
                       setState(
                         () => {
-                          if (phoneNumberInput == '01000000000') {},
+                          phoneNumberInput = str,
+                          if (phoneNumberInput == '01000000000')
+                            {
+                              show('', phoneNumberInput == '01000000000'),
+                            }
+                          else
+                            {
+                              show('', phoneNumberInput == '01000000000'),
+                            }
                         },
                       ),
                       // _phoneNumberController.clear()
@@ -227,6 +263,8 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                             _bubbleList.add(
                               getTutorialBubble(tutorialString[stringIndex]),
                             ),
+                            if (stringIndex % 2 == 0)
+                              show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true),
                             stringIndex++,
                           }
                       },

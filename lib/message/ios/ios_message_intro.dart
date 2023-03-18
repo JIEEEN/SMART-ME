@@ -1,6 +1,9 @@
+import 'dart:async';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:smart_me/message/ios/iosmessage.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSMessageIntroScreen extends StatefulWidget {
   @override
@@ -8,6 +11,21 @@ class IOSMessageIntroScreen extends StatefulWidget {
 }
 
 class _IOSMessageIntroScreen extends State<IOSMessageIntroScreen> {
+  void show() {
+    String tutorialMessage = "메시지 튜토리얼을 시작합니다.\n오른쪽 위에 있는 버튼을 눌러보세요!";
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) =>
+            TutorialDialog(tutorialMessage: tutorialMessage)));
+  }
+
+  void initState() {
+    super.initState();
+
+    show();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
