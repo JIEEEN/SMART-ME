@@ -14,7 +14,7 @@ import 'package:smart_me/tutorial_start_screen.dart';
 //   runApp(const MyApp());
 // }
 
-void main(){
+void main() {
   runApp(const MyApp());
 }
 

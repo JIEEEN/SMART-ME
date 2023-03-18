@@ -22,7 +22,8 @@ Widget getTutorialBubble(String messageInput) {
           CustomPaint(
             size: Size(tempSize_width, tempSize_height),
             painter: tutorialSpeechBubble(
-              bubbleColor: Color(0xffdfdee3),
+              bubbleColor: Color.fromRGBO(229, 229, 233, 1),
+              // bubbleColor: Colors.red,
               messageText: tempMessage,
               startpoint_x: temppoint_x,
               startpoint_y: temppoint_y,

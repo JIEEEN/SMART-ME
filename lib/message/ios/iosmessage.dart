@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 import 'dart:convert';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:smart_me/message/ios/speeachBubble.dart';
@@ -18,13 +19,8 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
   int stringIndex = 0;
   String messageInput = '';
 
-  //******************************************************//
-  //입력된 messageInput의 길이가 길어지면 bubbleSize_width는 늘어나고//
-  //일정한 길이 이상이 돼 문장이 두줄로 바뀌면 bubbleSize_height*2//
-  //startpoint_x는 늘어난 width만큼 뺴줘야함//
-  //******************************************************//
-
-  List<Widget> _bubbleList = [getTutorialBubble(tutorialString[0])];
+  // List<Widget> _bubbleList = [getTutorialBubble('반갑습니다.')];
+  List<Widget> _bubbleList = [];
 
   void dispose() {
     _focusNode.dispose();
@@ -43,7 +39,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
 
     for (int i = 0; i < messageInput.length; i++) {
       if (i < 7) {
-        tempSize_width += 30;
+        tempSize_width += 27;
       }
       if (i != 0 && i % 7 == 0) {
         tempSize_height += 70;
@@ -79,11 +75,31 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
         child: Container(
           height: 200,
           child: CupertinoNavigationBar(
-            backgroundColor: Color.fromRGBO(223, 222, 228, 1),
+            backgroundColor: Color.fromRGBO(245, 244, 245, 1),
             padding: EdgeInsetsDirectional.all(10.0),
             middle: Text(
               '새로운 메시지',
               style: TextStyle(fontSize: 20),
+            ),
+            trailing: Align(
+              widthFactor: 1.0,
+              alignment: Alignment.centerRight,
+              child: Container(
+                padding: EdgeInsets.only(right: 20.0),
+                child: RichText(
+                  text: TextSpan(
+                    text: '취소',
+                    style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 20.0,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTapDown = (details) => {
+                            Navigator.pop(context),
+                          },
+                  ),
+                ),
+              ),
             ),
           ),
         ),
@@ -105,9 +121,9 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
               Container(
                 padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
               ),
-              Icon(Icons.camera),
+              Icon(CupertinoIcons.camera_fill, size: 30.0),
               Padding(padding: EdgeInsets.only(left: 20.0)),
-              Icon(Icons.shop),
+              Icon(CupertinoIcons.bars, size: 30.0),
               Padding(padding: EdgeInsets.only(left: 20.0)),
               Expanded(
                 child: TextFormField(
