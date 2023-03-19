@@ -104,8 +104,46 @@ class _IOSCallDialScreenState extends State<IOSCallDialScreen> {
             ),
             renderPhoneNum(),
             ...renderDial(),
-            IOSCallIcon(
-              phoneNum: phoneNum,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 32.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                    height: 84,
+                    width: 84,
+                    decoration: const BoxDecoration(
+                        color: Colors.transparent, shape: BoxShape.circle),
+                  ),
+                  IOSCallIcon(
+                    phoneNum: phoneNum,
+                  ),
+                  Container(
+                    height: 84,
+                    width: 84,
+                    decoration: const BoxDecoration(
+                        color: Colors.transparent, shape: BoxShape.circle),
+                    child: Visibility(
+                      visible: phoneNum.isEmpty ? false : true,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (phoneNum.isNotEmpty) {
+                            setState(() {
+                              phoneNum =
+                                  phoneNum.substring(0, phoneNum.length - 1);
+                            });
+                          }
+                        },
+                        child: Icon(
+                          Icons.backspace,
+                          color: lightGrey,
+                          size: 32.0,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             const IOSCallDialTab(),
             SizedBox(
