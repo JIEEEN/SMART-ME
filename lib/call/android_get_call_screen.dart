@@ -16,10 +16,10 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
   void show() {
     String tutorialMessage = "";
     if (widget.from == "start") {
-      tutorialMessage = "전화가 걸려왔습니다.\n왼쪽 아래의 초록색 전화 버튼을\n오른쪽 위로 밀어주세요.";
+      tutorialMessage = "전화가 걸려왔습니다.\n\n왼쪽 아래의 초록색 전화 버튼을 오른쪽 위로 밀어주세요.";
     } else if (widget.from == "call") {
       tutorialMessage =
-          "이번에는 전화를 끊어보겠습니다.\n전화를 끊으려면\n오른쪽 아래의 빨간색 전화 버튼을\n왼쪽 위로 밀어주세요.";
+          "이번에는 전화를 끊어보겠습니다.\n\n전화를 끊으려면 오른쪽 아래의 빨간색 전화 버튼을 왼쪽 위로 밀어주세요.";
     }
 
     Future.microtask(() => showDialog(

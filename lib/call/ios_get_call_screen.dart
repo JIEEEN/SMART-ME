@@ -21,10 +21,10 @@ class _IOSGetCallUnlockScreenState extends State<IOSGetCallUnlockScreen> {
     String tutorialMessage = "";
     if (widget.from == "call") {
       tutorialMessage =
-          "이번에는 휴대전화를\n사용하는 중에\n전화가 걸려왔습니다.\n\n오른쪽 아래의\n초록색 전화 버튼을\n눌러주세요.";
+          "이번에는 휴대전화를 사용하는 중에 전화가 걸려왔습니다.\n\n오른쪽 아래의 초록색 전화 버튼을 눌러주세요.";
     }
     if (widget.from == "call_accept") {
-      tutorialMessage = "이번에는 전화를\n끊어보겠습니다.\n\n왼쪽 아래의\n빨간색 전화 버튼을\n눌러주세요.";
+      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n\n왼쪽 아래의 빨간색 전화 버튼을 눌러주세요.";
     }
     Future.microtask(() => showDialog(
         context: context,

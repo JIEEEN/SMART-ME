@@ -21,16 +21,16 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
   void show() {
     String tutorialMessage = "";
     if (widget.from == "lock_get_call") {
-      tutorialMessage = "전화를 받았습니다.\n상대와 통화를 종료하려면\n빨간 전화버튼을 눌러주세요.";
+      tutorialMessage = "전화를 받았습니다.\n\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
     if (widget.from == "call_accept") {
-      tutorialMessage = "전화를 받았습니다.\n상대와 통화를 종료하려면\n빨간 전화버튼을 눌러주세요.";
+      tutorialMessage = "전화를 받았습니다.\n\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
     if (widget.from == "dial") {
-      tutorialMessage = "상대에게 전화를 걸었습니다.\n상대와 통화를 종료하려면\n빨간 전화버튼을 눌러주세요.";
+      tutorialMessage = "상대에게 전화를 걸었습니다.\n\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
     if (widget.from == "contact_detail") {
-      tutorialMessage = "전화를 걸었습니다.\n상대와 통화를 종료하려면\n빨간 전화버튼을 눌러주세요.";
+      tutorialMessage = "전화를 걸었습니다.\n\n상대와 통화를 종료하려면 빨간 전화버튼을 눌러주세요.";
     }
 
     Future.microtask(() => showDialog(

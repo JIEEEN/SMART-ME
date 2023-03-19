@@ -19,10 +19,10 @@ class _AndroidContactScreenState extends State<AndroidContactScreen> {
     String tutorialMessage = "";
     if (widget.from == "call_dial") {
       tutorialMessage =
-          "이번엔 연락처에서\n전화를 걸어보겠습니다.\n\n원하는 연락처를\n왼쪽에서 오른쪽으로 밀어서\n전화를 걸어보세요.";
+          "이번엔 연락처에서 전화를 걸어보겠습니다.\n\n원하는 연락처를 왼쪽에서 오른쪽으로 밀어서 전화를 걸어보세요.";
     }
     if (widget.from == "call_list") {
-      tutorialMessage = "이번에는 연락처 상세 페이지에서\n전화를 걸어보겠습니다.\n\n원하는 연락처를 눌러주세요.";
+      tutorialMessage = "이번에는 연락처 상세 페이지에서 전화를 걸어보겠습니다.\n\n원하는 연락처를 눌러주세요.";
     }
 
     Future.microtask(() => showDialog(

@@ -22,7 +22,7 @@ class _AndroidContactDetailScreenState
   void show() {
     String tutorialMessage = "";
     if (widget.from == "contact_list") {
-      tutorialMessage = "연락처 상세 페이지입니다.\n\n초록색 전화 버튼을\n눌러 전화를 걸어보세요.";
+      tutorialMessage = "연락처 상세 페이지입니다.\n초록색 전화 버튼을 눌러 전화를 걸어보세요.";
     }
 
     Future.microtask(() => showDialog(
