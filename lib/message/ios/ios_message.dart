@@ -1,13 +1,12 @@
 import 'dart:math';
 import 'dart:ui';
-import 'dart:convert';
 import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:smart_me/message/ios/speeachBubble.dart';
-import 'package:smart_me/message/tutorial/tutorialMessage.dart';
+import 'package:smart_me/message/ios/ios_speech_bubble.dart';
+import 'package:smart_me/message/tutorial/tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSMessageScreen extends StatefulWidget {

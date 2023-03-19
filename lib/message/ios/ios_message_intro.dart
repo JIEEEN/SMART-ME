@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:smart_me/message/ios/iosmessage.dart';
+import 'package:smart_me/message/ios/ios_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSMessageIntroScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _IOSMessageIntroScreen extends State<IOSMessageIntroScreen> {
     return Scaffold(
       backgroundColor: Color.fromRGBO(255, 255, 255, 1),
       appBar: PreferredSize(
-        preferredSize: Size(20.0, 50.0),
+        preferredSize: Size(20.0, 60.0), // 50.0
         child: Container(
           padding: EdgeInsets.only(
             right: 20.0,

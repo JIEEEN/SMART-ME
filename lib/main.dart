@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_me/message/getmessage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'package:smart_me/camera/android_camera.dart';
