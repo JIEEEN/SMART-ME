@@ -17,14 +17,15 @@ class _IOSContactScreenState extends State<IOSContactScreen> {
   void show() {
     String tutorialMessage = "";
     if (widget.from == "call_dial") {
-      tutorialMessage = "이번엔 연락처에서 전화를 걸어보겠습니다.\n원하는 연락처를 눌러주세요.";
+      tutorialMessage = "이번엔 연락처에서\n전화를 걸어보겠습니다.\n\n원하는 연락처를 눌러주세요.";
     }
 
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 120.0, 38.0, 12.0))));
   }
 
   @override

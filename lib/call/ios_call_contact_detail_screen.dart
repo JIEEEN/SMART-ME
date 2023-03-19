@@ -26,8 +26,9 @@ class _IOSContactDetailScreenState extends State<IOSContactDetailScreen> {
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 120.0, 38.0, 12.0))));
   }
 
   @override
