@@ -298,14 +298,14 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                   }
                 },
                 child: Container(
-                  height: 72,
-                  width: 72,
+                  height: 76,
+                  width: 76,
                   decoration: const BoxDecoration(
                       color: Colors.red, shape: BoxShape.circle),
                   child: const Icon(
                     Icons.call_end,
                     color: Colors.white,
-                    size: 36,
+                    size: 38,
                   ),
                 ),
               ),

@@ -233,12 +233,12 @@ class IOSAcceptCall extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 62.0),
           child: Container(
-            height: 84,
-            width: 84,
+            height: 76,
+            width: 76,
             decoration: const BoxDecoration(
                 color: Colors.green, shape: BoxShape.circle),
             child: IconButton(
-              iconSize: 48,
+              iconSize: 38,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) =>
@@ -303,12 +303,12 @@ class IOSDeclineCall extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 62.0),
           child: Container(
-            height: 84,
-            width: 84,
+            height: 76,
+            width: 76,
             decoration:
                 const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
             child: IconButton(
-              iconSize: 48,
+              iconSize: 38,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const IOSCallDialScreen(
