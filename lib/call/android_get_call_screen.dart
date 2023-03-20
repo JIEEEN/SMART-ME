@@ -65,7 +65,7 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 68.0, bottom: 8.0),
               child: Text(
-                "전화 건 사람",
+                "상대방",
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
@@ -86,8 +86,12 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
                   GestureDetector(
                     onPanEnd: (details) {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) =>
-                              const AndroidCallScreen(from: "call_accept")));
+                          builder: (context) => const AndroidCallScreen(
+                                from: "call_accept",
+                                caller: "상대방",
+                                image: "",
+                                number: "010-1111-1111",
+                              )));
                     },
                     child: Container(
                       height: 72,

@@ -290,7 +290,11 @@ class IOSCallIcon extends StatelessWidget {
             (phoneNum == '')
                 ? null
                 : Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const IOSCallScreen(from: "dial")));
+                    builder: (context) => IOSCallScreen(
+                          from: "dial",
+                          caller: phoneNum,
+                          image: "",
+                        )));
           },
           icon: const Icon(
             Icons.call,

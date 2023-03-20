@@ -10,7 +10,7 @@ class ContactData {
   final String phoneNum;
 }
 
-String baseUrl = "https://picsum.photos/100/100";
+String baseUrl = "https://picsum.photos/1000/1000";
 
 List<ContactData> data = [
   ContactData(

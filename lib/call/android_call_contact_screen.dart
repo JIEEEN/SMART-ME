@@ -194,8 +194,11 @@ class AndroidContactListElement extends StatelessWidget {
         if (direction == DismissDirection.startToEnd) {
           if (direction == DismissDirection.startToEnd) {
             Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const AndroidCallScreen(
+                builder: (context) => AndroidCallScreen(
                       from: "contact_list",
+                      caller: contactData.name,
+                      image: contactData.image,
+                      number: contactData.phoneNum,
                     )));
           }
           return false;

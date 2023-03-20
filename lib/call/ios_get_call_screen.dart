@@ -215,7 +215,11 @@ class IOSSlideToAnswer extends StatelessWidget {
       },
       action: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const IOSCallScreen(from: "lock_get_call")));
+            builder: (context) => const IOSCallScreen(
+                  from: "lock_get_call",
+                  caller: "상대방",
+                  image: "",
+                )));
       },
     );
   }
@@ -242,8 +246,11 @@ class IOSAcceptCall extends StatelessWidget {
               iconSize: 38,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        const IOSCallScreen(from: "call_accept")));
+                    builder: (context) => const IOSCallScreen(
+                          from: "call_accept",
+                          caller: "상대방",
+                          image: "",
+                        )));
               },
               icon: const Icon(
                 Icons.call,
@@ -376,7 +383,7 @@ class IOSCallerInfo extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
-              "전화 건 사람",
+              "상대방",
               style: TextStyle(fontSize: 32, color: Colors.white),
             ),
           ),

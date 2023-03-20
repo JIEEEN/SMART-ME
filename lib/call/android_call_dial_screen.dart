@@ -260,8 +260,11 @@ class AndroidCallIcon extends StatelessWidget {
             (phoneNum == '')
                 ? null
                 : Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AndroidCallScreen(
+                    builder: (context) => AndroidCallScreen(
                           from: "dial",
+                          caller: "상대방",
+                          image: "",
+                          number: phoneNum,
                         )));
           },
           icon: const Icon(

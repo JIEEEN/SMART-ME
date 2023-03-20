@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/call/android_call_contact_screen.dart';
 import 'package:smart_me/call/android_get_call_screen.dart';
+import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 import 'package:smart_me/tutorial_end_screen.dart';
 
 class AndroidCallScreen extends StatefulWidget {
   final from;
-  const AndroidCallScreen({super.key, required this.from});
+  final caller;
+  final image;
+  final number;
+  const AndroidCallScreen(
+      {super.key,
+      required this.from,
+      required this.caller,
+      required this.image,
+      required this.number});
 
   @override
   State<AndroidCallScreen> createState() => _AndroidCallScreenState();
@@ -93,8 +102,8 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
             const SizedBox(
               height: 32,
             ),
-            const Text(
-              "전화 건 사람",
+            Text(
+              widget.caller,
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -102,7 +111,7 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                   child: Text(
@@ -113,7 +122,7 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                   child: Text(
-                    "010-1010-1010",
+                    widget.number,
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 )
@@ -123,11 +132,18 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
               padding: const EdgeInsets.symmetric(vertical: 12.0),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(60.0),
-                child: Image.network(
-                  "https://picsum.photos/100/100",
-                  height: 100,
-                  width: 100,
-                ),
+                child: (widget.image != "")
+                    ? Image.network(
+                        widget.image,
+                        height: 100,
+                        width: 100,
+                      )
+                    : Container(
+                        height: 100,
+                        width: 100,
+                        decoration: BoxDecoration(
+                            color: lightGrey, shape: BoxShape.circle),
+                      ),
               ),
             ),
             Expanded(child: Container()),
