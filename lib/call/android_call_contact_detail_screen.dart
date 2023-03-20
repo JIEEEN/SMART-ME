@@ -78,7 +78,7 @@ class _AndroidContactDetailScreenState
                     child: Text(
                       widget.contactData.name,
                       style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Row(

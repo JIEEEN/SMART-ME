@@ -91,7 +91,7 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         title: const Text(
-          phone,
+          "전화",
           style: TextStyle(fontSize: 21, color: Colors.black),
         ),
         actions: [
@@ -192,10 +192,6 @@ class AndroidCallDialTab extends StatelessWidget {
           ),
           Text(
             contacts,
-            style: TextStyle(fontSize: 18, color: Colors.grey),
-          ),
-          Text(
-            places,
             style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
         ],

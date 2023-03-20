@@ -65,12 +65,12 @@ class _AndroidGetCallScreenState extends State<AndroidGetCallScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 68.0, bottom: 8.0),
               child: Text(
-                "Caller Name",
+                "전화 건 사람",
                 style: TextStyle(fontSize: 32, color: Colors.white),
               ),
             ),
             const Text(
-              "Place Text",
+              "대한민국",
               style: TextStyle(fontSize: 18, color: Colors.white),
             ),
             Expanded(

@@ -88,7 +88,7 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const [
                           Text(
-                            "Name",
+                            "전화 건 사람",
                             style:
                                 TextStyle(fontSize: 36.0, color: Colors.white),
                             textAlign: TextAlign.left,

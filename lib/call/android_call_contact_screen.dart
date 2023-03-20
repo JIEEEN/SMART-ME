@@ -67,7 +67,7 @@ class _AndroidContactScreenState extends State<AndroidContactScreen> {
                   const Padding(
                     padding: EdgeInsets.symmetric(vertical: 12.0),
                     child: Text(
-                      "My Name",
+                      "내 이름",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     ),
@@ -120,7 +120,8 @@ class _AndroidContactScreenState extends State<AndroidContactScreen> {
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(24.0)),
-                  child: contactList),
+                  child: MediaQuery.removePadding(
+                      context: context, removeTop: true, child: contactList)),
             )
           ],
         ),

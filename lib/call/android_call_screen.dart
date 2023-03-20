@@ -94,7 +94,7 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
               height: 32,
             ),
             const Text(
-              "Calling Name",
+              "전화 건 사람",
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -154,7 +154,7 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
                                 iconSize: 24,
                               ),
                               const Text(
-                                record,
+                                voiceRecord,
                                 style: TextStyle(fontSize: 12),
                               )
                             ],
