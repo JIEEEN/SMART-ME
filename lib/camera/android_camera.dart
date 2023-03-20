@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/common/toast.dart';
 import 'package:smart_me/common/timer.dart';
 
-class GetAndroidCamera extends StatefulWidget {
+class AndroidCamera extends StatefulWidget {
   @override
-  _GetAndroidCameraState createState() => _GetAndroidCameraState();
+  _AndroidCameraState createState() => _AndroidCameraState();
 }
 
-class _GetAndroidCameraState extends State<GetAndroidCamera> {
+class _AndroidCameraState extends State<AndroidCamera> {
   bool _isSettingsOn = false;
   bool _isFlashOn = false;
   bool _isMotionPhotoOn = false;
