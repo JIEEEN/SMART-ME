@@ -765,6 +765,11 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                                 _overlayHeightVideoTimer = 80;
                                 _overlayHeightVideoStarter = 0;
                               }),
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(100)),
+                              ),
                             ),
                           Container(
                             alignment: Alignment.center,
