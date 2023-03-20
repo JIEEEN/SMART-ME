@@ -640,7 +640,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   child: TextButton(
                     onPressed: () => setState(() {
                       _isModeCamera = false;
-                      _overlayHeightVideoToolBox = 100;
+                      _overlayHeightVideoToolBox = 80;
                       _overlayHeightVideoStarter = 120;
                     }),
                     child: Text(
