@@ -1,32 +1,49 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
-String sliceText(int textLen, String msg) {
-  String ret = '';
-  int temp = 0;
-  if (textLen < 8) {
-    return msg;
-  } else {
-    while (textLen >= 8) {
-      ret += msg.substring(temp, temp + 7) + '\n';
-      temp += 7;
-      textLen -= 8;
-    }
-    ret += msg.substring(temp);
-  }
+List<String> tutorialString = [
+  "안녕하세요!",
+  "감사합니다.",
+];
 
-  return ret;
+Widget getTutorialBubble(String messageInput) {
+  double tempSize_width = 150.0,
+      tempSize_height = 50.0,
+      temppoint_x = 25.0,
+      temppoint_y = 0.0;
+  String tempMessage = messageInput;
+
+  return Column(
+    children: <Widget>[
+      Row(
+        children: <Widget>[
+          CustomPaint(
+            size: Size(tempSize_width, tempSize_height),
+            painter: tutorialSpeechBubble(
+              bubbleColor: Color.fromRGBO(242, 242, 242, 1),
+              // bubbleColor: Colors.red,
+              messageText: tempMessage,
+              startpoint_x: temppoint_x,
+              startpoint_y: temppoint_y,
+            ),
+          ),
+        ],
+      ),
+      Padding(
+        padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+      ),
+    ],
+  );
 }
 
-class SpeechBubble extends CustomPainter {
+class tutorialSpeechBubble extends CustomPainter {
   Color bubbleColor;
   String messageText;
   double startpoint_x;
   double startpoint_y;
 
-  SpeechBubble(
+  tutorialSpeechBubble(
       {required this.bubbleColor,
       required this.messageText,
       required this.startpoint_x,
@@ -37,24 +54,24 @@ class SpeechBubble extends CustomPainter {
     final bubbleSize = Size(size.width, size.height * 0.8);
     final tailSize = Size(15, 8);
     final fillet = bubbleSize.width * 0.09;
-    final tailStartPoint = Point(startpoint_x - 25.0, bubbleSize.height);
+    final tailStartPoint = Point(startpoint_x + 25.0, bubbleSize.height);
 
     final bubblePath = Path()
       ..moveTo(startpoint_x, startpoint_y + fillet)
       ..lineTo(startpoint_x, startpoint_y + bubbleSize.height - fillet)
       ..quadraticBezierTo(startpoint_x, startpoint_y + bubbleSize.height,
-          startpoint_x - fillet, startpoint_y + bubbleSize.height)
-      ..lineTo(startpoint_x - bubbleSize.width + fillet,
+          startpoint_x + fillet, startpoint_y + bubbleSize.height)
+      ..lineTo(startpoint_x + bubbleSize.width - fillet,
           startpoint_y + bubbleSize.height)
       ..quadraticBezierTo(
-          startpoint_x - bubbleSize.width,
+          startpoint_x + bubbleSize.width,
           startpoint_y + bubbleSize.height,
-          startpoint_x - bubbleSize.width,
+          startpoint_x + bubbleSize.width,
           startpoint_y + bubbleSize.height - fillet)
-      ..lineTo(startpoint_x - bubbleSize.width, startpoint_y + fillet)
-      ..quadraticBezierTo(startpoint_x - bubbleSize.width, startpoint_y,
-          startpoint_x - bubbleSize.width + fillet, startpoint_y)
-      ..lineTo(startpoint_x - fillet, startpoint_y)
+      ..lineTo(startpoint_x + bubbleSize.width, startpoint_y + fillet)
+      ..quadraticBezierTo(startpoint_x + bubbleSize.width, startpoint_y,
+          startpoint_x + bubbleSize.width - fillet, startpoint_y)
+      ..lineTo(startpoint_x + fillet, startpoint_y)
       ..quadraticBezierTo(
           startpoint_x, startpoint_y, startpoint_x, startpoint_y + fillet);
 
@@ -89,11 +106,12 @@ class SpeechBubble extends CustomPainter {
 
   //말풍선 안에 text를 적어줌
   void writeText(Canvas canvas, Size size, String text) {
-    TextSpan sp = TextSpan(style: TextStyle(fontSize: 30), text: text);
+    TextSpan sp = TextSpan(
+        style: TextStyle(fontSize: 30, color: Colors.black), text: text);
     TextPainter tp = TextPainter(text: sp, textDirection: TextDirection.ltr);
 
     tp.layout();
-    double dx = startpoint_x - size.width + size.width / 2 - tp.width / 2;
+    double dx = startpoint_x + size.width / 2 - tp.width / 2;
     double dy = startpoint_y + size.height / 2 - tp.height / 1.5;
 
     Offset offset = Offset(dx, dy);

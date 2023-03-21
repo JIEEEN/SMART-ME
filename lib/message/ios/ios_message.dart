@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:smart_me/message/ios/ios_speech_bubble.dart';
-import 'package:smart_me/message/tutorial/tutorial_message.dart';
+import 'package:smart_me/message/ios/ios_tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IOSMessageScreen extends StatefulWidget {
@@ -251,9 +251,6 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                     setState(
                       () => {
                         messageInput = str,
-                        // _bubbleList.add(
-                        //   getTutorialBubble(tutorialString[stringIndex]),
-                        // ),
                         _bubbleList.add(
                           _buildMySpeechBubble(messageInput),
                         ),
@@ -285,5 +282,3 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     );
   }
 }
-
-// shift option f로 괄호 정렬

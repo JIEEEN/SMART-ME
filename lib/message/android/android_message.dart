@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
+import 'package:smart_me/message/android/android_speech_bubble.dart';
+import 'package:smart_me/message/android/android_tutorial_message.dart';
 
 class AndroidMessageScreen extends StatefulWidget {
   @override
@@ -11,8 +14,7 @@ class AndroidMessageScreen extends StatefulWidget {
 }
 
 class _AndroidMessageScreen extends State<AndroidMessageScreen> {
-  // var now = new DateTime.now();
-  String today = DateFormat('yyyy/MM/dd(E)').format(DateTime.now());
+  String today = DateFormat('MM월 dd일 E').format(DateTime.now());
   final FocusNode _focusMessageNode = FocusNode();
   final FocusNode _focusPhoneNumberNode = FocusNode();
   final _messageInputController = TextEditingController();
@@ -23,9 +25,9 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
 
   List<Widget> _bubbleList = [];
 
-  void show() {
-    // String tutorialMessage = "메시지 튜토리얼을 시작합니다.\n오른쪽 위에 있는 버튼을 눌러보세요!";
-    String tutorialMessage = "";
+  void show(String str) {
+    String tutorialMessage = str;
+    // String tutorialMessage = "";
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
@@ -35,44 +37,88 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
 
   void initState() {
     super.initState();
+    String initNotice = "잘하셨습니다! '안녕하세요!'라고 보내시면 상대방이 답장을 할 것입니다.";
 
-    // show();
+    show(initNotice);
+  }
+
+  Widget _buildMySpeechBubble(String messageInput) {
+    double tempSize_width = 0,
+        tempSize_height = 50.0,
+        temppoint_x = MediaQuery.of(context).size.width - 25.0,
+        temppoint_y = 0.0;
+    String tempMessage = '';
+
+    tempMessage = sliceText(messageInput.length, messageInput);
+
+    for (int i = 0; i < messageInput.length; i++) {
+      if (i < 7) {
+        tempSize_width += 28;
+      }
+      if (i != 0 && i % 7 == 0) {
+        tempSize_height += 70;
+      }
+    }
+    return Column(
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            CustomPaint(
+              size: Size(tempSize_width, tempSize_height),
+              painter: SpeechBubble(
+                bubbleColor: Color.fromRGBO(72, 158, 136, 1),
+                messageText: tempMessage,
+                startpoint_x: temppoint_x,
+                startpoint_y: temppoint_y,
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(50.0, 70.0),
-        child: AppBar(
-          toolbarHeight: 100.0,
-          backgroundColor: Color.fromRGBO(221, 160, 56, 1),
-          title: Text(
-            '010-0000-0000',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25.0,
-              fontWeight: FontWeight.w300,
-            ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        // leading: Row(
+        //   children: [
+        //     IconButton(
+        //       icon: Icon(Icons.arrow_back),
+        //       onPressed: () => {
+        //         Navigator.pop(context),
+        //       },
+        //     ),
+        //     Padding(
+        //       padding: EdgeInsets.only(right: 30.0),
+        //     ),
+        //     Icon(
+        //       Icons.account_circle_rounded,
+        //       color: Colors.grey,
+        //     ),
+        //   ],
+        // ),
+        title: Text(
+          '010-0000-0000',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 17.0,
+            fontWeight: FontWeight.w500,
           ),
-          actions: [
-            Icon(
-              Icons.phone_forwarded,
-              color: Colors.white,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-            ),
-            Icon(Icons.delete, color: Colors.white),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-            ),
-            Icon(Icons.more_vert, color: Colors.white),
-            Padding(
-              padding: EdgeInsets.only(right: 20.0),
-            ),
-          ],
         ),
+        actions: [
+          Icon(
+            Icons.more_vert,
+            color: Colors.black,
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -80,15 +126,9 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
             children: [
               Padding(padding: EdgeInsets.only(top: 30.0)),
               Container(
-                width: MediaQuery.of(context).size.width / 2.8,
-                child: Divider(thickness: 1.2),
+                width: MediaQuery.of(context).size.width / 2.6,
               ),
-              Padding(padding: EdgeInsets.only(right: 10.0)),
               Text(today),
-              Padding(padding: EdgeInsets.only(right: 10.0)),
-              Expanded(
-                child: Divider(thickness: 1.2),
-              ),
             ],
           ),
           Expanded(
@@ -98,31 +138,39 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
               ),
             ),
           ),
-          Divider(
-            thickness: 1.0,
-          ),
-          // Padding(padding: EdgeInsets.only(bottom: 5.0)),
           Row(
             children: <Widget>[
-              Padding(padding: EdgeInsets.only(left: 10.0)),
-              Container(
-                child: Transform.rotate(
-                  angle: 45 * math.pi / 180,
-                  child: Icon(
-                    Icons.attach_file,
-                    size: 30.0,
-                  ),
-                ),
+              Padding(padding: EdgeInsets.only(left: 13.0)),
+              Icon(Icons.photo_size_select_actual_outlined,
+                  color: Colors.black),
+              Padding(
+                padding: EdgeInsets.only(right: 13.0),
               ),
-              Flexible(
+              Icon(Icons.photo_camera_outlined, color: Colors.black),
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+              ),
+              Icon(Icons.add, color: Colors.black),
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+              ),
+              Expanded(
                 child: TextFormField(
                   controller: _messageInputController,
                   autofocus: false,
                   focusNode: _focusMessageNode,
                   decoration: InputDecoration(
-                    border: InputBorder.none,
+                    // border: InputBorder.none,
                     contentPadding: EdgeInsets.only(left: 10.0, bottom: 5.0),
-                    hintText: "메시지를 입력하세요",
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "문자 메시지",
+                    filled: true,
+                    fillColor: Color.fromARGB(255, 235, 235, 235),
                   ),
                   style: TextStyle(fontSize: 22),
                   keyboardAppearance: Brightness.light,
@@ -137,25 +185,55 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                     setState(
                       () => {
                         messageInput = str,
-                        // _bubbleList.add(
-                        //   getTutorialBubble(tutorialString[stringIndex]),
-                        // ),
+                        _bubbleList.add(
+                          _buildMySpeechBubble(messageInput),
+                        ),
+                        print(messageInput),
+                        if (messageInput == tutorialString[stringIndex])
+                          {
+                            _bubbleList.add(
+                              getTutorialBubble(tutorialString[stringIndex]),
+                            ),
+                            if (stringIndex % 2 == 0)
+                              show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!"),
+                            stringIndex++,
+                          }
                       },
                     ),
                     _messageInputController.clear(),
                   },
                 ),
               ),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Color.fromRGBO(221, 160, 56, 1),
-                child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.outgoing_mail,
-                    size: 28.0,
+              Padding(
+                padding: EdgeInsets.only(right: 5.0),
+              ),
+              Container(
+                width: 35.0,
+                height: 40.0,
+                child: Transform.rotate(
+                  angle: 315 * math.pi / 180,
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Color.fromRGBO(72, 158, 136, 1),
+                    child: IconButton(
+                      onPressed: () {
+                        setState(
+                          () => {
+                            _bubbleList.add(
+                              _buildMySpeechBubble(
+                                  _messageInputController.text),
+                            ),
+                          },
+                        );
+                        _messageInputController.clear();
+                      },
+                      icon: Icon(
+                        Icons.send,
+                        size: 24.0,
+                      ),
+                      color: Color.fromARGB(142, 255, 255, 255),
+                    ),
                   ),
-                  color: Color.fromARGB(142, 255, 255, 255),
                 ),
               ),
               Padding(
@@ -163,7 +241,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.only(bottom: 10.0))
+          Padding(padding: EdgeInsets.only(bottom: 10.0)),
         ],
       ),
     );
