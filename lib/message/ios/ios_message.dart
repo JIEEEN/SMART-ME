@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:smart_me/message/ios/ios_speech_bubble.dart';
 import 'package:smart_me/message/ios/ios_tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class IOSMessageScreen extends StatefulWidget {
   @override
@@ -259,10 +260,34 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                             _bubbleList.add(
                               getTutorialBubble(tutorialString[stringIndex]),
                             ),
-                            if (stringIndex % 2 == 0)
-                              show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true),
+                            if (messageInput == "안녕하세요!")
+                              {
+                                show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true),
+                              }
+                            else if (messageInput == "감사합니다.")
+                              {
+                                show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true),
+                                Future.delayed(Duration(milliseconds: 2000))
+                                    .then(
+                                  (onValue) => {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const EndTutorial())),
+                                  },
+                                ),
+                              },
                             stringIndex++,
                           }
+                        else
+                          {
+                            if (stringIndex % 2 == 0)
+                              {
+                                show("'안녕하세요!'라고 입력해보세요!", true),
+                              }
+                            else
+                              show("'감사합니다.'라고 입력해보세요!", true),
+                          },
                       },
                     ),
                     _messageInputController.clear(),

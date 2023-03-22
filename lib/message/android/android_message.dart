@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 import 'package:smart_me/message/android/android_speech_bubble.dart';
 import 'package:smart_me/message/android/android_tutorial_message.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class AndroidMessageScreen extends StatefulWidget {
   @override
@@ -24,6 +25,13 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
   String phoneNumberInput = '';
 
   List<Widget> _bubbleList = [];
+
+  void dispose() {
+    _focusMessageNode.dispose();
+    _messageInputController.dispose();
+    // _phoneNumberController.dispose();
+    super.dispose();
+  }
 
   void show(String str) {
     String tutorialMessage = str;
@@ -188,16 +196,39 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                         _bubbleList.add(
                           _buildMySpeechBubble(messageInput),
                         ),
-                        print(messageInput),
                         if (messageInput == tutorialString[stringIndex])
                           {
                             _bubbleList.add(
                               getTutorialBubble(tutorialString[stringIndex]),
                             ),
-                            if (stringIndex % 2 == 0)
-                              show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!"),
+                            if (messageInput == "안녕하세요!")
+                              {
+                                show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!"),
+                              }
+                            else if (messageInput == "감사합니다.")
+                              {
+                                show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다."),
+                                Future.delayed(Duration(milliseconds: 2000))
+                                    .then(
+                                  (onValue) => {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const EndTutorial())),
+                                  },
+                                ),
+                              },
                             stringIndex++,
                           }
+                        else
+                          {
+                            if (stringIndex % 2 == 0)
+                              {
+                                show("'안녕하세요!'라고 입력해보세요!"),
+                              }
+                            else
+                              show("'감사합니다.'라고 입력해보세요!"),
+                          },
                       },
                     ),
                     _messageInputController.clear(),
@@ -220,8 +251,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                         setState(
                           () => {
                             _bubbleList.add(
-                              _buildMySpeechBubble(
-                                  _messageInputController.text),
+                              _buildMySpeechBubble(messageInput),
                             ),
                           },
                         );
