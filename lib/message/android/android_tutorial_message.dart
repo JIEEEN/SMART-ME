@@ -8,7 +8,7 @@ List<String> tutorialString = [
 ];
 
 Widget getTutorialBubble(String messageInput) {
-  double tempSize_width = 150.0,
+  double tempSize_width = 170.0,
       tempSize_height = 50.0,
       temppoint_x = 25.0,
       temppoint_y = 0.0;

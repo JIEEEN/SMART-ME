@@ -5,7 +5,6 @@ import 'package:smart_me/call/android_get_call_screen.dart';
 import 'package:smart_me/call/ios_get_call_screen.dart';
 import 'package:smart_me/message/ios/ios_message_intro.dart';
 import 'package:smart_me/message/android/android_message_intro.dart';
-import 'package:smart_me/message/android/android_message.dart';
 
 class StartTutorial extends StatelessWidget {
   const StartTutorial({super.key});
@@ -28,7 +27,7 @@ class StartTutorial extends StatelessWidget {
                     return IOSMessageIntroScreen();
                   } else {
                     // return const AndroidGetCallScreen(from: "start");
-                    return AndroidMessageScreen();
+                    return AndroidMessageIntroScreen();
                   }
                 }));
               },
