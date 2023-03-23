@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smart_me/tutorial_start_screen.dart';
 import 'package:smart_me/home.dart';
 
 // void main() async {
@@ -23,10 +22,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
-      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
