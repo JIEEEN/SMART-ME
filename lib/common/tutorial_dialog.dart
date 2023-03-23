@@ -27,7 +27,7 @@ class TutorialDialog extends StatelessWidget {
                 tutorialMessage,
                 textAlign: align ?? TextAlign.center,
                 style: const TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 25.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),

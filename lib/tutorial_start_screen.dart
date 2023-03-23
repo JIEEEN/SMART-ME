@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:smart_me/call/android_get_call_screen.dart';
 import 'package:smart_me/call/ios_get_call_screen.dart';
+import 'package:smart_me/message/ios/ios_message_intro.dart';
+import 'package:smart_me/message/android/android_message_intro.dart';
 
 class StartTutorial extends StatelessWidget {
   const StartTutorial({super.key});
@@ -21,13 +23,15 @@ class StartTutorial extends StatelessWidget {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (context) {
                   if (Platform.isIOS) {
-                    return const IOSGetCallLockScreen(from: "start");
+                    // return const IOSGetCallLockScreen(from: "start");
+                    return IOSMessageIntroScreen();
                   } else {
-                    return const AndroidGetCallScreen(from: "start");
+                    // return const AndroidGetCallScreen(from: "start");
+                    return AndroidMessageIntroScreen();
                   }
                 }));
               },
-              child: const Text("확인"))
+              child: const Text("확인")),
         ],
       ),
     );
