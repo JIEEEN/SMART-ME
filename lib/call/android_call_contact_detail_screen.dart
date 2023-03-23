@@ -56,12 +56,16 @@ class _AndroidContactDetailScreenState
             ),
             Container(
               decoration: const BoxDecoration(
-                  color: Colors.black,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24.0),
                       topRight: Radius.circular(24.0))),
               height: deviceWidth,
               width: deviceWidth,
+              child: Image.network(
+                widget.contactData.image,
+                height: deviceWidth,
+                width: deviceWidth,
+              ),
             ),
             Container(
               height: 160,
@@ -78,7 +82,7 @@ class _AndroidContactDetailScreenState
                     child: Text(
                       widget.contactData.name,
                       style: const TextStyle(
-                          fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Row(
@@ -114,9 +118,12 @@ class _AndroidContactDetailScreenState
                               iconSize: 24,
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const AndroidCallScreen(
-                                            from: "contact_detail")));
+                                    builder: (context) => AndroidCallScreen(
+                                          from: "contact_detail",
+                                          caller: widget.contactData.name,
+                                          image: widget.contactData.image,
+                                          number: widget.contactData.phoneNum,
+                                        )));
                               },
                               icon: const Icon(
                                 Icons.call,

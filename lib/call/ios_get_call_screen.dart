@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:slide_action/slide_action.dart';
 import 'package:smart_me/call/ios_call_dial_screen.dart';
 import 'package:smart_me/call/ios_call_screen.dart';
+import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
@@ -189,7 +190,7 @@ class IOSSlideToAnswer extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.only(left: 80.0),
               child: Text(
-                "slide to answer",
+                "밀어서 통화하기",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -214,7 +215,11 @@ class IOSSlideToAnswer extends StatelessWidget {
       },
       action: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const IOSCallScreen(from: "lock_get_call")));
+            builder: (context) => const IOSCallScreen(
+                  from: "lock_get_call",
+                  caller: "상대방",
+                  image: "",
+                )));
       },
     );
   }
@@ -233,16 +238,19 @@ class IOSAcceptCall extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 62.0),
           child: Container(
-            height: 84,
-            width: 84,
+            height: 76,
+            width: 76,
             decoration: const BoxDecoration(
                 color: Colors.green, shape: BoxShape.circle),
             child: IconButton(
-              iconSize: 48,
+              iconSize: 38,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        const IOSCallScreen(from: "call_accept")));
+                    builder: (context) => const IOSCallScreen(
+                          from: "call_accept",
+                          caller: "상대방",
+                          image: "",
+                        )));
               },
               icon: const Icon(
                 Icons.call,
@@ -255,7 +263,7 @@ class IOSAcceptCall extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             accept,
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
       ],
@@ -303,12 +311,12 @@ class IOSDeclineCall extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 62.0),
           child: Container(
-            height: 84,
-            width: 84,
+            height: 76,
+            width: 76,
             decoration:
                 const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
             child: IconButton(
-              iconSize: 48,
+              iconSize: 38,
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const IOSCallDialScreen(
@@ -326,7 +334,7 @@ class IOSDeclineCall extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             decline,
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            style: TextStyle(fontSize: 20, color: Colors.white),
           ),
         ),
       ],
@@ -375,13 +383,13 @@ class IOSCallerInfo extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0),
             child: Text(
-              "Caller Name",
+              "상대방",
               style: TextStyle(fontSize: 32, color: Colors.white),
             ),
           ),
           Text(
-            "Place Text",
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            "대한민국",
+            style: TextStyle(fontSize: 24, color: lightGrey),
           ),
         ],
       ),

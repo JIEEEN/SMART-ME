@@ -130,8 +130,11 @@ class _IOSContactDetailScreenState extends State<IOSContactDetailScreen> {
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            const IOSCallScreen(from: "contact_detail")));
+                        builder: (context) => IOSCallScreen(
+                              from: "contact_detail",
+                              caller: widget.contactData.name,
+                              image: widget.contactData.image,
+                            )));
                   },
                   child: Container(
                     width: deviceWidth / 4 - 8.0,

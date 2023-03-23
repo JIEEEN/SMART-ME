@@ -100,7 +100,9 @@ class _IOSContactScreenState extends State<IOSContactScreen> {
               color: lightGrey,
             ),
           ),
-          Expanded(child: contactList)
+          Expanded(
+              child: MediaQuery.removePadding(
+                  context: context, removeTop: true, child: contactList))
         ],
       ),
     );

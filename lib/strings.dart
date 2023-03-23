@@ -1,33 +1,33 @@
-const String remindMe = "Remind Me";
+const String remindMe = "나중에 보기";
 const String message = "메시지";
-const String decline = "Decline";
-const String accept = "Accept";
+const String decline = "거절";
+const String accept = "응답";
 
-const String incomingCall = "Incoming call";
-const String sendMessage = "Send message";
+const String incomingCall = "수신전화";
+const String sendMessage = "메시지 보내기";
 
-const String phone = "Phone";
+const String phone = "휴대전화";
 
-const String favorite = "Favorite";
-const String recents = "Recents";
+const String favorite = "즐겨찾기";
+const String recents = "최근 통화";
 const String contacts = "연락처";
 const String keypad = "키패드";
-const String voiceMail = "Voicemail";
-const String places = "Places";
+const String voiceMail = "음성 사서함";
 
-const String search = "Search";
+const String search = "검색";
 
-const String record = "Record";
-const String savedPlace = "Saved Place";
+const String record = "기록";
+const String savedPlace = "저장 위치";
 
 const String edit = "편집";
-const String share = "Share";
-const String more = "More";
+const String share = "공유";
+const String more = "더보기";
 
-const String videoCall = "Video Call";
+const String voiceRecord = "녹음";
+const String videoCall = "영상통화";
 const String bluetooth = "Bluetooth";
 const String speaker = "스피커";
-const String muteMine = "Mute";
+const String muteMine = "내 소리 차단";
 
 const String call = "통화";
 const String mute = "소리 끔";
