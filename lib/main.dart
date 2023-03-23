@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
-import 'package:smart_me/camera/android_camera.dart';
 import 'package:smart_me/tutorial_start_screen.dart';
 
 // void main() async {
@@ -28,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -51,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return const Scaffold(
+    return Scaffold(
         body: Center(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
