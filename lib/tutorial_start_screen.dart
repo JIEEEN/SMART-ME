@@ -67,6 +67,19 @@ class StartTutorial extends StatelessWidget {
                   }
                 }));
               },
+              child: const Text("확인")),
+          const Text("카메라 튜토리얼 시작"),
+          GestureDetector(
+              onTap: () {
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  if (Platform.isIOS) {
+                    return IosCamera();
+                  } else {
+                    return AndroidCamera();
+                  }
+                }));
+              },
               child: const Text("확인"))
         ],
       ),

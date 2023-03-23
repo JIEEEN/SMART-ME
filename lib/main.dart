@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/tutorial_start_screen.dart';
+import 'package:smart_me/home.dart';
 
 // void main() async {
 //   WidgetsFlutterBinding.ensureInitialized();
@@ -54,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
       child:
-          StartTutorial(), // This trailing comma makes auto-formatting nicer for build methods.
+          FirstPage(), // This trailing comma makes auto-formatting nicer for build methods.
     ));
   }
 }
