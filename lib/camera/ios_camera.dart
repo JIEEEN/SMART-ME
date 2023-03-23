@@ -36,6 +36,13 @@ class _IosCameraState extends State<IosCamera> {
 
   late String? _currentTime;
 
+  void _controlToolBar(bool flag) {
+    setState(() {
+      _isToolbarOn = flag;
+      _overlayCameraToolbar = flag ? 80 : 0;
+    });
+  }
+
   final _toast = ToastBuilder();
   final GlobalKey<HMSTimerState> _HMSTimer = GlobalKey<HMSTimerState>();
 
@@ -65,10 +72,8 @@ class _IosCameraState extends State<IosCamera> {
         toolbarHeight: 0,
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Expanded(
-              child: Stack(
+          Stack(
             children: [
               AnimatedContainer(
                 /* 화면비율 조정 */
@@ -167,25 +172,22 @@ class _IosCameraState extends State<IosCamera> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 80,
-                      margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      alignment: Alignment.center,
+                      margin: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 2),
+                        color: Colors.black,
+                      ),
                       child: IconButton(
                         icon: Icon(
-                          _flashType == 0
-                              ? Icons.flash_off
-                              : _flashType == 1
-                                  ? Icons.flash_auto
-                                  : Icons.flash_on,
-                          color: _flashType == 2 ? Colors.yellow : Colors.white,
+                          _flashType == 0 ? Icons.flash_off : Icons.flash_on,
+                          color: Colors.white,
                         ),
                         onPressed: () {
                           setState(() {
                             _isFlashOn = !_isFlashOn;
-                            _flashType = _flashType == 0
-                                ? 1
-                                : _flashType == 1
-                                    ? 2
-                                    : 0;
+                            _flashType = _flashType == 0 ? 1 : 0;
                           });
                         },
                       ),
@@ -265,16 +267,32 @@ class _IosCameraState extends State<IosCamera> {
                 ),
               ),
             ],
-          )),
-          Transform.scale(
-            /* 앞/뒤 화면 */
-            scale: _selectedScope,
-            child: Text(
-              _isCameraFront ? '앞' : '뒤',
-              style: TextStyle(fontSize: 200),
+          ),
+          Expanded(
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: GestureDetector(
+                onVerticalDragEnd: (details) => {
+                  if (details.velocity.pixelsPerSecond.dy > 0)
+                    {_controlToolBar(true)}
+                  else
+                    {_controlToolBar(false)}
+                },
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Transform.scale(
+                    /* 앞/뒤 화면 */
+                    scale: _selectedScope,
+                    child: Text(
+                      _isCameraFront ? '앞' : '뒤',
+                      style: TextStyle(fontSize: 200),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
-
           GestureDetector(
             /* 스코프 설정 */
             /* 언젠가는 드래그 스코핑을...*/
@@ -302,6 +320,62 @@ class _IosCameraState extends State<IosCamera> {
           ),
           Stack(
             children: [
+              Container(
+                /* 카메라/비디오 컨트롤 */
+                color: Colors.black,
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: !_isModeCamera
+                              ? Color(0xFF2e2e2e)
+                              : Colors.transparent),
+                      child: TextButton(
+                        onPressed: () => setState(() {
+                          _isModeCamera = false;
+                          _overlayHeightVideoToolBox = 80;
+                          _overlayHeightVideoStarter = 120;
+                          _overlayCameraToolbar = 0;
+                          _isToolbarOn = false;
+                        }),
+                        child: Text(
+                          '비디오',
+                          style: TextStyle(
+                              color:
+                                  _isModeCamera ? Colors.white : Colors.yellow,
+                              fontSize: 28.0),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: _isModeCamera
+                              ? Color(0xFF2e2e2e)
+                              : Colors.transparent),
+                      child: TextButton(
+                        onPressed: () => setState(() {
+                          _isModeCamera = true;
+                          _overlayHeightVideoToolBox = 0;
+                          _overlayHeightVideoStarter = 0;
+                        }),
+                        child: Text(
+                          '카메라',
+                          style: TextStyle(
+                              color:
+                                  _isModeCamera ? Colors.yellow : Colors.white,
+                              fontSize: 28.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               AnimatedContainer(
                 clipBehavior: Clip.antiAlias,
                 duration: Duration(milliseconds: 100),
@@ -312,78 +386,81 @@ class _IosCameraState extends State<IosCamera> {
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      IconButton(
-                        icon: Icon(
-                          _flashType == 0
-                              ? Icons.flash_off
-                              : _flashType == 1
-                                  ? Icons.flash_auto
-                                  : Icons.flash_on,
-                          color: _flashType == 2 ? Colors.yellow : Colors.white,
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+                        child: IconButton(
+                          icon: Icon(
+                            _flashType == 0 ? Icons.flash_off : Icons.flash_on,
+                            color:
+                                _flashType == 2 ? Colors.yellow : Colors.white,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isFlashOn = !_isFlashOn;
+                              _overlayHeightFlash = 80;
+                            });
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _isFlashOn = !_isFlashOn;
-                            _overlayHeightFlash = 80;
-                          });
-                        },
                       ),
-                      IconButton(
-                        icon: Icon(
-                            _timerDelay == 0
-                                ? Icons.schedule
-                                : _timerDelay == 3
-                                    ? Icons.timer_3
-                                    : _timerDelay == 10
-                                        ? Icons.timer_10
-                                        : Icons.one_x_mobiledata,
-                            color: _timerDelay != 0
-                                ? Colors.yellow
-                                : Colors.white),
-                        onPressed: () {
-                          setState(() {
-                            _overlayHeightTimer =
-                                _overlayHeightTimer == 0 ? 80 : 0;
-                          });
-                        },
-                      ),
-                      TextButton(
-                        child: Text(
-                          _ratioType == 0
-                              ? '3:4'
-                              : _ratioType == 1
-                                  ? '16:9'
-                                  : _ratioType == 2
-                                      ? '1:1'
-                                      : 'Full',
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                      Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+                          child: IconButton(
+                            icon: Icon(Icons.schedule,
+                                color: _timerDelay != 0
+                                    ? Colors.yellow
+                                    : Colors.white),
+                            onPressed: () {
+                              setState(() {
+                                _overlayHeightTimer =
+                                    _overlayHeightTimer == 0 ? 80 : 0;
+                              });
+                            },
+                          )),
+                      Container(
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+                        child: TextButton(
+                          child: Text(
+                            _ratioType == 0
+                                ? '4:3'
+                                : _ratioType == 1
+                                    ? '16:9'
+                                    : '1:1',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _overlayHeightRatio = 80;
+                            });
+                          },
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _overlayHeightRatio = 80;
-                          });
-                        },
                       ),
-                      IconButton(
-                        icon: Icon(
-                            _isMotionPhotoOn
-                                ? Icons.motion_photos_on
-                                : Icons.motion_photos_off,
-                            color: _isMotionPhotoOn
-                                ? Colors.yellow
-                                : Colors.white),
-                        onPressed: () {
-                          _toast.toast(
-                              '모션 포토가 ' +
-                                  (_isMotionPhotoOn ? '비활성화' : '활성화') +
-                                  ' 되었습니다.',
-                              _overlayHeightScreenTop + 100);
-                          setState(() {
-                            _isMotionPhotoOn = !_isMotionPhotoOn;
-                          });
-                        },
-                      ),
+                      Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+                          child: IconButton(
+                            icon: Icon(
+                                _isMotionPhotoOn
+                                    ? Icons.motion_photos_on
+                                    : Icons.motion_photos_off,
+                                color: _isMotionPhotoOn
+                                    ? Colors.yellow
+                                    : Colors.white),
+                            onPressed: () {
+                              _toast.toast(
+                                  '모션 포토가 ' +
+                                      (_isMotionPhotoOn ? '비활성화' : '활성화') +
+                                      ' 되었습니다.',
+                                  _overlayHeightScreenTop + 100);
+                              setState(() {
+                                _isMotionPhotoOn = !_isMotionPhotoOn;
+                              });
+                            },
+                          )),
                     ]),
               ),
               AnimatedContainer(
@@ -397,20 +474,13 @@ class _IosCameraState extends State<IosCamera> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    IconButton(
-                      onPressed: () {
-                        setState(() {
-                          _overlayHeightFlash =
-                              _overlayHeightFlash == 0 ? 80 : 0;
-                          _flashType = 0;
-                        });
-                      },
-                      icon: Icon(
-                        Icons.flash_off,
-                        color: _flashType == 0 ? Colors.yellow : Colors.white,
+                    TextButton(
+                      child: Text(
+                        '${_flashType == 1 ? '플래시' : ''} 자동',
+                        style: TextStyle(
+                          color: _flashType == 1 ? Colors.yellow : Colors.white,
+                        ),
                       ),
-                    ),
-                    IconButton(
                       onPressed: () {
                         setState(() {
                           _overlayHeightFlash =
@@ -418,12 +488,29 @@ class _IosCameraState extends State<IosCamera> {
                           _flashType = 1;
                         });
                       },
-                      icon: Icon(
-                        Icons.flash_auto,
-                        color: _flashType == 1 ? Colors.yellow : Colors.white,
-                      ),
                     ),
-                    IconButton(
+                    TextButton(
+                      child: Text(
+                        '${_flashType == 0 ? '플래시' : ''} 끔',
+                        style: TextStyle(
+                          color: _flashType == 0 ? Colors.yellow : Colors.white,
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightFlash =
+                              _overlayHeightFlash == 0 ? 80 : 0;
+                          _flashType = 0;
+                        });
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        '${_flashType == 2 ? '플래시' : ''} 켬',
+                        style: TextStyle(
+                          color: _flashType == 2 ? Colors.yellow : Colors.white,
+                        ),
+                      ),
                       onPressed: () {
                         setState(() {
                           _overlayHeightFlash =
@@ -431,10 +518,6 @@ class _IosCameraState extends State<IosCamera> {
                           _flashType = 2;
                         });
                       },
-                      icon: Icon(
-                        Icons.flash_on,
-                        color: _flashType == 2 ? Colors.yellow : Colors.white,
-                      ),
                     ),
                   ],
                 ),
@@ -456,23 +539,9 @@ class _IosCameraState extends State<IosCamera> {
                           _timerDelay = 0;
                         });
                       },
-                      child: Text('0s',
+                      child: Text('타이머 해제',
                           style: TextStyle(
                               color: _timerDelay == 0
-                                  ? Colors.yellow
-                                  : Colors.white,
-                              fontWeight: FontWeight.bold)),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _overlayHeightTimer = 0;
-                          _timerDelay = 1;
-                        });
-                      },
-                      child: Text('1s',
-                          style: TextStyle(
-                              color: _timerDelay == 1
                                   ? Colors.yellow
                                   : Colors.white,
                               fontWeight: FontWeight.bold)),
@@ -484,7 +553,7 @@ class _IosCameraState extends State<IosCamera> {
                           _timerDelay = 3;
                         });
                       },
-                      child: Text('3s',
+                      child: Text('3초',
                           style: TextStyle(
                               color: _timerDelay == 3
                                   ? Colors.yellow
@@ -498,7 +567,7 @@ class _IosCameraState extends State<IosCamera> {
                           _timerDelay = 10;
                         });
                       },
-                      child: Text('10s',
+                      child: Text('10초',
                           style: TextStyle(
                               color: _timerDelay == 10
                                   ? Colors.yellow
@@ -530,10 +599,27 @@ class _IosCameraState extends State<IosCamera> {
                         });
                       },
                       child: Text(
-                        '3:4',
+                        '4:3',
                         style: TextStyle(
                             color:
                                 _ratioType == 0 ? Colors.yellow : Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio =
+                              _overlayHeightRatio == 0 ? 80 : 0;
+                          _ratioType = 2;
+                          _overlayHeightScreenTop = _overlayHeightScreenBottom =
+                              (height - width) / 2 - 40;
+                        });
+                      },
+                      child: Text(
+                        '정방형',
+                        style: TextStyle(
+                            color:
+                                _ratioType == 2 ? Colors.yellow : Colors.white),
                       ),
                     ),
                     TextButton(
@@ -553,100 +639,11 @@ class _IosCameraState extends State<IosCamera> {
                                 _ratioType == 1 ? Colors.yellow : Colors.white),
                       ),
                     ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _overlayHeightRatio =
-                              _overlayHeightRatio == 0 ? 80 : 0;
-                          _ratioType = 2;
-                          _overlayHeightScreenTop = _overlayHeightScreenBottom =
-                              (height - width) / 2 - 40;
-                        });
-                      },
-                      child: Text(
-                        '1:1',
-                        style: TextStyle(
-                            color:
-                                _ratioType == 2 ? Colors.yellow : Colors.white),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _overlayHeightRatio =
-                              _overlayHeightRatio == 0 ? 80 : 0;
-                          _overlayHeightScreenBottom =
-                              _overlayHeightScreenTop = 0;
-                          _ratioType = 3;
-                        });
-                      },
-                      child: Text(
-                        'Full',
-                        style: TextStyle(
-                            color:
-                                _ratioType == 3 ? Colors.yellow : Colors.white),
-                      ),
-                    ),
                   ],
                 ),
               ),
             ],
           ),
-          Container(
-            /* 카메라/비디오 컨트롤 */
-            color: Colors.black,
-            padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: !_isModeCamera
-                          ? Color(0xFF2e2e2e)
-                          : Colors.transparent),
-                  child: TextButton(
-                    onPressed: () => setState(() {
-                      _isModeCamera = false;
-                      _overlayHeightVideoToolBox = 80;
-                      _overlayHeightVideoStarter = 120;
-                      _overlayCameraToolbar = 0;
-                      _isToolbarOn = false;
-                    }),
-                    child: Text(
-                      '비디오',
-                      style: TextStyle(
-                          color: _isModeCamera ? Colors.white : Colors.yellow,
-                          fontSize: 28.0),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: _isModeCamera
-                          ? Color(0xFF2e2e2e)
-                          : Colors.transparent),
-                  child: TextButton(
-                    onPressed: () => setState(() {
-                      _isModeCamera = true;
-                      _overlayHeightVideoToolBox = 0;
-                      _overlayHeightVideoStarter = 0;
-                    }),
-                    child: Text(
-                      '카메라',
-                      style: TextStyle(
-                          color: _isModeCamera ? Colors.yellow : Colors.white,
-                          fontSize: 28.0),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          // Camera preview will go here
           Stack(
             children: [
               AnimatedContainer(
@@ -695,6 +692,14 @@ class _IosCameraState extends State<IosCamera> {
                                 _toast.toast('사진이 촬영되었습니다.',
                                     _overlayHeightScreenTop + 100);
                               },
+                              child: Container(
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                    border: Border.all(
+                                        color: Colors.black, width: 1.5)),
+                              ),
                             ),
                           ),
                           Container(
@@ -788,78 +793,30 @@ class _IosCameraState extends State<IosCamera> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _toast.toast('사진이 촬영되었습니다.',
-                                  _overlayHeightScreenTop + 100);
-                            });
-                          },
-                          icon: Icon(
-                            Icons.camera,
-                            color: Colors.white,
-                          ),
-                        ),
                         Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50.0)),
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  onPressed: () {
-                                    if (_isVideoPaused) {
-                                      _HMSTimer.currentState?.start();
-                                    } else {
-                                      _HMSTimer.currentState?.pause();
-                                    }
-                                    setState(() {
-                                      _isVideoPaused = !_isVideoPaused;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    _isVideoPaused
-                                        ? Icons.play_arrow
-                                        : Icons.pause,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                IconButton(
-                                  onPressed: () {
-                                    _toast.toast(
-                                        '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.',
-                                        _overlayHeightScreenTop + 100);
-                                    _HMSTimer.currentState?.stop();
-                                    setState(() {
-                                      _overlayHeightVideoStarter = 100;
-                                      _overlayHeightVideoControl =
-                                          _overlayHeightVideoControl == 0
-                                              ? 100
-                                              : 0;
-                                      _overlayHeightVideoTimer =
-                                          _overlayHeightVideoTimer == 0
-                                              ? 80
-                                              : 0;
-                                    });
-                                  },
-                                  icon: Icon(
-                                    Icons.stop,
-                                    color: Colors.black,
-                                  ),
-                                )
-                              ],
-                            )),
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              _isCameraFront = !_isCameraFront;
-                            });
-                          },
-                          icon: Icon(
-                            Icons.cached,
-                            color: Colors.white,
+                          width: 48,
+                          height: 48,
+                          decoration: BoxDecoration(
+                              border: Border.all(width: 3, color: Colors.white),
+                              borderRadius: BorderRadius.circular(100)),
+                          child: IconButton(
+                            onPressed: () {
+                              _toast.toast(
+                                  '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.',
+                                  _overlayHeightScreenTop + 100);
+                              _HMSTimer.currentState?.stop();
+                              setState(() {
+                                _overlayHeightVideoStarter = 100;
+                                _overlayHeightVideoControl =
+                                    _overlayHeightVideoControl == 0 ? 100 : 0;
+                                _overlayHeightVideoTimer =
+                                    _overlayHeightVideoTimer == 0 ? 80 : 0;
+                              });
+                            },
+                            icon: Container(
+                                width: 32, height: 32, color: Colors.white),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
