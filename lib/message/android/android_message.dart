@@ -36,18 +36,54 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
   void show(String str) {
     String tutorialMessage = str;
     // String tutorialMessage = "";
-    Future.microtask(() => showDialog(
+    Future.microtask(
+      () => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+          tutorialMessage: tutorialMessage,
+          textPadding: EdgeInsets.fromLTRB(38.0, 220.0, 38.0, 12.0), // edit
+          buttonPadding: EdgeInsets.fromLTRB(0.0, 350.0, 0.0, 0.0),
+        ),
+      ),
+    );
   }
 
   void initState() {
     super.initState();
-    String initNotice = "잘하셨습니다! '안녕하세요!'라고 보내시면 상대방이 답장을 할 것입니다.";
+    String initNotice = "잘하셨습니다! '안녕하세요!'라고 보내시면\n상대방이 답장을 할 것입니다.";
 
     show(initNotice);
+  }
+
+  void renderBubble(String messageInput) {
+    _bubbleList.add(
+      _buildMySpeechBubble(messageInput),
+    );
+    if (messageInput == tutorialString[stringIndex]) {
+      _bubbleList.add(
+        getTutorialBubble(tutorialString[stringIndex]),
+      );
+      if (messageInput == "안녕하세요!") {
+        show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!");
+      } else if (messageInput == "감사합니다.") {
+        show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.");
+        Future.delayed(Duration(milliseconds: 2000)).then(
+          (onValue) => {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const EndTutorial())),
+          },
+        );
+      }
+      ;
+      stringIndex++;
+    } else {
+      if (stringIndex % 2 == 0) {
+        show("'안녕하세요!'라고 입력해보세요!");
+      } else
+        show("'감사합니다.'라고 입력해보세요!");
+    }
+    ;
   }
 
   Widget _buildMySpeechBubble(String messageInput) {
@@ -106,7 +142,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
         //     ),
         //     Padding(
         //       padding: EdgeInsets.only(right: 30.0),
-        //     ),
+        //     ),tutorial
         //     Icon(
         //       Icons.account_circle_rounded,
         //       color: Colors.grey,
@@ -183,6 +219,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                   style: TextStyle(fontSize: 22),
                   keyboardAppearance: Brightness.light,
                   onChanged: (value) {
+                    messageInput = value;
                     if (_focusMessageNode.hasFocus) {
                       _focusMessageNode.requestFocus();
                     }
@@ -193,42 +230,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                     setState(
                       () => {
                         messageInput = str,
-                        _bubbleList.add(
-                          _buildMySpeechBubble(messageInput),
-                        ),
-                        if (messageInput == tutorialString[stringIndex])
-                          {
-                            _bubbleList.add(
-                              getTutorialBubble(tutorialString[stringIndex]),
-                            ),
-                            if (messageInput == "안녕하세요!")
-                              {
-                                show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!"),
-                              }
-                            else if (messageInput == "감사합니다.")
-                              {
-                                show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다."),
-                                Future.delayed(Duration(milliseconds: 2000))
-                                    .then(
-                                  (onValue) => {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const EndTutorial())),
-                                  },
-                                ),
-                              },
-                            stringIndex++,
-                          }
-                        else
-                          {
-                            if (stringIndex % 2 == 0)
-                              {
-                                show("'안녕하세요!'라고 입력해보세요!"),
-                              }
-                            else
-                              show("'감사합니다.'라고 입력해보세요!"),
-                          },
+                        renderBubble(messageInput),
                       },
                     ),
                     _messageInputController.clear(),
@@ -250,9 +252,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
                       onPressed: () {
                         setState(
                           () => {
-                            _bubbleList.add(
-                              _buildMySpeechBubble(messageInput),
-                            ),
+                            renderBubble(messageInput),
                           },
                         );
                         _messageInputController.clear();

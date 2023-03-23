@@ -47,7 +47,11 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
       () => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) => TutorialDialog(tutorialMessage: tutorialMessage),
+        builder: (context) => TutorialDialog(
+          tutorialMessage: tutorialMessage,
+          textPadding: EdgeInsets.fromLTRB(38.0, 220.0, 38.0, 12.0), // edit
+          buttonPadding: EdgeInsets.fromLTRB(0.0, 350.0, 0.0, 0.0),
+        ),
       ),
     );
   }

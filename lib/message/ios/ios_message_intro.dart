@@ -13,11 +13,17 @@ class IOSMessageIntroScreen extends StatefulWidget {
 class _IOSMessageIntroScreen extends State<IOSMessageIntroScreen> {
   void show() {
     String tutorialMessage = "메시지 튜토리얼을 시작합니다.\n오른쪽 위에 있는 버튼을 눌러보세요!";
-    Future.microtask(() => showDialog(
+    Future.microtask(
+      () => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+          tutorialMessage: tutorialMessage,
+          textPadding: EdgeInsets.fromLTRB(38.0, 220.0, 38.0, 12.0), // edit
+          buttonPadding: EdgeInsets.fromLTRB(0.0, 350.0, 0.0, 0.0),
+        ),
+      ),
+    );
   }
 
   void initState() {
