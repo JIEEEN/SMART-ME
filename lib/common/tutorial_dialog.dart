@@ -66,6 +66,18 @@ class TutorialDialog extends StatelessWidget {
                           ))),
                   
                 ],
+        color: Colors.transparent,
+        child: Column(
+          children: [
+            Padding(
+              padding: textPadding ?? EdgeInsets.fromLTRB(0, 0, 0, 0),
+              child: Text(
+                tutorialMessage,
+                textAlign: align ?? TextAlign.left,
+                style: const TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
               ),
             ],
           )),

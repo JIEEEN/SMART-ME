@@ -91,7 +91,7 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         backgroundColor: Colors.white,
         shadowColor: Colors.transparent,
         title: const Text(
-          phone,
+          "전화",
           style: TextStyle(fontSize: 21, color: Colors.black),
         ),
         actions: [
@@ -194,10 +194,6 @@ class AndroidCallDialTab extends StatelessWidget {
             contacts,
             style: TextStyle(fontSize: 18, color: Colors.grey),
           ),
-          Text(
-            places,
-            style: TextStyle(fontSize: 18, color: Colors.grey),
-          ),
         ],
       ),
     );
@@ -264,8 +260,11 @@ class AndroidCallIcon extends StatelessWidget {
             (phoneNum == '')
                 ? null
                 : Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const AndroidCallScreen(
+                    builder: (context) => AndroidCallScreen(
                           from: "dial",
+                          caller: "상대방",
+                          image: "",
+                          number: phoneNum,
                         )));
           },
           icon: const Icon(
