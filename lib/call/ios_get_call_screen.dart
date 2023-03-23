@@ -21,16 +21,18 @@ class _IOSGetCallUnlockScreenState extends State<IOSGetCallUnlockScreen> {
     String tutorialMessage = "";
     if (widget.from == "call") {
       tutorialMessage =
-          "이번에는 휴대전화를 사용하는 중에 전화가 걸려왔습니다.\n오른쪽 아래의 초록색 전화 버튼을 눌러주세요.";
+          "이번에는 휴대전화를 사용하는 중에 전화가 걸려왔습니다.\n\n오른쪽 아래의 초록색 전화 버튼을 눌러주세요.";
     }
     if (widget.from == "call_accept") {
-      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n왼쪽 아래의 빨간색 전화 버튼을 눌러주세요.";
+      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n\n왼쪽 아래의 빨간색 전화 버튼을 눌러주세요.";
     }
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+              tutorialMessage: tutorialMessage,
+              textPadding: EdgeInsets.fromLTRB(38.0, 240.0, 38.0, 12.0),
+            )));
   }
 
   @override
@@ -100,16 +102,18 @@ class _IOSGetCallLockScreenState extends State<IOSGetCallLockScreen> {
   void show() {
     String tutorialMessage = "";
     if (widget.from == "start") {
-      tutorialMessage = "전화가 걸려왔습니다.\n왼쪽 아래의 초록색 전화 버튼을 왼쪽에서 오른쪽으로 밀어주세요.";
+      tutorialMessage = "전화가 걸려왔습니다.\n왼쪽 아래의\n초록색 전화 버튼을\n왼쪽에서 오른쪽으로\n밀어주세요.";
     } else if (widget.from == "call") {
-      tutorialMessage = "이번에는 전화를 끊어보겠습니다.\n전화를 끊으려면 오른쪽의 전원 버튼을 두 번 눌러주세요.";
+      tutorialMessage = "이번에는\n전화를 끊어보겠습니다.\n전화를 끊으려면\n오른쪽의 전원 버튼을\n두 번 눌러주세요.";
     }
 
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+              tutorialMessage: tutorialMessage,
+              textPadding: EdgeInsets.fromLTRB(38.0, 240.0, 38.0, 12.0),
+            )));
   }
 
   @override

@@ -18,14 +18,13 @@ class TutorialDialog extends StatelessWidget {
       type: MaterialType.transparency,
       child: Container(
         color: Colors.transparent,
-        child: Stack(
-          alignment: Alignment.topCenter,
+        child: Column(
           children: [
             Padding(
               padding: textPadding ?? EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Text(
                 tutorialMessage,
-                textAlign: align ?? TextAlign.center,
+                textAlign: align ?? TextAlign.left,
                 style: const TextStyle(
                     fontSize: 25.0,
                     fontWeight: FontWeight.bold,
@@ -44,11 +43,12 @@ class TutorialDialog extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
                           color: Color(0xffa1ca0d)),
+                      alignment: Alignment.center,
                       child: Text(
                         "확인",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 36,
+                            fontSize: 28,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),

@@ -24,15 +24,13 @@ class _AndroidContactDetailScreenState
     if (widget.from == "contact_list") {
       tutorialMessage = "연락처 상세 페이지입니다.\n초록색 전화 버튼을 눌러 전화를 걸어보세요.";
     }
-    if (widget.from == "") {
-      tutorialMessage = "이번에는 연락처 상세 페이지에서 전화를 걸어보겠습니다.\n원하는 연락처를 눌러주세요.";
-    }
 
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 120.0, 38.0, 12.0))));
   }
 
   @override

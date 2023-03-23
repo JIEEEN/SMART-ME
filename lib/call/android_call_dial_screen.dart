@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/call/android_call_screen.dart';
+import 'package:smart_me/colors.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
@@ -25,13 +26,14 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
     String tutorialMessage = "";
     if (widget.from == "call") {
       tutorialMessage =
-          "이제 전화를 걸어봅시다.\n전화번호를 직접 입력하여 전화를 걸어보겠습니다.\n키패드에 전화번호를 입력 후 초록색 전화 버튼을 눌러주세요.";
+          "이제 전화를 걸어봅시다. 전화번호를 직접 입력하여 전화를 걸어보겠습니다.\n\n키패드에 전화번호를 입력 후 초록색 전화 버튼을 눌러주세요.";
     }
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 120.0, 38.0, 12.0))));
   }
 
   @override
@@ -116,8 +118,50 @@ class _AndroidCallDialScreenState extends State<AndroidCallDialScreen> {
         child: Column(children: [
           renderPhoneNum(),
           ...renderDial(),
-          AndroidCallIcon(
-            phoneNum: phoneNum,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 72,
+                width: 72,
+                decoration: BoxDecoration(
+                    color: Colors.transparent, shape: BoxShape.circle),
+                child: Visibility(
+                  visible: phoneNum.isEmpty ? false : true,
+                  child: Icon(
+                    Icons.videocam,
+                    color: Colors.green,
+                    size: 32.0,
+                  ),
+                ),
+              ),
+              AndroidCallIcon(
+                phoneNum: phoneNum,
+              ),
+              Container(
+                height: 72,
+                width: 72,
+                decoration: BoxDecoration(
+                    color: Colors.transparent, shape: BoxShape.circle),
+                child: Visibility(
+                  visible: phoneNum.isEmpty ? false : true,
+                  child: GestureDetector(
+                    onTap: () {
+                      if (phoneNum.isNotEmpty) {
+                        setState(() {
+                          phoneNum = phoneNum.substring(0, phoneNum.length - 1);
+                        });
+                      }
+                    },
+                    child: Icon(
+                      Icons.backspace,
+                      color: tabGrey,
+                      size: 32.0,
+                    ),
+                  ),
+                ),
+              )
+            ],
           ),
           const AndroidCallDialTab()
         ]),
@@ -209,7 +253,7 @@ class AndroidCallIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 24.0, bottom: 12.0),
+      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0),
       child: Container(
         height: 72,
         width: 72,

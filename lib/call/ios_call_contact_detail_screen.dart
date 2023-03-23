@@ -20,14 +20,15 @@ class _IOSContactDetailScreenState extends State<IOSContactDetailScreen> {
   void show() {
     String tutorialMessage = "";
     if (widget.from == "contact_list") {
-      tutorialMessage = "연락처 상세 페이지입니다.\n휴대전화 버튼을 눌러 전화를 걸어보세요.";
+      tutorialMessage = "연락처 상세 페이지입니다.\n\n휴대전화 버튼을 눌러 전화를 걸어보세요.";
     }
 
     Future.microtask(() => showDialog(
         context: context,
         barrierDismissible: false,
-        builder: (context) =>
-            TutorialDialog(tutorialMessage: tutorialMessage)));
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 120.0, 38.0, 12.0))));
   }
 
   @override

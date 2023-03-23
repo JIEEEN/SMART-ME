@@ -3,28 +3,34 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/common/toast.dart';
 import 'package:smart_me/common/timer.dart';
 
-class GetAndroidCamera extends StatefulWidget {
+class AndroidCamera extends StatefulWidget {
   @override
-  _GetAndroidCameraState createState() => _GetAndroidCameraState();
+  _AndroidCameraState createState() => _AndroidCameraState();
 }
 
-class _GetAndroidCameraState extends State<GetAndroidCamera> {
+class _AndroidCameraState extends State<AndroidCamera> {
   bool _isSettingsOn = false;
   bool _isFlashOn = false;
-  bool _isRatioOn = false;
   bool _isMotionPhotoOn = false;
   bool _isCameraFront = false;
   bool _isVideoPaused = false;
+  bool _isSteadyVideoOn = false;
   int _timerDelay = 0;
   int _flashType = 0; // 0 -> off, 1 -> auto, 2 -> on
   int _ratioType = 0; // 0 -> 3:4, 1 -> 16:9, 2 -> 1:1, 3 -> full
+  int _videoQualityType = 0;
   double _overlayHeightTimer = 0;
   double _overlayHeightFlash = 0;
   double _overlayHeightRatio = 0;
+  double _overlayVideoQuality = 0;
   double _overlayHeightVideoControl = 0;
   double _overlayHeightVideoTimer = 0;
+  double _overlayHeightVideoStarter = 0;
+  double _overlayHeightVideoToolBox = 0;
   double _overlayHeightScreenTop = 100;
   double _overlayHeightScreenBottom = 120;
+
+  bool _isModeCamera = true;
 
   late String? _currentTime;
 
@@ -64,7 +70,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
           Expanded(
               child: Stack(
             children: [
-              AnimatedContainer(
+              AnimatedContainer( /* 화면비율 조정 */
                 clipBehavior: Clip.antiAlias,
                 duration: Duration(milliseconds: 100),
                 height: _overlayHeightScreenTop,
@@ -72,7 +78,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   color: Colors.black,
                 ),
               ),
-              Align(
+              Align( /* 기본 카메라 메인 툴바 */
                 alignment: Alignment.topCenter,
                 child: Container(
                   color: Colors.black,
@@ -153,9 +159,11 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                                 ? Colors.yellow
                                 : Colors.white),
                         onPressed: () {
-                          _toast.toast('모션 포토가 ' +
-                              (_isMotionPhotoOn ? '비활성화' : '활성화') +
-                              ' 되었습니다.', _overlayHeightScreenTop + 100);
+                          _toast.toast(
+                              '모션 포토가 ' +
+                                  (_isMotionPhotoOn ? '비활성화' : '활성화') +
+                                  ' 되었습니다.',
+                              _overlayHeightScreenTop + 100);
                           setState(() {
                             _isMotionPhotoOn = !_isMotionPhotoOn;
                           });
@@ -165,7 +173,98 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   ),
                 ),
               ),
-              AnimatedContainer(
+              AnimatedContainer( /* 비디오 메인 툴바 */
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 10),
+                height: _overlayHeightVideoToolBox,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.settings,
+                          color: _isSettingsOn ? Colors.yellow : Colors.white),
+                      onPressed: () {
+                        setState(() {
+                          _isSettingsOn = !_isSettingsOn;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        _flashType == 0
+                            ? Icons.flash_off
+                            : _flashType == 1
+                                ? Icons.flash_auto
+                                : Icons.flash_on,
+                        color: _flashType == 2 ? Colors.yellow : Colors.white,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isFlashOn = !_isFlashOn;
+                          _overlayHeightFlash = 80;
+                        });
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.waving_hand,
+                          color:
+                              _isSteadyVideoOn ? Colors.yellow : Colors.white),
+                      onPressed: () {
+                        _toast.toast(
+                            '손떨림 방지 모드가 ' +
+                                (_isSteadyVideoOn ? '비활성화' : '활성화') +
+                                ' 되었습니다.',
+                            _overlayHeightScreenTop + 100);
+                        setState(() {
+                          _isSteadyVideoOn = !_isSteadyVideoOn;
+                        });
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        _ratioType == 0
+                            ? '3:4'
+                            : _ratioType == 1
+                                ? '16:9'
+                                : _ratioType == 2
+                                    ? '1:1'
+                                    : 'Full',
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _overlayHeightRatio = 80;
+                        });
+                      },
+                    ),
+                    TextButton(
+                      child: Text(
+                        _videoQualityType == 4
+                            ? 'HD30'
+                            : _videoQualityType == 3
+                                ? 'FHD30'
+                                : _videoQualityType == 2
+                                    ? 'FHD60'
+                                    : _videoQualityType == 1
+                                        ? 'UHD30'
+                                        : 'UHD60',
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality = 80;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer( /* 카메라 타이머 */
                 duration: Duration(milliseconds: 100),
                 height: _overlayHeightTimer,
                 decoration: BoxDecoration(
@@ -233,7 +332,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   ],
                 ),
               ),
-              AnimatedContainer(
+              AnimatedContainer( /* 카메라/비디오 플래시 */
                 clipBehavior: Clip.antiAlias,
                 duration: Duration(milliseconds: 100),
                 height: _overlayHeightFlash,
@@ -285,7 +384,7 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   ],
                 ),
               ),
-              AnimatedContainer(
+              AnimatedContainer( /* 카메라/비디오 비율 전환 */
                 clipBehavior: Clip.antiAlias,
                 duration: Duration(milliseconds: 100),
                 height: _overlayHeightRatio,
@@ -301,7 +400,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
                           _ratioType = 0;
-                          _overlayHeightScreenTop = _overlayHeightScreenBottom = (height * (1/8));
+                          _overlayHeightScreenTop =
+                              _overlayHeightScreenBottom = (height * (1 / 8)) - 20;
                         });
                       },
                       child: Text(
@@ -316,7 +416,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         setState(() {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
-                          _overlayHeightScreenTop = _overlayHeightScreenBottom = (height * (7/32));
+                          _overlayHeightScreenTop =
+                              _overlayHeightScreenBottom = (height * (7 / 32)) - 40;
                           _ratioType = 1;
                         });
                       },
@@ -333,7 +434,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
                           _ratioType = 2;
-                          _overlayHeightScreenTop = _overlayHeightScreenBottom = (height - width)/2;
+                          _overlayHeightScreenTop =
+                              _overlayHeightScreenBottom = (height - width) / 2 - 40;
                         });
                       },
                       child: Text(
@@ -348,7 +450,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         setState(() {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
-                          _overlayHeightScreenBottom = _overlayHeightScreenTop = 0;
+                          _overlayHeightScreenBottom =
+                              _overlayHeightScreenTop = 0;
                           _ratioType = 3;
                         });
                       },
@@ -362,7 +465,100 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                   ],
                 ),
               ),
-              AnimatedContainer(
+              AnimatedContainer( /* 비디오 퀄리티 */
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 100),
+                height: _overlayVideoQuality,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality =
+                              _overlayVideoQuality == 0 ? 80 : 0;
+                          _videoQualityType = 0;
+                        });
+                      },
+                      child: Text(
+                        'UHD60',
+                        style: TextStyle(
+                            color: _videoQualityType == 0
+                                ? Colors.yellow
+                                : Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality =
+                              _overlayVideoQuality == 0 ? 80 : 0;
+                          _videoQualityType = 1;
+                        });
+                      },
+                      child: Text(
+                        'UHD30',
+                        style: TextStyle(
+                            color: _videoQualityType == 1
+                                ? Colors.yellow
+                                : Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality =
+                              _overlayVideoQuality == 0 ? 80 : 0;
+                          _videoQualityType = 2;
+                        });
+                      },
+                      child: Text(
+                        'FHD60',
+                        style: TextStyle(
+                            color: _videoQualityType == 2
+                                ? Colors.yellow
+                                : Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality =
+                              _overlayVideoQuality == 0 ? 80 : 0;
+                          _videoQualityType = 3;
+                        });
+                      },
+                      child: Text(
+                        'FHD30',
+                        style: TextStyle(
+                            color: _videoQualityType == 3
+                                ? Colors.yellow
+                                : Colors.white),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _overlayVideoQuality =
+                              _overlayVideoQuality == 0 ? 80 : 0;
+                          _videoQualityType = 4;
+                        });
+                      },
+                      child: Text(
+                        'HD30',
+                        style: TextStyle(
+                            color: _videoQualityType == 4
+                                ? Colors.yellow
+                                : Colors.white),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              AnimatedContainer( /* 비디오 촬영중 타이머 */
                 clipBehavior: Clip.antiAlias,
                 duration: Duration(milliseconds: 10),
                 height: _overlayHeightVideoTimer,
@@ -397,14 +593,14 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
               ),
             ],
           )),
-          Transform.scale(
+          Transform.scale( /* 앞/뒤 화면 */
             scale: _scopingWidget.currentState?._selectedScope ?? 1.0,
             child: Text(
               _isCameraFront ? '앞' : '뒤',
               style: TextStyle(fontSize: 200),
             ),
           ),
-          Container(
+          Container( /* 스코프 컨트롤 */
             width: 150.0,
             height: 50.0,
             margin: EdgeInsets.fromLTRB(0, 0, 0, 25.0),
@@ -413,20 +609,64 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
               refresh: () => setState(() {}),
             ),
           ),
+          Container( /* 카메라/비디오 컨트롤 */
+            color: Colors.black,
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: _isModeCamera ? Colors.grey : Colors.transparent),
+                  child: TextButton(
+                    onPressed: () => setState(() {
+                      _isModeCamera = true;
+                      _overlayHeightVideoToolBox = 0;
+                      _overlayHeightVideoStarter = 0;
+                    }),
+                    child: Text(
+                      '카메라',
+                      style: TextStyle(color: Colors.white, fontSize: 28.0),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: !_isModeCamera ? Colors.grey : Colors.transparent),
+                  child: TextButton(
+                    onPressed: () => setState(() {
+                      _isModeCamera = false;
+                      _overlayHeightVideoToolBox = 80;
+                      _overlayHeightVideoStarter = 120;
+                    }),
+                    child: Text(
+                      '비디오',
+                      style: TextStyle(color: Colors.white, fontSize: 28.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           // Camera preview will go here
           Stack(
             children: [
-               AnimatedContainer(
-                    clipBehavior: Clip.antiAlias,
-                    duration: Duration(milliseconds: 100),
-                    height: _overlayHeightScreenBottom,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                    ),
-                  ),
+              AnimatedContainer(
+                clipBehavior: Clip.antiAlias,
+                duration: Duration(milliseconds: 100),
+                height: _overlayHeightScreenBottom,
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                ),
+              ),
               Stack(
                 children: [
-                  Align(
+                  Align( /* 기본 카메라 */
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       color: Colors.black,
@@ -451,7 +691,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                           ),
                           GestureDetector(
                             onLongPress: () {
-                              _toast.toast('비디오 촬영을 시작합니다', _overlayHeightScreenTop + 100);
+                              _toast.toast('비디오 촬영을 시작합니다',
+                                  _overlayHeightScreenTop + 100);
                               _HMSTimer.currentState?.start();
                               setState(() {
                                 _isVideoPaused = false;
@@ -460,9 +701,11 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                               });
                             },
                             child: FloatingActionButton(
+                              heroTag: 'btnCamera',
                               backgroundColor: Colors.white,
                               onPressed: () {
-                                _toast.toast('사진이 촬영되었습니다.', _overlayHeightScreenTop + 100);
+                                _toast.toast('사진이 촬영되었습니다.',
+                                    _overlayHeightScreenTop + 100);
                               },
                             ),
                           ),
@@ -488,7 +731,68 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                       ),
                     ),
                   ),
-                  AnimatedContainer(
+                  AnimatedContainer( /* 비디오 촬영 전 컨트롤 */
+                    clipBehavior: Clip.antiAlias,
+                    duration: Duration(milliseconds: 10),
+                    height: _overlayHeightVideoStarter,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                    ),
+                    child:Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.filter_vintage,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {},
+                            ),
+                          ),
+                          FloatingActionButton(
+                            heroTag: 'btnVideo',
+                              backgroundColor: Colors.white,
+                              onPressed: () => setState(() {
+                                _HMSTimer.currentState?.start();
+                                 _isVideoPaused = false;
+                                _overlayHeightVideoControl = 100;
+                                _overlayHeightVideoTimer = 80;
+                                _overlayHeightVideoStarter = 0;
+                              }),
+                              child: Container(
+                                width: 25,
+                                height: 25,
+                                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(100)),
+                              ),
+                            ),
+                          Container(
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.grey.withOpacity(0.5),
+                            ),
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.cached,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  _isCameraFront = !_isCameraFront;
+                                });
+                              },
+                            ),
+                          )
+                        ],
+                      ),
+                  ),
+                  AnimatedContainer( /* 비디오 촬영 중 컨트롤 */
                     clipBehavior: Clip.antiAlias,
                     duration: Duration(milliseconds: 100),
                     height: _overlayHeightVideoControl,
@@ -501,7 +805,8 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                         IconButton(
                           onPressed: () {
                             setState(() {
-                              _toast.toast('사진이 촬영되었습니다.', _overlayHeightScreenTop + 100);
+                              _toast.toast('사진이 촬영되었습니다.',
+                                  _overlayHeightScreenTop + 100);
                             });
                           },
                           icon: Icon(
@@ -536,9 +841,11 @@ class _GetAndroidCameraState extends State<GetAndroidCamera> {
                                 IconButton(
                                   onPressed: () {
                                     _toast.toast(
-                                        '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.', _overlayHeightScreenTop + 100);
+                                        '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.',
+                                        _overlayHeightScreenTop + 100);
                                     _HMSTimer.currentState?.stop();
                                     setState(() {
+                                      _overlayHeightVideoStarter = 100;
                                       _overlayHeightVideoControl =
                                           _overlayHeightVideoControl == 0
                                               ? 100
