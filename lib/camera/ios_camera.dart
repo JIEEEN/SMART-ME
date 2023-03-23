@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:smart_me/common/toast.dart';
 import 'package:smart_me/common/timer.dart';
+import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IosCamera extends StatefulWidget {
   @override
@@ -32,9 +33,67 @@ class _IosCameraState extends State<IosCamera> {
   double _overlayHeightScreenTop = 100;
   double _overlayHeightScreenBottom = 120;
 
+  int _currentStep = 0;
+
   bool _isModeCamera = true;
 
   late String? _currentTime;
+
+  final List<String> _messeges = [
+    "카메라 튜토리얼에 오신걸 환영합니다!\n 본 과정에서는 카메라 및 비디오의 기초 사용법에 대해 알아보겠습니다.",
+    "우선은 카메라의 요소들에 대해 설명드리겠습니다.\n  하단의 버튼을 확인하시고, 확인을 누르신 후 똑같이 생긴 버튼을 눌려주세요. ",
+    "잘했습니다! 이제 카메라의 설정을 조작할 수 있습니다!\n 플래시(후레시) 설정에 대해 알아보겠습니다.\n 확인을 누르신 후 \"아래쪽에 있는\" 번개모양을 눌러주세요.",
+    "다음과 같이 플래시(후레시)를 끄거나 키실 수 있습니다.\n '자동'을 눌러 플래시를 켜봅시다!",
+    "잘하셨어요! 이제 어두운 곳에서 사진을 촬영할 때 자동으로 플래시가 터지면서 좋은 사진을 찍을 수 있습니다. 이번에는 근처에 있는 \"시계 모양\" 버튼을 눌러볼까요?",
+    "이제 \"타이머\"를 설정할 수 있습니다. 촬영할 때 설정하신 시간만큼 기다린 후 촬영이 됩니다! \"3초\"를 눌러볼까요?",
+    "좋아요! 이제 사진을 촬영할 때 3초 후에 촬영될겁니다. 다음은 화면 비율 설정입니다. \"4:3\" 숫자 버튼을 눌러주세요.",
+    "여기서는 화면의 비율을 결정하실 수 있습니다. \"정방형\"을 눌러주세요!",
+    "이제 카메라 화면의 비율이 1대 1이 됐습니다. 음식사진을 찍거나 할때 좋다고 합니다. 이제 다음의 버튼을 눌러주세요.",
+    "Live포토를 찍을 수 있습니다! '라이브포토'라고 읽으며, 움직이는 사진을 찍으실 수 있습니다."
+
+  ];
+  final List<Widget?> _widgets = [
+    null,
+    Container(
+        alignment: Alignment.center,
+        width: 80,
+        margin: EdgeInsets.all(75),
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+        child: IconButton(
+            icon: Icon(
+              Icons.expand_less,
+              color: Colors.white,
+              size: 35,
+            ),
+            onPressed: () {})),
+    Container(
+        alignment: Alignment.center,
+        width: 80,
+        margin: EdgeInsets.all(75),
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+        child: IconButton(
+            icon: Icon(Icons.flash_off, color: Colors.white, size: 35),
+            onPressed: () {})),
+            null,
+            null,
+  ];
+
+  void show(int sequence) {
+    String tutorialMessage = _messeges[sequence];
+    setState(() {
+      _currentStep++;
+    });
+    Future.microtask(() => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => TutorialDialog(
+            tutorialMessage: tutorialMessage,
+            textPadding: EdgeInsets.fromLTRB(38.0, 240.0, 38.0, 12.0),
+            align: TextAlign.center,
+            widget: _widgets[sequence])));
+  }
 
   void _controlToolBar(bool flag) {
     setState(() {
@@ -49,6 +108,9 @@ class _IosCameraState extends State<IosCamera> {
   @override
   void initState() {
     super.initState();
+
+    show(1);
+    show(0);
   }
 
   @override
@@ -131,6 +193,7 @@ class _IosCameraState extends State<IosCamera> {
                             size: 35,
                           ),
                           onPressed: () {
+                            if (_currentStep == 2) show(2);
                             setState(() {
                               _isToolbarOn = !_isToolbarOn;
                               _overlayCameraToolbar =
@@ -689,6 +752,9 @@ class _IosCameraState extends State<IosCamera> {
                               heroTag: 'btnCamera',
                               backgroundColor: Colors.white,
                               onPressed: () {
+                                TutorialDialog(
+                                  tutorialMessage: 'Hi',
+                                );
                                 _toast.toast('사진이 촬영되었습니다.',
                                     _overlayHeightScreenTop + 100);
                               },
@@ -828,4 +894,98 @@ class _IosCameraState extends State<IosCamera> {
       ),
     );
   }
+}
+
+class LightingPulse extends StatefulWidget {
+  final double size;
+  final Color color;
+  final Duration duration;
+
+  const LightingPulse({
+    Key? key,
+    required this.size,
+    required this.color,
+    required this.duration,
+  }) : super(key: key);
+
+  @override
+  _LightingPulseState createState() => _LightingPulseState();
+}
+
+class _LightingPulseState extends State<LightingPulse>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late double _startDiameter;
+  late double _endDiameter;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _startDiameter = widget.size * 0.8;
+    _endDiameter = widget.size * 1.4;
+
+    _controller = AnimationController(
+      vsync: this,
+      duration: widget.duration,
+    );
+
+    _animation = Tween<double>(
+      begin: _startDiameter,
+      end: _endDiameter,
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOut,
+    ));
+
+    _controller.repeat(reverse: true);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        return CustomPaint(
+          size: Size(widget.size, widget.size),
+          painter: _LightingPulsePainter(
+            diameter: _animation.value,
+            color: widget.color,
+          ),
+        );
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}
+
+class _LightingPulsePainter extends CustomPainter {
+  final double diameter;
+  final Color color;
+
+  const _LightingPulsePainter({
+    required this.diameter,
+    required this.color,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = diameter / 2;
+    final paint = Paint()
+      ..color = color
+      ..style = PaintingStyle.fill;
+
+    canvas.drawCircle(center, radius, paint);
+  }
+
+  @override
+  bool shouldRepaint(_LightingPulsePainter oldDelegate) =>
+      diameter != oldDelegate.diameter || color != oldDelegate.color;
 }
