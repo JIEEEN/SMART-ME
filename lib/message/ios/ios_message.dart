@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:smart_me/message/ios/ios_speech_bubble.dart';
 import 'package:smart_me/message/ios/ios_tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
+import 'package:smart_me/strings.dart';
 import 'package:smart_me/tutorial_end_screen.dart';
 
 class IOSMessageScreen extends StatefulWidget {
@@ -22,6 +23,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
   final _messageInputController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   int stringIndex = 0;
+  bool phoneNumberRight = false;
   String messageInput = '';
   String phoneNumberInput = '';
 
@@ -188,6 +190,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                           if (phoneNumberInput == '01000000000')
                             {
                               show('', phoneNumberInput == '01000000000'),
+                              phoneNumberRight = true,
                             }
                           else
                             {
@@ -259,7 +262,8 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                         _bubbleList.add(
                           _buildMySpeechBubble(messageInput),
                         ),
-                        if (messageInput == tutorialString[stringIndex])
+                        if (messageInput == tutorialString[stringIndex] &&
+                            phoneNumberRight)
                           {
                             _bubbleList.add(
                               getTutorialBubble(tutorialString[stringIndex]),
@@ -282,8 +286,32 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                                 ),
                               },
                             stringIndex++,
+                            // Future.delayed(
+                            //   Duration(milliseconds: 2000),
+                            //   () {
+                            //     _bubbleList.add(
+                            //       getTutorialBubble(
+                            //           tutorialString[stringIndex]),
+                            //     );
+                            //     if (messageInput == "안녕하세요!") {
+                            //       show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true);
+                            //     } else if (messageInput == "감사합니다.") {
+                            //       show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true);
+                            //       Future.delayed(Duration(milliseconds: 2000))
+                            //           .then(
+                            //         (onValue) => {
+                            //           Navigator.of(context).push(
+                            //               MaterialPageRoute(
+                            //                   builder: (context) =>
+                            //                       const EndTutorial())),
+                            //         },
+                            //       );
+                            //     }
+                            //     stringIndex++;
+                            //   },
+                            // ),
                           }
-                        else
+                        else if (phoneNumberRight)
                           {
                             if (stringIndex % 2 == 0)
                               {
