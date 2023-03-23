@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 List<String> tutorialString = [
   "안녕하세요!",
@@ -9,7 +8,7 @@ List<String> tutorialString = [
 ];
 
 Widget getTutorialBubble(String messageInput) {
-  double tempSize_width = 150.0,
+  double tempSize_width = 170.0,
       tempSize_height = 50.0,
       temppoint_x = 25.0,
       temppoint_y = 0.0;
@@ -22,7 +21,8 @@ Widget getTutorialBubble(String messageInput) {
           CustomPaint(
             size: Size(tempSize_width, tempSize_height),
             painter: tutorialSpeechBubble(
-              bubbleColor: Color(0xffdfdee3),
+              bubbleColor: Color.fromRGBO(242, 242, 242, 1),
+              // bubbleColor: Colors.red,
               messageText: tempMessage,
               startpoint_x: temppoint_x,
               startpoint_y: temppoint_y,
@@ -75,26 +75,26 @@ class tutorialSpeechBubble extends CustomPainter {
       ..quadraticBezierTo(
           startpoint_x, startpoint_y, startpoint_x, startpoint_y + fillet);
 
-    final tailPath = Path()
-      ..moveTo(tailStartPoint.x, startpoint_y + tailStartPoint.y)
-      ..cubicTo(
-        tailStartPoint.x + (tailSize.width * 0.2),
-        startpoint_y + tailStartPoint.y,
-        tailStartPoint.x + (tailSize.width * 0.6),
-        startpoint_y + tailStartPoint.y + (tailSize.height * 0.2),
-        tailStartPoint.x + tailSize.width / 2,
-        startpoint_y + tailStartPoint.y + tailSize.height,
-      )
-      ..cubicTo(
-        (tailStartPoint.x + tailSize.width / 2) + (tailSize.width * 0.2),
-        startpoint_y + tailStartPoint.y + tailSize.height,
-        tailStartPoint.x + tailSize.width,
-        startpoint_y + tailStartPoint.y + (tailSize.height * 0.3),
-        tailStartPoint.x + tailSize.width,
-        startpoint_y + tailStartPoint.y - 0.3,
-      );
+    // final tailPath = Path()
+    //   ..moveTo(tailStartPoint.x, startpoint_y + tailStartPoint.y)
+    //   ..cubicTo(
+    //     tailStartPoint.x + (tailSize.width * 0.2),
+    //     startpoint_y + tailStartPoint.y,
+    //     tailStartPoint.x + (tailSize.width * 0.6),
+    //     startpoint_y + tailStartPoint.y + (tailSize.height * 0.2),
+    //     tailStartPoint.x + tailSize.width / 2,
+    //     startpoint_y + tailStartPoint.y + tailSize.height,
+    //   )
+    //   ..cubicTo(
+    //     (tailStartPoint.x + tailSize.width / 2) + (tailSize.width * 0.2),
+    //     startpoint_y + tailStartPoint.y + tailSize.height,
+    //     tailStartPoint.x + tailSize.width,
+    //     startpoint_y + tailStartPoint.y + (tailSize.height * 0.3),
+    //     tailStartPoint.x + tailSize.width,
+    //     startpoint_y + tailStartPoint.y - 0.3,
+    //   );
 
-    bubblePath.addPath(tailPath, Offset(0, 0));
+    // bubblePath.addPath(tailPath, Offset(0, 0));
 
     final paintDraw = Paint()
       ..color = bubbleColor

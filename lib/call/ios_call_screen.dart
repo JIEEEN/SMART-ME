@@ -11,7 +11,13 @@ import 'package:smart_me/tutorial_end_screen.dart';
 
 class IOSCallScreen extends StatefulWidget {
   final from;
-  const IOSCallScreen({super.key, required this.from});
+  final caller;
+  final image;
+  const IOSCallScreen(
+      {super.key,
+      required this.from,
+      required this.caller,
+      required this.image});
 
   @override
   State<IOSCallScreen> createState() => _IOSCallScreenState();
@@ -75,22 +81,29 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(60.0),
-                        child: Image.network(
-                          "https://picsum.photos/100/100",
-                          height: 58,
-                          width: 58,
-                        ),
+                        child: (widget.image != "")
+                            ? Image.network(
+                                widget.image,
+                                height: 58,
+                                width: 58,
+                              )
+                            : Container(
+                                height: 58,
+                                width: 58,
+                                decoration: BoxDecoration(
+                                    color: lightGrey, shape: BoxShape.circle),
+                              ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
-                            "Name",
+                            widget.caller,
                             style:
-                                TextStyle(fontSize: 36.0, color: Colors.white),
+                                TextStyle(fontSize: 30.0, color: Colors.white),
                             textAlign: TextAlign.left,
                           ),
                           SizedBox(
@@ -298,14 +311,14 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                   }
                 },
                 child: Container(
-                  height: 72,
-                  width: 72,
+                  height: 76,
+                  width: 76,
                   decoration: const BoxDecoration(
                       color: Colors.red, shape: BoxShape.circle),
                   child: const Icon(
                     Icons.call_end,
                     color: Colors.white,
-                    size: 36,
+                    size: 38,
                   ),
                 ),
               ),
