@@ -10,6 +10,8 @@ import 'package:smart_me/message/android/android_tutorial_message.dart';
 import 'package:smart_me/tutorial_end_screen.dart';
 
 class AndroidMessageScreen extends StatefulWidget {
+  const AndroidMessageScreen({super.key});
+
   @override
   _AndroidMessageScreen createState() => _AndroidMessageScreen();
 }
@@ -24,8 +26,9 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
   String messageInput = '';
   String phoneNumberInput = '';
 
-  List<Widget> _bubbleList = [];
+  final List<Widget> _bubbleList = [];
 
+  @override
   void dispose() {
     _focusMessageNode.dispose();
     _messageInputController.dispose();
@@ -49,6 +52,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
     );
   }
 
+  @override
   void initState() {
     super.initState();
     String initNotice = "잘하셨습니다! '안녕하세요!'라고 보내시면\n상대방이 답장을 할 것입니다.";
@@ -70,37 +74,38 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
         show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.");
         Future.delayed(Duration(milliseconds: 2000)).then(
           (onValue) => {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const EndTutorial())),
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EndTutorial(
+                      tutorialName: "메세지",
+                    ))),
           },
         );
       }
-      ;
       stringIndex++;
     } else {
       if (stringIndex % 2 == 0) {
         show("'안녕하세요!'라고 입력해보세요!");
-      } else
+      } else {
         show("'감사합니다.'라고 입력해보세요!");
+      }
     }
-    ;
   }
 
   Widget _buildMySpeechBubble(String messageInput) {
-    double tempSize_width = 0,
-        tempSize_height = 50.0,
-        temppoint_x = MediaQuery.of(context).size.width - 25.0,
-        temppoint_y = 0.0;
+    double tempsizeWidth = 0,
+        tempsizeHeight = 50.0,
+        temppointX = MediaQuery.of(context).size.width - 25.0,
+        temppointY = 0.0;
     String tempMessage = '';
 
     tempMessage = sliceText(messageInput.length, messageInput);
 
     for (int i = 0; i < messageInput.length; i++) {
       if (i < 7) {
-        tempSize_width += 28;
+        tempsizeWidth += 28;
       }
       if (i != 0 && i % 7 == 0) {
-        tempSize_height += 70;
+        tempsizeHeight += 70;
       }
     }
     return Column(
@@ -108,12 +113,12 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
         Row(
           children: <Widget>[
             CustomPaint(
-              size: Size(tempSize_width, tempSize_height),
+              size: Size(tempsizeWidth, tempsizeHeight),
               painter: SpeechBubble(
                 bubbleColor: Color.fromRGBO(72, 158, 136, 1),
                 messageText: tempMessage,
-                startpoint_x: temppoint_x,
-                startpoint_y: temppoint_y,
+                startpoint_x: temppointX,
+                startpoint_y: temppointY,
               ),
             ),
           ],
@@ -240,7 +245,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
               Padding(
                 padding: EdgeInsets.only(right: 5.0),
               ),
-              Container(
+              SizedBox(
                 width: 35.0,
                 height: 40.0,
                 child: Transform.rotate(

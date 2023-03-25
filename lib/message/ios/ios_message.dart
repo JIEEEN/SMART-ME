@@ -10,6 +10,7 @@ import 'package:smart_me/message/ios/ios_tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/tutorial_end_screen.dart';
+import 'package:smart_me/suggestion/feedback_screen.dart';
 
 class IOSMessageScreen extends StatefulWidget {
   @override
@@ -62,7 +63,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     super.initState();
 
     String str =
-        "이 곳은 메시지를 입력하고 보낼 수 있는 화면입니다.\n받는 사람을 입력하는 칸에 010-0000-0000을 적어보세요!";
+        "이 곳은 메시지를 입력하고 보낼 수 있는 화면입니다.\n받는 사람을 입력하는 칸에 010-1234-5678을 적어보세요!";
 
     show(str, true);
   }
@@ -106,6 +107,8 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
     );
   }
 
+  List<Widget> _bodyList = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,196 +146,204 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
           ),
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          // Padding(
-          //   padding: EdgeInsets.only(top: 12.0),
-          // ),
-          Container(
-            child: Row(
-              children: [
-                Text(
-                  '     받는 사람: ',
-                  style: TextStyle(color: Colors.grey),
-                ),
-                Flexible(
-                  child: TextFormField(
-                    controller: _phoneNumberController,
-                    focusNode: _focusPhoneNumberNode,
-                    cursorColor: Colors.blue,
-                    keyboardType: TextInputType.text,
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.digitsOnly,
-                    ],
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      suffixIcon: Icon(
-                        CupertinoIcons.add_circled,
-                        color: Colors.blue,
-                      ),
+      body: Stack(
+        children: [
+          Column(
+            children: <Widget>[
+              // Padding(
+              //   padding: EdgeInsets.only(top: 12.0),
+              // ),
+              Container(
+                child: Row(
+                  children: [
+                    Text(
+                      '     받는 사람: ',
+                      style: TextStyle(color: Colors.grey),
                     ),
-                    style: TextStyle(fontSize: 20.0),
-                    // onChanged: (String value) {
-                    //   final TextSelection previousCursorPos =
-                    //       _phoneNumberController.selection;
-                    //   _phoneNumberController.text = value;
-                    //   _phoneNumberController.selection = previousCursorPos;
-                    // },
-                    onChanged: (value) {
-                      if (_focusPhoneNumberNode.hasFocus) {
-                        _focusPhoneNumberNode.requestFocus();
-                      }
-                    },
-                    onFieldSubmitted: (String str) => {
-                      setState(
-                        () => {
-                          phoneNumberInput = str,
-                          if (phoneNumberInput == '01000000000')
-                            {
-                              show('', phoneNumberInput == '01000000000'),
-                              phoneNumberRight = true,
-                            }
-                          else
-                            {
-                              show('', phoneNumberInput == '01000000000'),
-                            }
+                    Flexible(
+                      child: TextFormField(
+                        controller: _phoneNumberController,
+                        focusNode: _focusPhoneNumberNode,
+                        cursorColor: Colors.blue,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly,
+                        ],
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          suffixIcon: Icon(
+                            CupertinoIcons.add_circled,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        style: TextStyle(fontSize: 20.0),
+                        // onChanged: (String value) {
+                        //   final TextSelection previousCursorPos =
+                        //       _phoneNumberController.selection;
+                        //   _phoneNumberController.text = value;
+                        //   _phoneNumberController.selection = previousCursorPos;
+                        // },
+                        onChanged: (value) {
+                          if (_focusPhoneNumberNode.hasFocus) {
+                            _focusPhoneNumberNode.requestFocus();
+                          }
+                        },
+                        onFieldSubmitted: (String str) => {
+                          setState(
+                            () => {
+                              phoneNumberInput = str,
+                              if (phoneNumberInput == '01012345678' ||
+                                  phoneNumberInput == '010-1234-5678')
+                                {
+                                  show('', phoneNumberInput == '01012345678'),
+                                  phoneNumberRight = true,
+                                }
+                              else
+                                {
+                                  show('', phoneNumberInput == '01012345678'),
+                                }
+                            },
+                          ),
+                          // _phoneNumberController.clear()
                         },
                       ),
-                      // _phoneNumberController.clear()
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-          // Padding(
-          //   padding: EdgeInsets.only(
-          //     top: 2.0,
-          //   ),
-          // ),
-          Divider(
-            thickness: 1,
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: _bubbleList,
-              ),
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
-              ),
-              Icon(CupertinoIcons.camera_fill, size: 30.0),
-              Padding(padding: EdgeInsets.only(left: 20.0)),
-              Icon(CupertinoIcons.bars, size: 30.0),
-              Padding(padding: EdgeInsets.only(left: 20.0)),
-              Expanded(
-                child: TextFormField(
-                  controller: _messageInputController,
-                  autofocus: false,
-                  focusNode: _focusMessageNode,
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.fromLTRB(20.0, 0, 0, 0),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      borderSide: BorderSide(
-                        color: Color.fromRGBO(223, 222, 228, 1),
-                      ),
-                    ),
-                  ),
-                  style: TextStyle(fontSize: 20),
-                  keyboardAppearance: Brightness.light,
-                  onChanged: (value) {
-                    if (_focusMessageNode.hasFocus) {
-                      _focusMessageNode.requestFocus();
-                    }
-                  },
-                  onFieldSubmitted: (String str) => {
-                    if (_focusMessageNode.hasFocus)
-                      {_focusMessageNode.requestFocus()},
-                    setState(
-                      () => {
-                        messageInput = str,
-                        _bubbleList.add(
-                          _buildMySpeechBubble(messageInput),
-                        ),
-                        if (messageInput == tutorialString[stringIndex] &&
-                            phoneNumberRight)
-                          {
-                            _bubbleList.add(
-                              getTutorialBubble(tutorialString[stringIndex]),
-                            ),
-                            if (messageInput == "안녕하세요!")
-                              {
-                                show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true),
-                              }
-                            else if (messageInput == "감사합니다.")
-                              {
-                                show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true),
-                                Future.delayed(Duration(milliseconds: 2000))
-                                    .then(
-                                  (onValue) => {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const EndTutorial())),
-                                  },
-                                ),
-                              },
-                            stringIndex++,
-                            // Future.delayed(
-                            //   Duration(milliseconds: 2000),
-                            //   () {
-                            //     _bubbleList.add(
-                            //       getTutorialBubble(
-                            //           tutorialString[stringIndex]),
-                            //     );
-                            //     if (messageInput == "안녕하세요!") {
-                            //       show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true);
-                            //     } else if (messageInput == "감사합니다.") {
-                            //       show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true);
-                            //       Future.delayed(Duration(milliseconds: 2000))
-                            //           .then(
-                            //         (onValue) => {
-                            //           Navigator.of(context).push(
-                            //               MaterialPageRoute(
-                            //                   builder: (context) =>
-                            //                       const EndTutorial())),
-                            //         },
-                            //       );
-                            //     }
-                            //     stringIndex++;
-                            //   },
-                            // ),
-                          }
-                        else if (phoneNumberRight)
-                          {
-                            if (stringIndex % 2 == 0)
-                              {
-                                show("'안녕하세요!'라고 입력해보세요!", true),
-                              }
-                            else
-                              show("'감사합니다.'라고 입력해보세요!", true),
-                          },
-                      },
-                    ),
-                    _messageInputController.clear(),
-                  },
+                    )
+                  ],
                 ),
               ),
+              // Padding(
+              //   padding: EdgeInsets.only(
+              //     top: 2.0,
+              //   ),
+              // ),
+              Divider(
+                thickness: 1,
+              ),
+              Container(
+                padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: _bubbleList,
+                  ),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+                  ),
+                  Icon(CupertinoIcons.camera_fill, size: 30.0),
+                  Padding(padding: EdgeInsets.only(left: 20.0)),
+                  Icon(CupertinoIcons.bars, size: 30.0),
+                  Padding(padding: EdgeInsets.only(left: 20.0)),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _messageInputController,
+                      autofocus: false,
+                      focusNode: _focusMessageNode,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(223, 222, 228, 1),
+                          ),
+                        ),
+                      ),
+                      style: TextStyle(fontSize: 20),
+                      keyboardAppearance: Brightness.light,
+                      onChanged: (value) {
+                        if (_focusMessageNode.hasFocus) {
+                          _focusMessageNode.requestFocus();
+                        }
+                      },
+                      onFieldSubmitted: (String str) => {
+                        if (_focusMessageNode.hasFocus)
+                          {_focusMessageNode.requestFocus()},
+                        setState(
+                          () => {
+                            messageInput = str,
+                            _bubbleList.add(
+                              _buildMySpeechBubble(messageInput),
+                            ),
+                            if (messageInput == tutorialString[stringIndex] &&
+                                phoneNumberRight)
+                              {
+                                _bubbleList.add(
+                                  getTutorialBubble(
+                                      tutorialString[stringIndex]),
+                                ),
+                                if (messageInput == "안녕하세요!")
+                                  {
+                                    show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!",
+                                        true),
+                                  }
+                                else if (messageInput == "감사합니다.")
+                                  {
+                                    show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true),
+                                    Future.delayed(Duration(milliseconds: 2000))
+                                        .then(
+                                      (onValue) => {
+                                        Navigator.of(context)
+                                            .push(MaterialPageRoute(
+                                                builder: (context) =>
+                                                    // const EndTutorial())),
+                                                    FeedbackScreen())),
+                                      },
+                                    ),
+                                  },
+                                stringIndex++,
+                                // Future.delayed(
+                                //   Duration(milliseconds: 2000),
+                                //   () {
+                                //     _bubbleList.add(
+                                //       getTutorialBubble(
+                                //           tutorialString[stringIndex]),
+                                //     );
+                                //     if (messageInput == "안녕하세요!") {
+                                //       show("잘하셨습니다! 마지막으로 '감사합니다.'라고 보내주세요!", true);
+                                //     } else if (messageInput == "감사합니다.") {
+                                //       show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true);
+                                //       Future.delayed(Duration(milliseconds: 2000))
+                                //           .then(
+                                //         (onValue) => {
+                                //           Navigator.of(context).push(
+                                //               MaterialPageRoute(
+                                //                   builder: (context) =>
+                                //                       const EndTutorial())),
+                                //         },
+                                //       );
+                                //     }
+                                //     stringIndex++;
+                                //   },
+                                // ),
+                              }
+                            else if (phoneNumberRight)
+                              {
+                                if (stringIndex % 2 == 0)
+                                  {
+                                    show("'안녕하세요!'라고 입력해보세요!", true),
+                                  }
+                                else
+                                  show("'감사합니다.'라고 입력해보세요!", true),
+                              },
+                          },
+                        ),
+                        _messageInputController.clear(),
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(right: 10.0),
+                  )
+                ],
+              ),
               Padding(
-                padding: EdgeInsets.only(right: 10.0),
-              )
+                padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
+              ),
             ],
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
           ),
         ],
       ),

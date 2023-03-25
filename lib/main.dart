@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp(
-//     options: DefaultFirebaseOptions.currentPlatform,
-//   );
-
+// void main() {
+//   // await Firebase.initializeApp(
+//   //   options: DefaultFirebaseOptions.currentPlatform,
+//   // );
 //   runApp(const MyApp());
 // }
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -28,6 +30,12 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
+    // return FutureBuilder(
+    //   future: _initialization,
+    //   builder: (context, snapshot) {
+    //     return MyHomePage(title: 'Flutter Demo');
+    //   },
+    // );
   }
 }
 
@@ -41,20 +49,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: Center(
+  //       child: FirstPage(),
+  //     ),
+  //   );
+  // }
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-        body: Center(
-      // Center is a layout widget. It takes a single child and positions it
-      // in the middle of the parent.
-      child:
-          FirstPage(), // This trailing comma makes auto-formatting nicer for build methods.
-    ));
+    return FutureBuilder(
+      future: _initialization,
+      builder: (context, snapshot) {
+        print(snapshot);
+        if (snapshot.hasError) {
+          return Scaffold(
+            body: Center(
+              child: Container(
+                child: const Text('Error'),
+              ),
+            ),
+          );
+        }
+
+        if (snapshot.connectionState == ConnectionState.done) {
+          return Scaffold(
+            body: Center(
+              child: FirstPage(),
+            ),
+          );
+        }
+        return const CircularProgressIndicator();
+      },
+    );
   }
 }
