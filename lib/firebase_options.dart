@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -43,16 +46,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCo7ELIx1nR3H17cDQDwH5O5Xzq1ykGk4Y',
-    appId: '1:763058138555:web:ae2973f954107c2606289e',
-    messagingSenderId: '763058138555',
-    projectId: 'smart-me-43d42',
-    authDomain: 'smart-me-43d42.firebaseapp.com',
-    storageBucket: 'smart-me-43d42.appspot.com',
-    measurementId: 'G-YSERQ8H26K',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyB5L4NvVBfa72dNGEq9to6yN6WEgiWMX78',
     appId: '1:763058138555:android:fcd0a94d6618c92506289e',
@@ -63,12 +56,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyA7AeHi_2XFmPmVdaxVp15oqPCjMzVdpUY',
-    appId: '1:763058138555:ios:02201c90773c981906289e',
+    appId: '1:763058138555:ios:56d62f84d844bcfe06289e',
     messagingSenderId: '763058138555',
     projectId: 'smart-me-43d42',
     storageBucket: 'smart-me-43d42.appspot.com',
-    iosClientId: '763058138555-iqdne9773qjm1vqgcibg8i9vla0silgu.apps.googleusercontent.com',
-    iosBundleId: 'com.example.smartMe',
+    iosClientId: '763058138555-jqckm6o8efnm7eabcjgr6etva36advmr.apps.googleusercontent.com',
+    iosBundleId: 'com.example.smartme1',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
