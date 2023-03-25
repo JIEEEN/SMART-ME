@@ -10,7 +10,7 @@ import 'package:smart_me/message/ios/ios_tutorial_message.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 import 'package:smart_me/strings.dart';
 import 'package:smart_me/tutorial_end_screen.dart';
-import 'package:smart_me/suggestion/suggestion_screen.dart';
+import 'package:smart_me/suggestion/feedback_screen.dart';
 
 class IOSMessageScreen extends StatefulWidget {
   @override
@@ -283,7 +283,6 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                                 else if (messageInput == "감사합니다.")
                                   {
                                     show("수고하셨습니다. 메시지 튜토리얼을 마치겠습니다.", true),
-                                    getData(),
                                     Future.delayed(Duration(milliseconds: 2000))
                                         .then(
                                       (onValue) => {
@@ -291,7 +290,7 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                                             .push(MaterialPageRoute(
                                                 builder: (context) =>
                                                     // const EndTutorial())),
-                                                    SuggestionScreen())),
+                                                    FeedbackScreen())),
                                       },
                                     ),
                                   },
