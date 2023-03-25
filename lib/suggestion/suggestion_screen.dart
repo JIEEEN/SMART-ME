@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 class SuggestionScreen extends StatefulWidget {
@@ -12,6 +13,7 @@ final _suggestionController = TextEditingController();
 final _suggestionNode = FocusNode();
 String suggestionInput = '';
 List<String> suggestionStringList = [];
+List<String> suggestionDateList = [];
 List<Widget> suggestionWidgetList = [];
 
 getData() async {
@@ -19,10 +21,16 @@ getData() async {
     (QuerySnapshot) {
       print("Successfully completed");
       for (var docSnapshot in QuerySnapshot.docs) {
-        print(
-            '${docSnapshot.id} => ${docSnapshot.data().toString().split(":")[1].split("}")[0]}');
-        suggestionStringList
-            .add(docSnapshot.data().toString().split(":")[1].split("}")[0]);
+        print(docSnapshot.data());
+        String message =
+            docSnapshot.data().toString().split(":")[1].split(",")[0].trim();
+        // String date = docSnapshot.data().toString().split(":")[1].split(",")[1];
+        String date = docSnapshot.data().toString().split(":")[2].split("}")[0];
+        // print(date);
+        // print(
+        //     '${docSnapshot.id} => ${docSnapshot.data().toString().split(":")[1].split(",")[1]}');
+        suggestionStringList.add(message);
+        suggestionDateList.add(date);
       }
     },
     onError: (e) => print("Error completing: $e"),
@@ -37,17 +45,28 @@ class _SuggestionScreen extends State<SuggestionScreen> {
 
   List<Widget> retlist(String str) {
     if (suggestionWidgetList.length == 0) {
-      for (var data in suggestionStringList) {
+      for (int i = 0; i < suggestionStringList.length - 1; i++) {
         suggestionWidgetList.add(
           Container(
             width: MediaQuery.of(context).size.width,
             height: 50.0,
             child: Text(
-              data,
+              suggestionStringList[i],
               style: TextStyle(
-                fontSize: 30.0,
+                fontSize: 20.0,
               ),
             ),
+          ),
+        );
+        suggestionWidgetList.add(
+          Row(
+            children: [
+              Expanded(child: Text('')),
+              Text(
+                suggestionDateList[i],
+                textAlign: TextAlign.right,
+              ),
+            ],
           ),
         );
         suggestionWidgetList.add(
@@ -64,9 +83,19 @@ class _SuggestionScreen extends State<SuggestionScreen> {
           child: Text(
             str,
             style: TextStyle(
-              fontSize: 30.0,
+              fontSize: 20.0,
             ),
           ),
+        ),
+      );
+      suggestionWidgetList.add(
+        Row(
+          children: [
+            Expanded(child: Text('')),
+            Text(
+              DateFormat('yyyy년 MM월 dd일').format(DateTime.now()).toString(),
+            ),
+          ],
         ),
       );
       suggestionWidgetList.add(
@@ -110,6 +139,7 @@ class _SuggestionScreen extends State<SuggestionScreen> {
                   controller: _suggestionController,
                   focusNode: _suggestionNode,
                   decoration: InputDecoration(
+                    hintText: '손주에게 전할 말씀을 남겨주세요!',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20))),
                   ),
@@ -124,10 +154,13 @@ class _SuggestionScreen extends State<SuggestionScreen> {
                         suggestionInput = str,
                         db.collection("stext").add(
                           {
+                            "datetime": DateFormat('yyyy년 MM월 dd일')
+                                .format(DateTime.now())
+                                .toString(),
                             "suggestion": suggestionInput,
                           },
                         ),
-                        retlist(suggestionInput),
+                        // retlist(suggestionInput),
                       },
                     ),
                   },
