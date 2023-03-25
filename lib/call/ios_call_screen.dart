@@ -307,7 +307,9 @@ class _IOSCallScreenState extends State<IOSCallScreen> {
                   }
                   if (widget.from == "contact_detail") {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const EndTutorial()));
+                        builder: (context) => const EndTutorial(
+                              tutorialName: "전화",
+                            )));
                   }
                 },
                 child: Container(

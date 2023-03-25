@@ -279,7 +279,9 @@ class _AndroidCallScreenState extends State<AndroidCallScreen> {
                       }
                       if (widget.from == "contact_detail") {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const EndTutorial()));
+                            builder: (context) => const EndTutorial(
+                                  tutorialName: "전화",
+                                )));
                       }
                     },
                     child: Padding(
