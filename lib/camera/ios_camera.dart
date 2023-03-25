@@ -40,7 +40,7 @@ class _IosCameraState extends State<IosCamera> {
   late String? _currentTime;
 
   final List<String> _messeges = [
-    "카메라 튜토리얼에 오신걸 환영합니다!\n 본 과정에서는 카메라 및 비디오의 기초 사용법에 대해 알아보겠습니다.",
+    "카메라 튜토리얼에 오신걸 환영합니다!\n 본 과정에서는 카메라 및 비디오의 기초 사용법에 대해 알아보겠습니다.\n 화면 최상단의 버튼을 누르면 안내메시지를 다시 보실수 있습니다.",
     "우선은 카메라의 요소들에 대해 설명드리겠습니다.\n  하단의 버튼을 확인하시고, 확인을 누르신 후 똑같이 생긴 버튼을 눌려주세요. ",
     "잘했습니다! 이제 카메라의 설정을 조작할 수 있습니다!\n 플래시(후레시) 설정에 대해 알아보겠습니다.\n 확인을 누르신 후 \"아래쪽에 있는\" 번개모양을 눌러주세요.",
     "다음과 같이 플래시(후레시)를 끄거나 키실 수 있습니다.\n '자동'을 눌러 플래시를 켜봅시다!",
@@ -48,11 +48,86 @@ class _IosCameraState extends State<IosCamera> {
     "이제 \"타이머\"를 설정할 수 있습니다. 촬영할 때 설정하신 시간만큼 기다린 후 촬영이 됩니다! \"3초\"를 눌러볼까요?",
     "좋아요! 이제 사진을 촬영할 때 3초 후에 촬영될겁니다. 다음은 화면 비율 설정입니다. \"4:3\" 숫자 버튼을 눌러주세요.",
     "여기서는 화면의 비율을 결정하실 수 있습니다. \"정방형\"을 눌러주세요!",
-    "이제 카메라 화면의 비율이 1대 1이 됐습니다. 음식사진을 찍거나 할때 좋다고 합니다. 이제 다음의 버튼을 눌러주세요.",
-    "Live포토를 찍을 수 있습니다! '라이브포토'라고 읽으며, 움직이는 사진을 찍으실 수 있습니다."
-
+    "이제 카메라 화면의 비율이 1대 1이 됐습니다. 음식사진을 찍거나 할때 좋다고 합니다. 이제 다음의 동그라미 버튼을 눌러주세요.",
+    "Live포토를 찍을 수 있습니다!\n '라이브포토'라고 읽으며, 움직이는 사진을 찍으실 수 있습니다. 마지막으로 \"1.0\" 숫자를 눌러보겠습니다.",
+    "글자가 확대된게 보이셨나요? 해당 버튼을 계속해서 누르면 배율을 바꿀수 있습니다. 한번 더 눌러보세요!",
+    "좋습니다! 0.5배율은 \"광각\" 촬영으로, 더 많은 사물을 한번에 담을 수 있습니다. 이제 맨 아래 하얀 버튼을 눌러 사진을 찍겠습니다!",
+    "잘하셨습니다! 지금처럼 카메라를 설정하시면, 원하시는 대로 사진을 촬영하실 수 있습니다. 이제는 동영상도 정복해보겠습니다. 우선 이 버튼을 눌러주세요!",
+    "방금 누른 버튼을 누르면, 카메라 촬영 설정을 지금까지 하신것 처럼 변경하실 수 있습니다. 동영상 정복을 위해 \"비디오\"버튼을 눌러주세요! ",
+    "동영상은 설정할 부분이 많이 없습니다. 화면 상단의 \"HD\" 버튼을 눌러주세요!",
+    "방금처럼, 해당 글자를 눌러 화질을 결정할 수 있습니다. HD -> FHD -> 4K순으로 좋아진답니다.\n 다음으로 옆에있는 \"60\"을 눌러보세요",
+    "30과 60은 동영상의 \"매끄러움\"을 담당해줍니다. 숫자가 높을수록 더 \"매끄러워\"지죠. \n 마지막으로 처음에 봤던, 번개모양을 눌러볼까요?",
+    "번개에 금이 그어져 있는 것은, 동영상을 촬영할 때 플래시를 전혀 사용하지 않겠다는 뜻입니다. 다시한번 번개모양을 눌러볼까요?",
+    "좋습니다! 이제 어두운 공간에서 동영상을 촬영하면, 자동으로 플래시가 켜져 주위가 밝아집니다.\n 그럼 이제 동영상을 촬영하겠습니다. 하단의 빨간 동그라미를 눌러주세요.",
+    "동영상 촬영이 시작됐습니다! 원하시는 만큼 촬영하다, 종료하고 싶으시다면 다음의 버튼을 눌러주시면 됩니다. ",
+    "이것으로 카메라 앱 튜토리얼이 전부 끝났습니다! 카메라 조작에 능숙해지신것을 축하합니다!"
   ];
   final List<Widget?> _widgets = [
+    Icon(Icons.refresh, color: Colors.black, size: 80), //0
+    Container(
+      alignment: Alignment.center,
+      width: 80,
+      margin: EdgeInsets.all(75),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+      child: Icon(
+        Icons.expand_less,
+        color: Colors.white,
+        size: 35,
+      ),
+    ), //1
+    Container(
+        alignment: Alignment.center,
+        width: 80,
+        margin: EdgeInsets.all(75),
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+        child: Icon(Icons.flash_off, color: Colors.white, size: 35)), //2
+    null, //3
+    Container(
+        alignment: Alignment.center,
+        width: 80,
+        margin: EdgeInsets.all(75),
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+        child: Icon(Icons.schedule, color: Colors.white, size: 35)), //4
+    null, //5
+    null, //6
+    null, //7
+    Container(
+        alignment: Alignment.center,
+        width: 80,
+        margin: EdgeInsets.all(75),
+        decoration:
+            BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+        child:
+            Icon(Icons.motion_photos_off, color: Colors.white, size: 35)), //8
+    Container(
+      width: 80,
+      margin: EdgeInsets.all(75),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(color: Colors.black, shape: BoxShape.circle),
+      child: Text(
+        '1.0',
+        style: TextStyle(color: Colors.yellow, fontWeight: FontWeight.w700),
+      ),
+    ), //9
+    null, //10
+    null, //11
+    Container(
+      alignment: Alignment.center,
+      width: 80,
+      margin: EdgeInsets.all(75),
+      decoration:
+          BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
+      child: Icon(
+        Icons.expand_more,
+        color: Colors.yellow,
+        size: 35,
+      ),
+    ),
+    null, //1
+    null,
     null,
     Container(
         alignment: Alignment.center,
@@ -60,27 +135,33 @@ class _IosCameraState extends State<IosCamera> {
         margin: EdgeInsets.all(75),
         decoration:
             BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
-        child: IconButton(
-            icon: Icon(
-              Icons.expand_less,
-              color: Colors.white,
-              size: 35,
-            ),
-            onPressed: () {})),
-    Container(
+        child: Icon(Icons.flash_off, color: Colors.white, size: 35)),
+     Container(
         alignment: Alignment.center,
         width: 80,
         margin: EdgeInsets.all(75),
         decoration:
             BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
-        child: IconButton(
-            icon: Icon(Icons.flash_off, color: Colors.white, size: 35),
-            onPressed: () {})),
-            null,
-            null,
+        child: Icon(Icons.flash_on, color: Colors.white, size: 35)),
+    null,
+    Container(
+      width: 48,
+      height: 48,
+      margin: EdgeInsets.all(75),
+      decoration: BoxDecoration(
+          border: Border.all(width: 3, color: Colors.black),
+          borderRadius: BorderRadius.circular(100)),
+      child: Container(
+          margin: EdgeInsets.all(10),
+          width: 32,
+          height: 32,
+          color: Colors.black),
+    ),
+    null,
   ];
 
-  void show(int sequence) {
+  void show(int sequence, {bool forceFlag = false}) {
+    if (sequence != _currentStep && !forceFlag) return;
     String tutorialMessage = _messeges[sequence];
     setState(() {
       _currentStep++;
@@ -109,8 +190,8 @@ class _IosCameraState extends State<IosCamera> {
   void initState() {
     super.initState();
 
-    show(1);
-    show(0);
+    show(1, forceFlag: true);
+    show(0, forceFlag: true);
   }
 
   @override
@@ -131,7 +212,27 @@ class _IosCameraState extends State<IosCamera> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        toolbarHeight: 0,
+        toolbarHeight: 50,
+        title: _currentStep > 20
+            ? TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  '복귀하기',
+                  style: TextStyle(color: Colors.green , fontSize: 40),
+                ))
+            : Text(
+                '연습 화면입니다',
+                style: TextStyle(color: Colors.red, fontSize: 24),
+              ),
+        leading: Padding(
+            padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
+            child: GestureDetector(
+                onTap: () {
+                  show(--_currentStep);
+                },
+                child: Icon(Icons.refresh, color: Colors.white, size: 40))),
       ),
       body: Column(
         children: [
@@ -193,7 +294,8 @@ class _IosCameraState extends State<IosCamera> {
                             size: 35,
                           ),
                           onPressed: () {
-                            if (_currentStep == 2) show(2);
+                            show(2);
+                            show(13);
                             setState(() {
                               _isToolbarOn = !_isToolbarOn;
                               _overlayCameraToolbar =
@@ -211,6 +313,8 @@ class _IosCameraState extends State<IosCamera> {
                                 ? Colors.yellow
                                 : Colors.white),
                         onPressed: () {
+                          show(9);
+
                           _toast.toast(
                               'LIVE 포토 ' + (_isMotionPhotoOn ? '끔' : '켬'),
                               _overlayHeightScreenTop + 30);
@@ -248,6 +352,8 @@ class _IosCameraState extends State<IosCamera> {
                           color: Colors.white,
                         ),
                         onPressed: () {
+                          show(18);
+                          show(17);
                           setState(() {
                             _isFlashOn = !_isFlashOn;
                             _flashType = _flashType == 0 ? 1 : 0;
@@ -280,6 +386,7 @@ class _IosCameraState extends State<IosCamera> {
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
+                                show(15);
                                 setState(() {
                                   _videoQualityType =
                                       _videoQualityType == 0 ? 1 : 0;
@@ -298,6 +405,7 @@ class _IosCameraState extends State<IosCamera> {
                                     fontWeight: FontWeight.bold),
                               ),
                               onPressed: () {
+                                show(16);
                                 setState(() {
                                   _videoFrameType =
                                       _videoFrameType == 0 ? 1 : 0;
@@ -337,10 +445,10 @@ class _IosCameraState extends State<IosCamera> {
               height: double.infinity,
               child: GestureDetector(
                 onVerticalDragEnd: (details) => {
-                  if (details.velocity.pixelsPerSecond.dy > 0)
-                    {_controlToolBar(true)}
-                  else
-                    {_controlToolBar(false)}
+                  // if (details.velocity.pixelsPerSecond.dy > 0)
+                  //   {_controlToolBar(true)}
+                  // else
+                  //   {_controlToolBar(false)}
                 },
                 child: Align(
                   alignment: Alignment.bottomCenter,
@@ -367,19 +475,22 @@ class _IosCameraState extends State<IosCamera> {
                     BoxDecoration(color: Colors.black, shape: BoxShape.circle),
                 margin: EdgeInsets.fromLTRB(0, 0, 0, 10),
                 child: TextButton(
-                  child: Text(
-                    '$_selectedScope',
-                    style: TextStyle(
-                        color: Colors.yellow, fontWeight: FontWeight.w700),
-                  ),
-                  onPressed: () => setState(() {
-                    _selectedScope = _selectedScope == 0.5
-                        ? 1.0
-                        : _selectedScope == 1.0
-                            ? 2.0
-                            : 0.5;
-                  }),
-                )),
+                    child: Text(
+                      '$_selectedScope',
+                      style: TextStyle(
+                          color: Colors.yellow, fontWeight: FontWeight.w700),
+                    ),
+                    onPressed: () => {
+                          show(11),
+                          show(10),
+                          setState(() {
+                            _selectedScope = _selectedScope == 0.5
+                                ? 1.0
+                                : _selectedScope == 1.0
+                                    ? 2.0
+                                    : 0.5;
+                          }),
+                        })),
           ),
           Stack(
             children: [
@@ -398,13 +509,16 @@ class _IosCameraState extends State<IosCamera> {
                               ? Color(0xFF2e2e2e)
                               : Colors.transparent),
                       child: TextButton(
-                        onPressed: () => setState(() {
-                          _isModeCamera = false;
-                          _overlayHeightVideoToolBox = 80;
-                          _overlayHeightVideoStarter = 120;
-                          _overlayCameraToolbar = 0;
-                          _isToolbarOn = false;
-                        }),
+                        onPressed: () => {
+                          show(14),
+                          setState(() {
+                            _isModeCamera = false;
+                            _overlayHeightVideoToolBox = 80;
+                            _overlayHeightVideoStarter = 120;
+                            _overlayCameraToolbar = 0;
+                            _isToolbarOn = false;
+                          })
+                        },
                         child: Text(
                           '비디오',
                           style: TextStyle(
@@ -459,6 +573,7 @@ class _IosCameraState extends State<IosCamera> {
                                 _flashType == 2 ? Colors.yellow : Colors.white,
                           ),
                           onPressed: () {
+                            show(3);
                             setState(() {
                               _isFlashOn = !_isFlashOn;
                               _overlayHeightFlash = 80;
@@ -475,6 +590,7 @@ class _IosCameraState extends State<IosCamera> {
                                     ? Colors.yellow
                                     : Colors.white),
                             onPressed: () {
+                              show(5);
                               setState(() {
                                 _overlayHeightTimer =
                                     _overlayHeightTimer == 0 ? 80 : 0;
@@ -496,6 +612,7 @@ class _IosCameraState extends State<IosCamera> {
                                 fontWeight: FontWeight.bold),
                           ),
                           onPressed: () {
+                            show(7);
                             setState(() {
                               _overlayHeightRatio = 80;
                             });
@@ -514,11 +631,10 @@ class _IosCameraState extends State<IosCamera> {
                                     ? Colors.yellow
                                     : Colors.white),
                             onPressed: () {
+                              show(9);
                               _toast.toast(
-                                  '모션 포토가 ' +
-                                      (_isMotionPhotoOn ? '비활성화' : '활성화') +
-                                      ' 되었습니다.',
-                                  _overlayHeightScreenTop + 100);
+                                  'LIVE 포토 ' + (_isMotionPhotoOn ? '끔' : '켬'),
+                                  _overlayHeightScreenTop + 30);
                               setState(() {
                                 _isMotionPhotoOn = !_isMotionPhotoOn;
                               });
@@ -545,6 +661,7 @@ class _IosCameraState extends State<IosCamera> {
                         ),
                       ),
                       onPressed: () {
+                        show(4);
                         setState(() {
                           _overlayHeightFlash =
                               _overlayHeightFlash == 0 ? 80 : 0;
@@ -611,6 +728,7 @@ class _IosCameraState extends State<IosCamera> {
                     ),
                     TextButton(
                       onPressed: () {
+                        show(6);
                         setState(() {
                           _overlayHeightTimer = 0;
                           _timerDelay = 3;
@@ -670,6 +788,7 @@ class _IosCameraState extends State<IosCamera> {
                     ),
                     TextButton(
                       onPressed: () {
+                        show(8);
                         setState(() {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
@@ -752,6 +871,7 @@ class _IosCameraState extends State<IosCamera> {
                               heroTag: 'btnCamera',
                               backgroundColor: Colors.white,
                               onPressed: () {
+                                show(12);
                                 TutorialDialog(
                                   tutorialMessage: 'Hi',
                                 );
@@ -812,13 +932,16 @@ class _IosCameraState extends State<IosCamera> {
                         FloatingActionButton(
                           heroTag: 'btnVideo',
                           backgroundColor: Colors.white,
-                          onPressed: () => setState(() {
-                            _HMSTimer.currentState?.start();
-                            _isVideoPaused = false;
-                            _overlayHeightVideoControl = 100;
-                            _overlayHeightVideoTimer = 80;
-                            _overlayHeightVideoStarter = 0;
-                          }),
+                          onPressed: () => {
+                            show(19),
+                            setState(() {
+                              _HMSTimer.currentState?.start();
+                              _isVideoPaused = false;
+                              _overlayHeightVideoControl = 100;
+                              _overlayHeightVideoTimer = 80;
+                              _overlayHeightVideoStarter = 0;
+                            })
+                          },
                           child: Container(
                             width: 40,
                             height: 40,
@@ -867,6 +990,7 @@ class _IosCameraState extends State<IosCamera> {
                               borderRadius: BorderRadius.circular(100)),
                           child: IconButton(
                             onPressed: () {
+                              show(20);
                               _toast.toast(
                                   '${_HMSTimer.currentState?.printTimeAsHMSKorean()} 길이의 비디오가 저장되었습니다.',
                                   _overlayHeightScreenTop + 100);
@@ -894,98 +1018,4 @@ class _IosCameraState extends State<IosCamera> {
       ),
     );
   }
-}
-
-class LightingPulse extends StatefulWidget {
-  final double size;
-  final Color color;
-  final Duration duration;
-
-  const LightingPulse({
-    Key? key,
-    required this.size,
-    required this.color,
-    required this.duration,
-  }) : super(key: key);
-
-  @override
-  _LightingPulseState createState() => _LightingPulseState();
-}
-
-class _LightingPulseState extends State<LightingPulse>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  late double _startDiameter;
-  late double _endDiameter;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _startDiameter = widget.size * 0.8;
-    _endDiameter = widget.size * 1.4;
-
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.duration,
-    );
-
-    _animation = Tween<double>(
-      begin: _startDiameter,
-      end: _endDiameter,
-    ).animate(CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeOut,
-    ));
-
-    _controller.repeat(reverse: true);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return CustomPaint(
-          size: Size(widget.size, widget.size),
-          painter: _LightingPulsePainter(
-            diameter: _animation.value,
-            color: widget.color,
-          ),
-        );
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-}
-
-class _LightingPulsePainter extends CustomPainter {
-  final double diameter;
-  final Color color;
-
-  const _LightingPulsePainter({
-    required this.diameter,
-    required this.color,
-  });
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height / 2);
-    final radius = diameter / 2;
-    final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
-
-    canvas.drawCircle(center, radius, paint);
-  }
-
-  @override
-  bool shouldRepaint(_LightingPulsePainter oldDelegate) =>
-      diameter != oldDelegate.diameter || color != oldDelegate.color;
 }
