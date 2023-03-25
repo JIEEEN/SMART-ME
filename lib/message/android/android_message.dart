@@ -76,7 +76,7 @@ class _AndroidMessageScreen extends State<AndroidMessageScreen> {
           (onValue) => {
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => const EndTutorial(
-                      tutorialName: "메세지",
+                      tutorialName: "메시지",
                     ))),
           },
         );

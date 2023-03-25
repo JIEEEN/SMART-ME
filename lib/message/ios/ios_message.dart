@@ -286,11 +286,12 @@ class _IOSMessageScreen extends State<IOSMessageScreen> {
                                     Future.delayed(Duration(milliseconds: 2000))
                                         .then(
                                       (onValue) => {
-                                        Navigator.of(context)
-                                            .push(MaterialPageRoute(
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
                                                 builder: (context) =>
-                                                    // const EndTutorial())),
-                                                    FeedbackScreen())),
+                                                    const EndTutorial(
+                                                        tutorialName: '메시지'))),
+                                        // FeedbackScreen())),
                                       },
                                     ),
                                   },

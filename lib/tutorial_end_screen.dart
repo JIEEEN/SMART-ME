@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_me/select.dart';
+import 'package:smart_me/suggestion/feedback_screen.dart';
 
 class EndTutorial extends StatefulWidget {
   final tutorialName;
@@ -67,7 +68,10 @@ class _EndTutorialState extends State<EndTutorial> {
                   ),
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => FeedbackScreen()));
+                      },
                       child: Container(
                         width: deviceWidth - 58,
                         decoration: BoxDecoration(
