@@ -2,11 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class HMSTimer extends StatefulWidget {
-  const HMSTimer({Key? key, 
-  this.boxColor, 
-  this.height, 
-  this.width, 
-  this.textStyle}) : super(key: key);
+  const HMSTimer(
+      {Key? key, this.boxColor, this.height, this.width, this.textStyle})
+      : super(key: key);
   final Color? boxColor;
   final double? height;
   final double? width;
@@ -17,7 +15,7 @@ class HMSTimer extends StatefulWidget {
 }
 
 class HMSTimerState extends State<HMSTimer> {
-  late Timer _timer;
+  late Timer? _timer = null;
   double _timerCount = 0;
 
   @override
@@ -35,11 +33,11 @@ class HMSTimerState extends State<HMSTimer> {
   }
 
   void pause() {
-    _timer.cancel();
+    _timer!.cancel();
   }
 
   void stop() {
-    _timer.cancel();
+    _timer!.cancel();
     setState(() {
       _timerCount = 0;
     });
@@ -73,7 +71,7 @@ class HMSTimerState extends State<HMSTimer> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    if (_timer != null) _timer!.cancel();
     super.dispose();
   }
 
@@ -85,7 +83,8 @@ class HMSTimerState extends State<HMSTimer> {
       color: widget.boxColor ?? Colors.red,
       alignment: Alignment.center,
       child: Text(printTimeAsHMS(),
-          style: widget.textStyle ?? TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
+          style: widget.textStyle ??
+              TextStyle(color: Colors.white, fontWeight: FontWeight.w700)),
     );
   }
 }
