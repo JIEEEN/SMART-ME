@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/common/toast.dart';
 import 'package:smart_me/common/timer.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class AndroidCamera extends StatefulWidget {
   @override
@@ -205,7 +206,10 @@ class _AndroidCameraState extends State<AndroidCamera> {
         title: _currentStep > 20
             ? TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EndTutorial(
+                      tutorialName: "카메라",
+                    )));
                 },
                 child: Text(
                   '복귀하기',

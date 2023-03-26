@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_me/common/toast.dart';
 import 'package:smart_me/common/timer.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
+import 'package:smart_me/tutorial_end_screen.dart';
 
 class IosCamera extends StatefulWidget {
   @override
@@ -216,7 +217,10 @@ class _IosCameraState extends State<IosCamera> {
         title: _currentStep > 20
             ? TextButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const EndTutorial(
+                      tutorialName: "카메라",
+                    )));
                 },
                 child: Text(
                   '복귀하기',
@@ -776,7 +780,7 @@ class _IosCameraState extends State<IosCamera> {
                               _overlayHeightRatio == 0 ? 80 : 0;
                           _ratioType = 0;
                           _overlayHeightScreenTop = _overlayHeightScreenBottom =
-                              (height * (1 / 8)) - 20;
+                              (height * (1 / 8)) - 20 - 50;
                         });
                       },
                       child: Text(
@@ -794,7 +798,7 @@ class _IosCameraState extends State<IosCamera> {
                               _overlayHeightRatio == 0 ? 80 : 0;
                           _ratioType = 2;
                           _overlayHeightScreenTop = _overlayHeightScreenBottom =
-                              (height - width) / 2 - 40;
+                              (height - width) / 2 - 40 - 50;
                         });
                       },
                       child: Text(
@@ -810,7 +814,7 @@ class _IosCameraState extends State<IosCamera> {
                           _overlayHeightRatio =
                               _overlayHeightRatio == 0 ? 80 : 0;
                           _overlayHeightScreenTop = _overlayHeightScreenBottom =
-                              (height * (7 / 32)) - 40;
+                              (height * (7 / 32)) - 40 - 50;
                           _ratioType = 1;
                         });
                       },
