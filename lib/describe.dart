@@ -32,7 +32,7 @@ class Describe extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 35,
-                    vertical: 60,
+                    vertical: 90,
                   ),
                   child: Text(
                     '튜토리얼을 진행하는 애니메이션 화면\n(시연 영상, 반복)',
@@ -40,18 +40,22 @@ class Describe extends StatelessWidget {
                     style: TextStyle(
                       color: Color(0xffF9FBF4),
                       fontSize: 16,
+                      fontFamily: 'NotoSansGujarati',
                     ),
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+              ),
               child: Text(
                 '정보 소외 계층의 디지털 사회 적응을 위해',
                 style: TextStyle(
                   color: Color(0xff53524F),
                   fontSize: 16,
+                  fontFamily: 'NotoSansGujarati',
                 ),
               ),
             ),
@@ -64,6 +68,7 @@ class Describe extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       color: Colors.black,
+                      fontFamily: 'Malssami815',
                     ),
                   ),
                   SizedBox(
@@ -74,6 +79,7 @@ class Describe extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 32,
                       color: Colors.black,
+                      fontFamily: 'NotoSansGujarati',
                     ),
                   ),
                 ],
@@ -84,33 +90,8 @@ class Describe extends StatelessWidget {
               style: TextStyle(
                 fontSize: 32,
                 color: Colors.black,
+                fontFamily: 'NotoSansGujarati',
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: Row(
-                children: [
-                  Text(
-                    '🎯',
-                    style: TextStyle(
-                      fontSize: 36,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    '연습 화면과 설명 문구를 통해 \n스마트폰 체계에 잘 적응할 수 있어요',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xff53524F),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 10,
             ),
             Row(
               children: [
@@ -128,6 +109,7 @@ class Describe extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xff53524F),
+                    fontFamily: 'NotoSansGujarati',
                   ),
                 )
               ],
@@ -147,10 +129,35 @@ class Describe extends StatelessWidget {
                   width: 15,
                 ),
                 Text(
-                  '연습 화면과 설명 문구를 통해 \n스마트폰 체계에 잘 적응할 수 있어요',
+                  '튜토리얼을 통해 정보사회의\n일원으로 참여할 수 있어요',
                   style: TextStyle(
                     fontSize: 14,
                     color: Color(0xff53524F),
+                    fontFamily: 'NotoSansGujarati',
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Text(
+                  '🎯',
+                  style: TextStyle(
+                    fontSize: 36,
+                  ),
+                ),
+                SizedBox(
+                  width: 15,
+                ),
+                Text(
+                  '퀴즈를 통해\n복합적 응용력을 길러요',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xff53524F),
+                    fontFamily: 'NotoSansGujarati',
                   ),
                 )
               ],
@@ -162,6 +169,7 @@ class Describe extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.black,
+                  fontFamily: 'NotoSansGujarati',
                 ),
               ),
             ),
@@ -187,6 +195,7 @@ class Describe extends StatelessWidget {
                             style: TextStyle(
                               fontSize: 28,
                               color: Color(0xffF9FBF4),
+                              fontFamily: 'NotoSansGujarati',
                             )),
                       ),
                       onPressed: () => {

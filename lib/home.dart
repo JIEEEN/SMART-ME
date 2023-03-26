@@ -19,6 +19,7 @@ class FirstPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 96,
+                    fontFamily: 'Malssami815',
                   )),
             ],
           ),
@@ -30,6 +31,7 @@ class FirstPage extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
+                  fontFamily: 'NotoSansGujarati',
                 ),
               ),
             ],
@@ -44,6 +46,7 @@ class FirstPage extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 22,
                   color: Color(0xff53524F),
+                  fontFamily: 'NotoSansGujarati',
                 ),
               ),
             ],
@@ -66,6 +69,7 @@ class FirstPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 36,
                       color: Color(0xffF9FBF4),
+                      fontFamily: 'NotoSansGujarati',
                     ),
                   ),
                   onPressed: () => {

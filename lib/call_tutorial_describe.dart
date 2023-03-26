@@ -29,6 +29,7 @@ class CallTutorialDescribe extends StatelessWidget {
                     '튜토리얼',
                     style: TextStyle(
                       fontSize: 50,
+                      fontFamily: 'Malssami815',
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -40,7 +41,7 @@ class CallTutorialDescribe extends StatelessWidget {
             ),
             Container(
               width: 390,
-              height: 586,
+              height: 614,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: const Color(0xffC8DA8A),
@@ -55,8 +56,11 @@ class CallTutorialDescribe extends StatelessWidget {
                   children: [
                     const Text(
                       '"전화"',
-                      style:
-                          TextStyle(fontSize: 48, fontWeight: FontWeight.w700),
+                      style: TextStyle(
+                        fontSize: 48,
+                        fontWeight: FontWeight.w700,
+                        fontFamily: 'NotoSansGujarati',
+                      ),
                     ),
                     const SizedBox(
                       height: 5,
@@ -64,12 +68,16 @@ class CallTutorialDescribe extends StatelessWidget {
                     const Text(
                       '튜토리얼에서는\n뭘 배울 수 있나요?',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'NotoSansGujarati',
+                          color: Color(0xff53524F)),
                     ),
                     const SizedBox(
                       height: 25,
                     ),
                     Container(
-                      height: 140,
+                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -88,12 +96,15 @@ class CallTutorialDescribe extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                             Text(
                               '전화를 걸고 싶은 사람에게\n전화 거는 방법을 배워요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
+                                fontSize: 16,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                           ],
@@ -104,7 +115,7 @@ class CallTutorialDescribe extends StatelessWidget {
                       height: 15,
                     ),
                     Container(
-                      height: 140,
+                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -122,12 +133,15 @@ class CallTutorialDescribe extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                             Text(
                               '전화가 걸려왔을 때,\n전화를 받는 방법을 배워요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
+                                fontSize: 16,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                           ],
@@ -166,7 +180,10 @@ class CallTutorialDescribe extends StatelessWidget {
                               ),
                               child: Text('배우러 가기',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSansGujarati',
+                                  ),
                                   textAlign: TextAlign.center),
                             ),
                           ),
@@ -192,7 +209,10 @@ class CallTutorialDescribe extends StatelessWidget {
                               child: Text(
                                 '취소',
                                 style: TextStyle(
-                                    fontSize: 20, color: Color(0xffA36E0A)),
+                                  fontSize: 20,
+                                  color: Color(0xffA36E0A),
+                                  fontFamily: 'NotoSansGujarati',
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -210,9 +230,11 @@ class CallTutorialDescribe extends StatelessWidget {
             const Text(
               '🚨 튜토리얼 진행 시 보이는 화면들은\n실제 작동 화면이 아닙니다 🚨',
               style: TextStyle(
-                  fontSize: 17,
-                  color: Color(0xffAC2828),
-                  fontWeight: FontWeight.w600),
+                fontSize: 17,
+                color: Color(0xffAC2828),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'NotoSansGujarati',
+              ),
               textAlign: TextAlign.center,
             ),
           ],

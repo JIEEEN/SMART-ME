@@ -29,6 +29,7 @@ class MessageTutorialDescribe extends StatelessWidget {
                     '튜토리얼',
                     style: TextStyle(
                       fontSize: 50,
+                      fontFamily: 'Malssami815',
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -40,7 +41,7 @@ class MessageTutorialDescribe extends StatelessWidget {
             ),
             Container(
               width: 390,
-              height: 586,
+              height: 614,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: const Color(0xffC8DA8A),
@@ -64,12 +65,16 @@ class MessageTutorialDescribe extends StatelessWidget {
                     const Text(
                       '튜토리얼에서는\n뭘 배울 수 있나요?',
                       textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'NotoSansGujarati',
+                          color: Color(0xff53524F)),
                     ),
                     const SizedBox(
                       height: 25,
                     ),
                     Container(
-                      height: 140,
+                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -88,12 +93,15 @@ class MessageTutorialDescribe extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                             Text(
                               '상대방에게 메시지를 보내는 법을 배워요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
+                                fontSize: 16,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                           ],
@@ -104,7 +112,7 @@ class MessageTutorialDescribe extends StatelessWidget {
                       height: 15,
                     ),
                     Container(
-                      height: 140,
+                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -122,12 +130,15 @@ class MessageTutorialDescribe extends StatelessWidget {
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                             Text(
                               '사진이 담긴 메시지를 보내는 방법을 배워요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
+                                fontSize: 16,
+                                fontFamily: 'NotoSansGujarati',
                               ),
                             ),
                           ],
@@ -164,7 +175,10 @@ class MessageTutorialDescribe extends StatelessWidget {
                               ),
                               child: Text('배우러 가기',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.white),
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontFamily: 'NotoSansGujarati',
+                                  ),
                                   textAlign: TextAlign.center),
                             ),
                           ),
@@ -190,7 +204,10 @@ class MessageTutorialDescribe extends StatelessWidget {
                               child: Text(
                                 '취소',
                                 style: TextStyle(
-                                    fontSize: 20, color: Color(0xffA36E0A)),
+                                  fontSize: 20,
+                                  color: Color(0xffA36E0A),
+                                  fontFamily: 'NotoSansGujarati',
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -208,9 +225,11 @@ class MessageTutorialDescribe extends StatelessWidget {
             const Text(
               '🚨 튜토리얼 진행 시 보이는 화면들은\n실제 작동 화면이 아닙니다 🚨',
               style: TextStyle(
-                  fontSize: 17,
-                  color: Color(0xffAC2828),
-                  fontWeight: FontWeight.w600),
+                fontSize: 17,
+                color: Color(0xffAC2828),
+                fontWeight: FontWeight.w600,
+                fontFamily: 'NotoSansGujarati',
+              ),
               textAlign: TextAlign.center,
             ),
           ],

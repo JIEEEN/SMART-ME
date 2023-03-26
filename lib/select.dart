@@ -21,11 +21,18 @@ class Select extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
               "손주",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 48,
+                fontFamily: 'Malssami815',
+              ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Container(
-            height: 300,
+            height: 370,
             width: deviceWidth - 80,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(37),
@@ -40,9 +47,11 @@ class Select extends StatelessWidget {
                     child: Text(
                       '튜토리얼',
                       style: TextStyle(
-                          fontSize: 48,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
+                        fontSize: 48,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Malssami815',
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -51,6 +60,7 @@ class Select extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       color: Color(0xffF9FBF4),
+                      fontFamily: 'NotoSansGujarati',
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -68,7 +78,7 @@ class Select extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 28.0),
             child: Container(
-              height: 300,
+              height: 370,
               width: deviceWidth - 80,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(37),
@@ -80,9 +90,11 @@ class Select extends StatelessWidget {
                   Text(
                     '퀴즈',
                     style: TextStyle(
-                        fontSize: 50,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 50,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Malssami815',
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   Text(
@@ -90,6 +102,7 @@ class Select extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       color: Color(0xffF9FBF4),
+                      fontFamily: 'NotoSansGujarati',
                     ),
                     textAlign: TextAlign.center,
                   ),
