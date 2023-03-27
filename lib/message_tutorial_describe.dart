@@ -55,7 +55,7 @@ class MessageTutorialDescribe extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
-                      '"메세지"',
+                      '"메시지"',
                       style:
                           TextStyle(fontSize: 48, fontWeight: FontWeight.w700),
                     ),

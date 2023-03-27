@@ -138,7 +138,7 @@ class Tutorials extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        '메세지',
+                        '메시지',
                         style: TextStyle(
                           fontSize: 38,
                           color: Colors.white,
@@ -147,7 +147,7 @@ class Tutorials extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '메세지를 보내는 방법',
+                        '메시지를 보내는 방법',
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.white,
