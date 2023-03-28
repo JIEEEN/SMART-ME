@@ -47,7 +47,7 @@ class FirstPage extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'NotoSansGujarati',
-                            fontWeight: FontWeight.w600),
+                            fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
