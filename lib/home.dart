@@ -11,28 +11,47 @@ class FirstPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Expanded(child: Container()),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Stack(
             children: [
-              Text('손주',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 96,
-                    fontFamily: 'Malssami815',
-                  )),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                '내 손 전화기의 주인공',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  fontFamily: 'NotoSansGujarati',
-                ),
+              Image.asset(
+                'assets/images/decoration.png',
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 250,
+                  ),
+                  Image.asset(
+                    'assets/images/call.png',
+                    width: 170,
+                    height: 120,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('손주',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 100,
+                            fontFamily: 'Malssami815',
+                          )),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '내 손 전화기의 주인공',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'NotoSansGujarati',
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),
@@ -50,9 +69,6 @@ class FirstPage extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          SizedBox(
-            height: 10,
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
