@@ -13,9 +13,11 @@ class Tutorials extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const IconButton(
+        leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: null,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         backgroundColor: const Color(0xffF9FBF4),
         elevation: 0.0,
@@ -167,7 +169,7 @@ class Tutorials extends StatelessWidget {
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: 100,
+                  horizontal: 65,
                   vertical: 46,
                 ),
                 child: Column(
@@ -175,7 +177,7 @@ class Tutorials extends StatelessWidget {
                     Text(
                       '손자가 성장하면 추가 될 예정입니다',
                       style: TextStyle(
-                        fontSize: 11,
+                        fontSize: 16,
                         color: Colors.white,
                         fontFamily: 'NotoSansGujarati',
                       ),
