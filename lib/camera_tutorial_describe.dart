@@ -12,9 +12,14 @@ class CameraTutorialDescribe extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          leading: const IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: null,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
           ),
           backgroundColor: const Color(0xffF9FBF4),
           elevation: 0.0,

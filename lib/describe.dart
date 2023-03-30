@@ -93,84 +93,107 @@ class Describe extends StatelessWidget {
                 fontFamily: 'NotoSansGujarati',
               ),
             ),
-            Row(
-              children: [
-                Text(
-                  '🎯',
-                  style: TextStyle(
-                    fontSize: 36,
-                  ),
-                ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  '연습 화면과 설명 문구를 통해 \n스마트폰 체계에 잘 적응할 수 있어요',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff53524F),
-                    fontFamily: 'NotoSansGujarati',
-                  ),
-                )
-              ],
-            ),
             SizedBox(
               height: 10,
             ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  '🎯',
-                  style: TextStyle(
-                    fontSize: 36,
-                  ),
+                Image.asset(
+                  'assets/images/bar.png',
+                  width: 6,
+                  height: 162,
                 ),
                 SizedBox(
-                  width: 15,
+                  width: 16,
                 ),
-                Text(
-                  '튜토리얼을 통해 정보사회의\n일원으로 참여할 수 있어요',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff53524F),
-                    fontFamily: 'NotoSansGujarati',
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Text(
-                  '🎯',
-                  style: TextStyle(
-                    fontSize: 36,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          '📱',
+                          style: TextStyle(
+                            fontSize: 36,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          '연습 화면과 설명 문구를 통해 \n스마트폰 체계에 잘 적응할 수 있어요',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xff53524F),
+                            fontFamily: 'NotoSansGujarati',
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '👩🏻‍💻',
+                          style: TextStyle(
+                            fontSize: 36,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          '튜토리얼을 통해 정보사회의\n일원으로 참여할 수 있어요',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xff53524F),
+                            fontFamily: 'NotoSansGujarati',
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          '🧩',
+                          style: TextStyle(
+                            fontSize: 36,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          '퀴즈를 통해\n복합적 응용력을 길러요',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color(0xff53524F),
+                            fontFamily: 'NotoSansGujarati',
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  width: 15,
-                ),
-                Text(
-                  '퀴즈를 통해\n복합적 응용력을 길러요',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xff53524F),
-                    fontFamily: 'NotoSansGujarati',
-                  ),
-                )
               ],
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Text(
                 '다음 메세지에서 “가봅시다”를 클릭하면 튜토리얼을 제공 받을 수 있습니다.',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 17,
                   color: Colors.black,
                   fontFamily: 'NotoSansGujarati',
                 ),
+                overflow: TextOverflow.fade,
               ),
             ),
             Expanded(child: Container()),
