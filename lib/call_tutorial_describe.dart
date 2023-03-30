@@ -9,51 +9,53 @@ class CallTutorialDescribe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          backgroundColor: const Color(0xffF9FBF4),
-          elevation: 0.0,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Column(
+        backgroundColor: const Color(0xffF9FBF4),
+        elevation: 0.0,
+      ),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
           children: [
-            Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text(
-                    '튜토리얼',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontFamily: 'Malssami815',
-                    ),
-                    textAlign: TextAlign.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text(
+                  '튜토리얼',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontFamily: 'Malssami815',
                   ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             Container(
-              width: 390,
-              height: 614,
+              width: deviceWidth - 20,
+              height: deviceHeight - 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: const Color(0xffC8DA8A),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 10,
                   vertical: 30,
                 ),
                 child: Column(
@@ -62,13 +64,10 @@ class CallTutorialDescribe extends StatelessWidget {
                     const Text(
                       '"전화"',
                       style: TextStyle(
-                        fontSize: 48,
+                        fontSize: 44,
                         fontWeight: FontWeight.w700,
                         fontFamily: 'NotoSansGujarati',
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
                     ),
                     const Text(
                       '튜토리얼에서는\n뭘 배울 수 있나요?',
@@ -78,11 +77,10 @@ class CallTutorialDescribe extends StatelessWidget {
                           fontFamily: 'NotoSansGujarati',
                           color: Color(0xff53524F)),
                     ),
-                    const SizedBox(
-                      height: 25,
+                    SizedBox(
+                      height: 8.0,
                     ),
                     Container(
-                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -90,14 +88,13 @@ class CallTutorialDescribe extends StatelessWidget {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 30,
-                          vertical: 30,
-                        ),
+                            horizontal: 40, vertical: 10),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
                             Text(
-                              '1. 전화 걸기',
+                              '전화 걸기',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
@@ -116,11 +113,8 @@ class CallTutorialDescribe extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    Expanded(child: Container()),
                     Container(
-                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -129,12 +123,14 @@ class CallTutorialDescribe extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 30,
-                          vertical: 30,
+                          vertical: 10,
                         ),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
                             Text(
-                              '2. 전화 받기',
+                              '전화 받기',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
@@ -153,11 +149,8 @@ class CallTutorialDescribe extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    Expanded(child: Container()),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextButton(
                           onPressed: () {
@@ -173,19 +166,18 @@ class CallTutorialDescribe extends StatelessWidget {
                             }));
                           },
                           child: Container(
-                            height: 60,
-                            width: 150,
+                            width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: const Color(0xffA36E0A),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: 20,
+                                vertical: 10,
                               ),
                               child: Text('배우러 가기',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     color: Colors.white,
                                     fontFamily: 'NotoSansGujarati',
                                   ),
@@ -193,28 +185,24 @@ class CallTutorialDescribe extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 15,
-                        ),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            height: 60,
-                            width: 150,
+                            width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: const Color(0xffF9FBF4),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: 20,
+                                vertical: 10,
                               ),
                               child: Text(
                                 '취소',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color: Color(0xffA36E0A),
                                   fontFamily: 'NotoSansGujarati',
                                 ),
@@ -230,7 +218,7 @@ class CallTutorialDescribe extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             const Text(
               '🚨 튜토리얼 진행 시 보이는 화면들은\n실제 작동 화면이 아닙니다 🚨',

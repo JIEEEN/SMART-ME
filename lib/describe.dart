@@ -13,7 +13,7 @@ class Describe extends StatelessWidget {
       backgroundColor: Color(0xffF9FBF4),
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 40,
+          horizontal: 28,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -21,34 +21,10 @@ class Describe extends StatelessWidget {
             SizedBox(
               height: statusBarHeight,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12.0),
-              child: Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Color(0xffA1CA0D),
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 35,
-                    vertical: 90,
-                  ),
-                  child: Text(
-                    '튜토리얼을 진행하는 애니메이션 화면\n(시연 영상, 반복)',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xffF9FBF4),
-                      fontSize: 16,
-                      fontFamily: 'NotoSansGujarati',
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
+                vertical: 12.0,
               ),
               child: Text(
                 '정보 소외 계층의 디지털 사회 적응을 위해',
@@ -77,7 +53,7 @@ class Describe extends StatelessWidget {
                   Text(
                     '는 지속가능한',
                     style: TextStyle(
-                      fontSize: 32,
+                      fontSize: 29,
                       color: Colors.black,
                       fontFamily: 'NotoSansGujarati',
                     ),
@@ -88,7 +64,7 @@ class Describe extends StatelessWidget {
             Text(
               '튜토리얼을 제공합니다.',
               style: TextStyle(
-                fontSize: 32,
+                fontSize: 29,
                 color: Colors.black,
                 fontFamily: 'NotoSansGujarati',
               ),

@@ -9,51 +9,53 @@ class CameraTutorialDescribe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    final double deviceWidth = MediaQuery.of(context).size.width;
+    final double deviceHeight = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
           ),
-          backgroundColor: const Color(0xffF9FBF4),
-          elevation: 0.0,
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-        body: Column(
+        backgroundColor: const Color(0xffF9FBF4),
+        elevation: 0.0,
+      ),
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: Column(
           children: [
-            Center(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Text(
-                    '튜토리얼',
-                    style: TextStyle(
-                      fontSize: 50,
-                      fontFamily: 'Malssami815',
-                    ),
-                    textAlign: TextAlign.center,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                Text(
+                  '튜토리얼',
+                  style: TextStyle(
+                    fontSize: 50,
+                    fontFamily: 'Malssami815',
                   ),
-                ],
-              ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
             Container(
-              width: 390,
-              height: 614,
+              width: deviceWidth - 20,
+              height: deviceHeight - 250,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: const Color(0xffC8DA8A),
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
+                  horizontal: 10,
                   vertical: 30,
                 ),
                 child: Column(
@@ -64,9 +66,6 @@ class CameraTutorialDescribe extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 48, fontWeight: FontWeight.w700),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
                     const Text(
                       '튜토리얼에서는\n뭘 배울 수 있나요?',
                       textAlign: TextAlign.center,
@@ -76,10 +75,9 @@ class CameraTutorialDescribe extends StatelessWidget {
                           color: Color(0xff53524F)),
                     ),
                     const SizedBox(
-                      height: 25,
+                      height: 8.0,
                     ),
                     Container(
-                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -88,13 +86,13 @@ class CameraTutorialDescribe extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 30,
-                          vertical: 30,
+                          vertical: 10,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: const [
                             Text(
-                              '1. 사진 촬영',
+                              '사진 촬영',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
@@ -102,7 +100,7 @@ class CameraTutorialDescribe extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '카메라앱에 있던 수많은 버튼들,\n어떤 버튼인지 제대로 알아보아요.',
+                              '카메라앱에 있던 수많은 버튼들, 어떤 버튼인지 제대로 알아보아요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
                                 fontSize: 16,
@@ -113,11 +111,8 @@ class CameraTutorialDescribe extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
-                    ),
+                    Expanded(child: Container()),
                     Container(
-                      height: 145,
                       width: 338,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(9),
@@ -126,12 +121,12 @@ class CameraTutorialDescribe extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 30,
-                          vertical: 30,
+                          vertical: 10,
                         ),
                         child: Column(
                           children: const [
                             Text(
-                              '2. 동영상 촬영',
+                              '동영상 촬영',
                               style: TextStyle(
                                 fontSize: 32,
                                 fontWeight: FontWeight.w500,
@@ -139,7 +134,7 @@ class CameraTutorialDescribe extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '사진으로 담기에는 부족한 소중한 순간들,\n이젠 동영상으로 한번에 담아봐요.',
+                              '사진으로 담기에는 부족한 소중한 순간들, 이젠 동영상으로 한번에 담아봐요.',
                               style: TextStyle(
                                 color: Color(0xff91908E),
                                 fontSize: 16,
@@ -150,9 +145,7 @@ class CameraTutorialDescribe extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 30,
-                    ),
+                    Expanded(child: Container()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -168,19 +161,18 @@ class CameraTutorialDescribe extends StatelessWidget {
                             }));
                           },
                           child: Container(
-                            height: 60,
-                            width: 150,
+                            width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: const Color(0xffA36E0A),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: 20,
+                                vertical: 10,
                               ),
                               child: Text('배우러 가기',
                                   style: TextStyle(
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     color: Colors.white,
                                     fontFamily: 'NotoSansGujarati',
                                   ),
@@ -188,28 +180,24 @@ class CameraTutorialDescribe extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 15,
-                        ),
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
                           },
                           child: Container(
-                            height: 60,
-                            width: 150,
+                            width: 140,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
                               color: const Color(0xffF9FBF4),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(
-                                vertical: 20,
+                                vertical: 10,
                               ),
                               child: Text(
                                 '취소',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 24,
                                   color: Color(0xffA36E0A),
                                   fontFamily: 'NotoSansGujarati',
                                 ),
@@ -225,7 +213,7 @@ class CameraTutorialDescribe extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             const Text(
               '🚨 튜토리얼 진행 시 보이는 화면들은\n실제 작동 화면이 아닙니다 🚨',

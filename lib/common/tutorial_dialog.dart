@@ -28,7 +28,7 @@ class TutorialDialog extends StatelessWidget {
                     tutorialMessage,
                     textAlign: align ?? TextAlign.left,
                     style: const TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 22.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
@@ -36,9 +36,9 @@ class TutorialDialog extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.fromLTRB(
                     0,
-                    50,
+                    20,
                     0,
-                    50,
+                    20,
                   ),
                   width: widget == null ? 0 : 200,
                   height: widget == null ? 0 : 200,
@@ -53,18 +53,20 @@ class TutorialDialog extends StatelessWidget {
                         },
                         child: Container(
                           width: 100,
-                          height: 44,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(5),
                               color: Color(0xffa1ca0d)),
                           alignment: Alignment.center,
-                          child: Text(
-                            "확인",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 28,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Text(
+                              "확인",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontSize: 28,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
                           ),
                         ))),
               ],

@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class FeedbackScreen extends StatefulWidget {
+  const FeedbackScreen({super.key});
+
   @override
   _FeedbackScreen createState() => _FeedbackScreen();
 }
@@ -19,20 +20,18 @@ class _FeedbackScreen extends State<FeedbackScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // 249 251 245
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color.fromRGBO(249, 251, 245, 1),
       appBar: AppBar(
-        toolbarHeight: 150.0,
         backgroundColor: Color.fromRGBO(249, 251, 245, 1),
         elevation: 0.0,
-        title: Text(
-          "\n손주에게\n",
-          style: TextStyle(
-            fontSize: 50.0,
-          ),
-        ),
       ),
       body: Column(
         children: [
+          Text(
+            "손주에게",
+            style: TextStyle(fontSize: 48.0, fontFamily: 'Malssami815'),
+          ),
           Stack(
             children: [
               //203 217 147
@@ -50,9 +49,12 @@ class _FeedbackScreen extends State<FeedbackScreen> {
                     Text(
                       '"전해드릴게요"',
                       style: TextStyle(
-                        fontSize: 50.0,
+                        fontSize: 40.0,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Text(
                       "     고쳐야할 점 혹은 \n칭찬할 점을 적어주세요!",
@@ -112,6 +114,7 @@ class _FeedbackScreen extends State<FeedbackScreen> {
                                 "suggestion": _feedbackController.text,
                               },
                             ),
+                            FocusScope.of(context).unfocus(),
                             _feedbackController.clear(),
                           },
                         ),

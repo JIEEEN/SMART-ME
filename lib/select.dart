@@ -15,10 +15,10 @@ class Select extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(
-            height: statusBarHeight,
+            height: statusBarHeight + 10,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: Text(
               "손주",
               style: TextStyle(
@@ -32,8 +32,8 @@ class Select extends StatelessWidget {
             height: 20,
           ),
           Container(
-            height: 370,
-            width: deviceWidth - 80,
+            height: 270,
+            width: deviceWidth - 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(37),
               color: Color(0xffA1CA0D),
@@ -78,8 +78,8 @@ class Select extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 28.0),
             child: Container(
-              height: 370,
-              width: deviceWidth - 80,
+              height: 270,
+              width: deviceWidth - 100,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(37),
                 color: Color(0xffCA950D),
@@ -110,6 +110,9 @@ class Select extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

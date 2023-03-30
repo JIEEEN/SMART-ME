@@ -20,7 +20,7 @@ class FirstPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 250,
+                    height: 160,
                   ),
                   Image.asset(
                     'assets/images/call.png',

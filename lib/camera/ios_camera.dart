@@ -5,6 +5,8 @@ import 'package:smart_me/common/timer.dart';
 import 'package:smart_me/common/tutorial_dialog.dart';
 
 class IosCamera extends StatefulWidget {
+  const IosCamera({super.key});
+
   @override
   _IosCameraState createState() => _IosCameraState();
 }
@@ -25,7 +27,7 @@ class _IosCameraState extends State<IosCamera> {
   double _overlayHeightTimer = 0;
   double _overlayHeightFlash = 0;
   double _overlayHeightRatio = 0;
-  double _overlayVideoQuality = 0;
+  final double _overlayVideoQuality = 0;
   double _overlayHeightVideoControl = 0;
   double _overlayHeightVideoTimer = 0;
   double _overlayHeightVideoStarter = 0;
@@ -136,7 +138,7 @@ class _IosCameraState extends State<IosCamera> {
         decoration:
             BoxDecoration(shape: BoxShape.circle, color: Color(0xFF2e2e2e)),
         child: Icon(Icons.flash_off, color: Colors.white, size: 35)),
-     Container(
+    Container(
         alignment: Alignment.center,
         width: 80,
         margin: EdgeInsets.all(75),
@@ -219,8 +221,8 @@ class _IosCameraState extends State<IosCamera> {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  '복귀하기',
-                  style: TextStyle(color: Colors.green , fontSize: 40),
+                  '복귀 하기',
+                  style: TextStyle(color: Colors.green, fontSize: 40),
                 ))
             : Text(
                 '연습 화면입니다',
@@ -316,7 +318,7 @@ class _IosCameraState extends State<IosCamera> {
                           show(9);
 
                           _toast.toast(
-                              'LIVE 포토 ' + (_isMotionPhotoOn ? '끔' : '켬'),
+                              'LIVE 포토 ${_isMotionPhotoOn ? '끔' : '켬'}',
                               _overlayHeightScreenTop + 30);
                           setState(() {
                             _isMotionPhotoOn = !_isMotionPhotoOn;
@@ -633,7 +635,7 @@ class _IosCameraState extends State<IosCamera> {
                             onPressed: () {
                               show(9);
                               _toast.toast(
-                                  'LIVE 포토 ' + (_isMotionPhotoOn ? '끔' : '켬'),
+                                  'LIVE 포토 ${_isMotionPhotoOn ? '끔' : '켬'}',
                                   _overlayHeightScreenTop + 30);
                               setState(() {
                                 _isMotionPhotoOn = !_isMotionPhotoOn;
