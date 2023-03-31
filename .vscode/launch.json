@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "web",
+            "request": "launch",
+            "type": "dart",
+            "args": ["-d","chrome"]
+        },
+        {
+            "name": "SMART-ME",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "SMART-ME (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "SMART-ME (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}
