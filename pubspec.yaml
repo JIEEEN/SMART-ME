@@ -69,6 +69,7 @@ flutter:
      - assets/images/call.png
      - assets/images/decoration.png
      - assets/images/bar.png
+     - assets/images/gdsc.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
