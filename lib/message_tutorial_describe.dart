@@ -147,7 +147,7 @@ class MessageTutorialDescribe extends StatelessWidget {
                     ),
                     Expanded(child: Container()),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         TextButton(
                           onPressed: () {
