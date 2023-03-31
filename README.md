@@ -4,9 +4,6 @@
 
 ![description](https://user-images.githubusercontent.com/78486898/229111268-5086ce2d-6544-43a0-8a7b-5e2c71357857.png)
 
-- Making seniors __familiar with using smartphones__, rather than __easy-come, easy-go__
-- Provide a tutorial for the basic applications of mobile phones.
-
 ## SDG (Sustainable Development Goals)
 
 ![sdg](https://user-images.githubusercontent.com/78486898/229111540-fa35f74e-2985-471b-b075-c54a2b0f7bba.png)
