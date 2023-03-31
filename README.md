@@ -1,4 +1,4 @@
-# SMART-ME (손주)
+# SMART-ME (손주) - 2023 Google Solution Challenge
 
 ## How to Run the Code
 
