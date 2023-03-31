@@ -1,66 +1,39 @@
-# common/timer
+# SMART-ME (손주)
 
-A Timer displays time in HH:MM:SS form.
-You can also get korean form of current time in 시:분:초 format.
-Passing parameters will customize the widget height, width, box color and text styles.
+## How to Run the Code
 
-## functions
-Use `GlobalKey()` to excute this functions.
-
-- `void start()` 
-Start timer. Time is 'counted' in `_timerCount` variable, counted at every 10 milliseconds.
-
-- `void pause()`  
-Pause timer. Current value of `_timerCount` will be preserved.
-
-- `void stop()`    
-Stop timer. This will reset `_timerCount` to `0`.
-
-- `String printTimeAsHMS()`  
-Return recorded time in `HH:MM:SS` form.
-
-- `String printTimeAsHMSKorean()`
-Return recorded time in `0시0분0초` form. If hour or minute is `0`, then they will not be returned. EX) `123`seconds -> `2분3초`
+    1. Clone the code in the "main" branch
+    2. Connect the device to the IDE tool
+    3. Execute "flutter run --release" in the terminal on the base directory (the repository directory) 
+  
 
 
-## Usage
+## About
 
-```Dart
-class ExampleState extends State<Example> {
-  final GlobalKey<HMSTimerState> _HMSTimer = GlobalKey<HMSTimerState>();
-  ...
-  @override
-  Widget build(BuildContext context){
-    return Container(
-        child:Col(
-            childeren:[
-                HMSTimer(key:_HMSTimer),
-                Row(
-                    childeren:[
-                        IconButton(
-                            icon: Icons.play_arrow,
-                            onPressed: () {
-                                _HMSTimer.currentState?.start();
-                            }
-                        ),
-                        IconButton(
-                            icon: Icons.pause,
-                            onPressed: () {
-                                _HMSTimer.currentState?.pause();
-                            }
-                        ),
-                        IconButton(
-                            icon: Icons.stop,
-                            onPressed: () {
-                                _HMSTimer.currentState?.stop();
-                            }
-                        )
-                    ]
-                )
+<p align="center"><img width="812" alt="description" src="https://user-images.githubusercontent.com/78486898/229111268-5086ce2d-6544-43a0-8a7b-5e2c71357857.png"><p>
 
-            ]
-        )
-  }
-}
+SMART-ME is an application that would help users become familiar with IT devices themselves, beyond the concept of providing assistance only when needed. It provides tutorials of the basic smartphone applications such as call, message, and camera so that the users can learn how to use each application. The main point of our solution is that our application not only teaches how to use it but also enables users to experience and learn the mechanism. Our solution allows users to understand the UI easily by constructing a virtual screen and displaying explanation dialogues on it. The app aims to help users learn how to use it in real-world problem situations and confirm their understanding of complex functions.
 
-```
+## SDG (Sustainable Development Goals)
+
+<p align="center"><img width="812" alt="sdg" src="https://user-images.githubusercontent.com/78486898/229111540-fa35f74e-2985-471b-b075-c54a2b0f7bba.png"><p>
+
+## Screenshots
+
+<p align="center"><img width="812" alt="Screenshot" src="https://user-images.githubusercontent.com/63636210/229123714-f7f9ddc2-444e-4cf5-b41b-55baa20308ed.png"><p>
+
+## Development Environment
+
+<p align="center"><img width="812" alt="devenv" src="https://user-images.githubusercontent.com/78486898/229128757-8777beca-2ad2-4fd2-b106-e1d13d0cf522.png"><p>
+
+## Architecture
+
+<p align="center"><img width="812" alt="devenv" src="https://user-images.githubusercontent.com/78486898/229131496-d663ff51-d08c-4f22-831c-4cb963af790e.png"><p>
+
+
+## Team
+
+- Minsuh Jo (GDSC Korea Univ.)
+- Cham Lee (GDSC Korea Univ.)
+- Hosun Lee (GDSC Korea Univ.)
+- Sangjin Park (GDSC Korea Univ.)
