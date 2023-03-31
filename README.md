@@ -4,7 +4,7 @@
 
     1. Clone the code in the "main" branch
     2. Connect the device to the IDE tool
-    3. execute "flutter run --release" in the terminal on the base directory (the repository directory) 
+    3. Execute "flutter run --release" in the terminal on the base directory (the repository directory) 
   
 
 
